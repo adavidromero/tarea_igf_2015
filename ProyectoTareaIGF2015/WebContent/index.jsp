@@ -9,7 +9,22 @@
 </head>
 <body>
 <!-- Incluir barra de navegación -->
+<div id="wrapper">
 <%@include file="navbar.jsp" %>
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                    <!-- Aqui tiene que ir el contenido -->
+                        <h1>Inicio</h1>
+                        <h2>Seleccione una tabla en la barra de navegación izquierda</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+</div>
 
 </body>
 </html>
