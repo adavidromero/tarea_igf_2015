@@ -1,6 +1,7 @@
 package com.fia.igf.app.dominio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -18,10 +19,18 @@ public class TipoClase  implements Serializable{
 	@Basic(optional = false)
     @Column(name = "d_tipo_clase")
 	private String dTipoClase = new String();
+	@Basic(optional = false)
+	@Column(name = "f_ingreso")
 	private GregorianCalendar fIngreso = new GregorianCalendar();
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "TipoClase", fetch = FetchType.EAGER)
-    private List<Clase> Clase;
+    private List<Clase> clases = new ArrayList();;
 	
+	public List<Clase> getClases() {
+		return clases;
+	}
+	public void setClases(List<Clase> clases) {
+		this.clases = clases;
+	}
 	public TipoClase() {
 		// Constructor utilizado por hibernate
 	}
