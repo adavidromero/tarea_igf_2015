@@ -4,10 +4,16 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.fia.igf.app.dominio.Aplicativo;
+import com.fia.igf.utilidades.datos.HibernateUtil;
 
+@Repository
 public class AplicativoDAO implements GenericDAO<Aplicativo, Short>{
+	@Autowired
+	private HibernateUtil hibernateUtil;
 
 	@Override
 	public void guardar(Aplicativo obj) {
