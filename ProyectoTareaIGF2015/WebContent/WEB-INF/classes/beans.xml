@@ -16,8 +16,8 @@
 		 </bean>
 -->
 
-
 		 <bean id="hibernateUtil"
-		 		class="com.fia.igf.utilidades.datos.HibernateUtil.java">
+		 		class="com.fia.igf.utilidades.datos.HibernateUtil">
 		 </bean>
+		 
 </beans>
