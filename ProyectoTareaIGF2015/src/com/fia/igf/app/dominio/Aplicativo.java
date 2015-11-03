@@ -25,6 +25,9 @@ public class Aplicativo implements Serializable{
 	@Column(name = "f_ingreso")
 	private Date fechaIngreso;
 
+	public Aplicativo(){
+		
+	}
 	
 	public Aplicativo(String id, String descripcion, Date fechaIngreso) {
 		this.id=id;
