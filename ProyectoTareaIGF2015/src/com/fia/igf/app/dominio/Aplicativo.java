@@ -26,6 +26,12 @@ public class Aplicativo implements Serializable{
 	private Date fechaIngreso;
 
 	
+	public Aplicativo(String id, String descripcion, Date fechaIngreso) {
+		this.id=id;
+		this.descripcion=descripcion;
+		this.fechaIngreso=fechaIngreso;
+	}
+
 	public String getId() {
 		return id;
 	}

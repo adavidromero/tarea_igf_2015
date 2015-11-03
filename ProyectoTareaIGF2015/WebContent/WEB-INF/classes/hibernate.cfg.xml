@@ -41,6 +41,7 @@
         <mapping package="org.mypackage"/>
         <mapping class="org.MyClass/>
         -->
+        <mapping class="com.fia.igf.app.dominio.Aplicativo"/>
 
     </session-factory>
 

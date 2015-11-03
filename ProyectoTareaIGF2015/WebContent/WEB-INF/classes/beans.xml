@@ -5,7 +5,7 @@
 		 http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 		 
 <!--  		 
-		 <bean id="ctrlTbpais"
+		 <bean id="paisDao"
 		 		class="sv.edu.ues.igf115.pais.negocio.CtrlTbPais">
 		 		<constructor-arg ref="paisDao"/>
 		 </bean>
@@ -19,5 +19,16 @@
 		 <bean id="hibernateUtil"
 		 		class="com.fia.igf.utilidades.datos.HibernateUtil">
 		 </bean>
+
+		 <bean id="aplicativoDao"
+		 		class="com.fia.igf.app.datos.AplicativoDAO">
+		 		<constructor-arg ref="hibernateUtil"/>
+		 </bean>
+
+		 <bean id="ctrlAplicativo"
+		 		class="com.fia.igf.app.negocio.CtrlAplicativo">
+		 		<constructor-arg ref="aplicativoDao"/>
+		 </bean>
+
 		 
 </beans>

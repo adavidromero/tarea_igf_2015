@@ -18,6 +18,12 @@ import com.fia.igf.utilidades.datos.HibernateUtil;
 public class AplicativoDAO implements GenericDAO<Aplicativo, String>{
 	@Autowired
 	private HibernateUtil hibernateUtil;
+	
+	@Autowired
+	public AplicativoDAO(HibernateUtil hibernateUtil){
+		this.hibernateUtil=hibernateUtil;
+		
+	}
 
 	private SessionFactory sessionFactory = hibernateUtil.getSessionFactory();
 	private Session sesion;
@@ -28,8 +34,13 @@ public class AplicativoDAO implements GenericDAO<Aplicativo, String>{
 		tx = sesion.beginTransaction();
 	}
 
+	private void manejaExcepcion(HibernateException he) throws HibernateException{
+		tx.rollback();
+		throw new HibernateException("Ocurrió un error en la capa DAO",he);
+	}
+
 	@Override
-	public void guardarActualiza(Aplicativo aplicativo) {
+	public void guardaActualiza(Aplicativo aplicativo) {
 		try{
 			iniciaOperacion();
 			sesion.saveOrUpdate(aplicativo);
@@ -45,25 +56,27 @@ public class AplicativoDAO implements GenericDAO<Aplicativo, String>{
 
 	@Override
 	public void eliminar(Aplicativo aplicativo) {
-		iniciaOperacion();
-	    sesion.delete(aplicativo) ;
-	    tx.commit() ;
-	    sesion.flush() ;
-	    sesion.close() ;
+		try{
+			iniciaOperacion();
+			sesion.delete(aplicativo);
+			tx.commit();
+			sesion.flush();
+		}catch(HibernateException he){
+			manejaExcepcion(he);
+			throw he;
+		}finally{
+			sesion.close();
+		}	
 	}
 
 	@Override
-	public List<Aplicativo> obtenerTodos(Class<Aplicativo> clazz) {
+	public List<Aplicativo> obtenerTodos() {
 		iniciaOperacion();
-		Criteria criteria = sesion.createCriteria(clazz);
+		Criteria criteria = sesion.createCriteria(Aplicativo.class);
 		sesion.close();
 		return (List<Aplicativo>)criteria.list();
 	}
 
-	private void manejaExcepcion(HibernateException he) throws HibernateException{
-		tx.rollback();
-		throw new HibernateException("Ocurrió un error en la capa DAO",he);
-	}
 
 	@Override
 	public Aplicativo obtenerPorId(Class<Aplicativo> clazz, String id) {
