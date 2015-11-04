@@ -42,7 +42,7 @@ public class CtrlAplicativo {
 		}
 	}
 	
-	public List<Aplicativo> daEmpleados(){
+	public List<Aplicativo> obtenerTodosAplicativos(){
 		return aplicativoDao.obtenerTodos();
 	}
 

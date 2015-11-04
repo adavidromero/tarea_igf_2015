@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -72,9 +73,11 @@ public class AplicativoDAO implements GenericDAO<Aplicativo, String>{
 	@Override
 	public List<Aplicativo> obtenerTodos() {
 		iniciaOperacion();
-		Criteria criteria = sesion.createCriteria(Aplicativo.class);
+		Criteria criteria = sesion.createCriteria(Aplicativo.class)
+				.addOrder(Order.asc("id"));
+		List<Aplicativo> aplicativos =(List<Aplicativo>)criteria.list();
 		sesion.close();
-		return (List<Aplicativo>)criteria.list();
+		return aplicativos;
 	}
 
 
