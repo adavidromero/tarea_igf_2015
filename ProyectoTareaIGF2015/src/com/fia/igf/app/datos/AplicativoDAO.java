@@ -74,12 +74,11 @@ public class AplicativoDAO implements GenericDAO<Aplicativo, String>{
 	public List<Aplicativo> obtenerTodos() {
 		iniciaOperacion();
 		Criteria criteria = sesion.createCriteria(Aplicativo.class)
-				.addOrder(Order.asc("id"));
+				.addOrder(Order.asc("cAplicativo"));
 		List<Aplicativo> aplicativos =(List<Aplicativo>)criteria.list();
 		sesion.close();
 		return aplicativos;
 	}
-
 
 	@Override
 	public Aplicativo obtenerPorId(Class<Aplicativo> clazz, String id) {

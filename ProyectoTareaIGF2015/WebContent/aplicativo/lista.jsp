@@ -28,7 +28,7 @@
                     <div class="col-lg-12">
                     <!-- Aqui tiene que ir el contenido -->
                         <h1>Aplicativos </h1>
-                        <div class="pull-right"><a href="<%=context_path %>/aplicativo/nuevo_editar_ver.jsp">
+                        <div class="pull-right"><a href="<%=context_path %>/aplicativo/nuevo_editar_ver.jsp?operacion=crear">
                         <button class="btn btn-primary">Nuevo Registro</button></a></div>
                         <table class="table">
                         <thead>
@@ -52,18 +52,19 @@
     					for(int i=0;i<length;i++){
     						Aplicativo aplicativo=(Aplicativo)aplicativos.get(i);
     						try{
-    							strFechaIngreso=formatter.format(aplicativo.getFechaIngreso());
+    							strFechaIngreso=formatter.format(aplicativo.getfIngreso());
     						}catch(Exception e){
     							System.out.println(e.getStackTrace());
     						}
                         %>
                         	<tr>
-                        	<td><%=aplicativo.getId() %></td>
-                        	<td><%=aplicativo.getDescripcion() %></td>
+                        	<td><%=aplicativo.getcAplicativo() %></td>
+                        	<td><%=aplicativo.getdAplicativo() %></td>
                         	<td><%=strFechaIngreso %></td>
                         	<td>
-                        	<a href="<%=context_path %>/aplicativo/nuevo_editar_ver.jsp?operacion=ver&id=<%=aplicativo.getId()%>"><span class="glyphicon glyphicon-eye-open"></span></a>
-                        	<a href="<%=context_path %>/aplicativo/nuevo_editar_ver.jsp?operacion=editar&id=<%=aplicativo.getId()%>">
+                        	<a href="<%=context_path %>/aplicativo/nuevo_editar_ver.jsp?operacion=ver&id=<%=aplicativo.getcAplicativo() %>">
+                        	<span class="glyphicon glyphicon-eye-open"></span></a>
+                        	<a href="<%=context_path %>/aplicativo/nuevo_editar_ver.jsp?operacion=editar&id=<%=aplicativo.getcAplicativo() %>">
                         	<span class="glyphicon glyphicon-pencil"></span></a>
                         	<a href="#"><span class="glyphicon glyphicon-remove"></span></a>
                         	</td>

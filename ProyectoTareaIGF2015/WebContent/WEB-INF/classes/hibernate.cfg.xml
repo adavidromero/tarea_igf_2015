@@ -42,6 +42,13 @@
         <mapping class="org.MyClass/>
         -->
         <mapping class="com.fia.igf.app.dominio.Aplicativo"/>
+        <mapping class="com.fia.igf.app.dominio.Clase"/>
+        <mapping class="com.fia.igf.app.dominio.ClaseInterface"/>
+        <mapping class="com.fia.igf.app.dominio.Interface"/>
+        <mapping class="com.fia.igf.app.dominio.InterfaceImplementa"/>
+        <mapping class="com.fia.igf.app.dominio.TipoAtributo"/>
+        <mapping class="com.fia.igf.app.dominio.TipoClase"/>
+        <mapping class="com.fia.igf.app.dominio.TipoMetodo"/>
 
     </session-factory>
 

@@ -1,12 +1,17 @@
 package com.fia.igf.app.dominio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,43 +21,59 @@ public class Aplicativo implements Serializable{
 	
 	@Id
 	@Column(name="c_aplicativo",nullable = false, length=5)
-	private String id;
+	private String cAplicativo;
 	
 	@Column(name="d_aplicativo",nullable = false, length=100)
-	private String descripcion;
+	private String dAplicativo;
 
 	@Basic(optional = false)
 	@Column(name = "f_ingreso")
-	private Date fechaIngreso;
+	private Date fIngreso;
+
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="cAplicativo")
+	private  List<Clase> clases= new ArrayList();
 
 	public Aplicativo(){
 		
 	}
 	
-	public Aplicativo(String id, String descripcion, Date fechaIngreso) {
-		this.id=id;
-		this.descripcion=descripcion;
-		this.fechaIngreso=fechaIngreso;
+	public Aplicativo(String cAplicativo, String dAplicativo, Date fIngreso) {
+		this.cAplicativo=cAplicativo;
+		this.dAplicativo=dAplicativo;
+		this.fIngreso=fIngreso;
 	}
 
-	public String getId() {
-		return id;
+	public String getcAplicativo() {
+		return cAplicativo;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public void setcAplicativo(String cAplicativo) {
+		this.cAplicativo = cAplicativo;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public String getdAplicativo() {
+		return dAplicativo;
 	}
 
-	public Date getFechaIngreso() {
-		return fechaIngreso;
+	public void setdAplicativo(String dAplicativo) {
+		this.dAplicativo = dAplicativo;
 	}
 
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
+	public Date getfIngreso() {
+		return fIngreso;
 	}
+
+	public void setfIngreso(Date fIngreso) {
+		this.fIngreso = fIngreso;
+	}
+
+	public List<Clase> getClases() {
+		return clases;
+	}
+
+	public void setClases(List<Clase> clases) {
+		this.clases = clases;
+	}
+	
 
 }

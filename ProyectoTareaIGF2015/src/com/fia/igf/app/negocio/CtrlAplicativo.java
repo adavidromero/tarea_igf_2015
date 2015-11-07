@@ -49,5 +49,10 @@ public class CtrlAplicativo {
 	public Aplicativo obtenerPorId(String id){
 		return aplicativoDao.obtenerPorId(Aplicativo.class, id);
 	}
+	
+	public boolean actualizar(Aplicativo aplicativo){
+		aplicativoDao.guardaActualiza(aplicativo);
+		return false;
+	}
 
 }

@@ -1,23 +1,27 @@
 package com.fia.igf.app.datos;
 
-
 import java.util.List;
 
-import org.hibernate.*;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.fia.igf.app.dominio.*;
-import com.fia.igf.utilidades.datos.*;
+import com.fia.igf.app.dominio.Clase;
+import com.fia.igf.utilidades.datos.HibernateUtil;
 
 @Repository
-public class TipoClaseDAO implements GenericDAO<TipoClase, String>{
+public class ClaseDAO implements GenericDAO<Clase,Integer>{
+
 	@Autowired
 	private HibernateUtil hibernateUtil;
 	
 	@Autowired
-	public TipoClaseDAO(HibernateUtil hibernateUtil){
+	public ClaseDAO(HibernateUtil hibernateUtil){
 		this.hibernateUtil=hibernateUtil;
 		
 	}
@@ -37,10 +41,10 @@ public class TipoClaseDAO implements GenericDAO<TipoClase, String>{
 	}
 
 	@Override
-	public void guardaActualiza(TipoClase tipoClase) {
+	public void guardaActualiza(Clase clase) {
 		try{
 			iniciaOperacion();
-			sesion.saveOrUpdate(tipoClase);
+			sesion.saveOrUpdate(clase);
 			tx.commit();
 			sesion.flush();
 		}catch(HibernateException he){
@@ -49,14 +53,13 @@ public class TipoClaseDAO implements GenericDAO<TipoClase, String>{
 		}finally{
 			sesion.close();
 		}
-		
 	}
 
 	@Override
-	public void eliminar(TipoClase tipoClase) {
+	public void eliminar(Clase clase) {
 		try{
 			iniciaOperacion();
-			sesion.delete(tipoClase);
+			sesion.delete(clase);
 			tx.commit();
 			sesion.flush();
 		}catch(HibernateException he){
@@ -65,24 +68,24 @@ public class TipoClaseDAO implements GenericDAO<TipoClase, String>{
 		}finally{
 			sesion.close();
 		}	
-		
 	}
 
 	@Override
-	public List<TipoClase> obtenerTodos() {
+	public List<Clase> obtenerTodos() {
 		iniciaOperacion();
-		Criteria criteria = sesion.createCriteria(TipoClase.class)
+		Criteria criteria = sesion.createCriteria(Clase.class)
 				.addOrder(Order.asc("id"));
-		List<TipoClase> tiposClases =(List<TipoClase>)criteria.list();
+		List<Clase> clases =(List<Clase>)criteria.list();
 		sesion.close();
-		return tiposClases;
+		return clases;
 	}
 
 	@Override
-	public TipoClase obtenerPorId(Class<TipoClase> clazz, String id) {
+	public Clase obtenerPorId(Class<Clase> clazz, Integer id) {
 		iniciaOperacion();
-		TipoClase aplicativo = (TipoClase)sesion.get(clazz, id);
+		Clase clase = (Clase)sesion.get(clazz, id);
 		sesion.close();
-		return aplicativo;
+		return clase;
 	}
+
 }

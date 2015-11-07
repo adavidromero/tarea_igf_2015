@@ -22,6 +22,8 @@
 <div id="wrapper">
 <%@include file="../navbar.jsp" %>
 <%
+
+
     ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
     CtrlAplicativo ctrlAplicativo = (CtrlAplicativo)ac.getBean("ctrlAplicativo");
 	String operacion=request.getParameter("operacion");
@@ -29,25 +31,32 @@
 	String descripcion="";
 	String fechaIngreso="";
 	String readonly="";
-	boolean opEditar=false;
-	boolean opVer=false;
+	String idReadonly="";
+	boolean esOperacionEditar=false;
+	boolean esOperacionVer=false;
 
 	SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
     if(operacion != null){
-        opEditar=operacion.equalsIgnoreCase("editar");
-        opVer=operacion.equalsIgnoreCase("ver");
+        esOperacionEditar=operacion.equalsIgnoreCase("editar");
+        esOperacionVer=operacion.equalsIgnoreCase("ver");
     }
 
-	if((opEditar || opVer) && id!=""){
+	if((esOperacionEditar || esOperacionVer) && id!=""){
 		Aplicativo aplicativo = ctrlAplicativo.obtenerPorId(id);
-		descripcion=aplicativo.getDescripcion();
+		descripcion=aplicativo.getdAplicativo();
 		try{
-			fechaIngreso=formatter.format(aplicativo.getFechaIngreso());
+			fechaIngreso=formatter.format(aplicativo.getfIngreso());
 		}catch(Exception e){
 			System.out.println(e.getStackTrace());
 		}
-		if(opVer)
+
+		if(esOperacionEditar){
+			idReadonly="readonly";
+		}
+
+		if(esOperacionVer){
 			readonly="readonly";
+		}
 	}
 %>
         <!-- Page Content -->
@@ -60,7 +69,7 @@
                         <div class="pull-right"><a href="<%=context_path %>/aplicativo/lista.jsp">
                         <button class="btn btn-primary">Regresar a Listado</button></a></div>
                         <form class="form-horizontal" action="<%=context_path %>/aplicativo/operaciones.jsp" method="post">
-                        <input type="text" id="operacion" value="<%=operacion %>" class="hidden">
+                        <input type="text" id="operacion" name="operacion" value="<%=operacion %>" class="hidden">
                         <fieldset>
 
                         <!-- Form Name -->
@@ -71,7 +80,7 @@
                           <label class="col-md-4 control-label" for="textinput">Codigo:</label>  
                           <div class="col-md-4">
                           <input id="id" name="id" placeholder="ej: AM001" class="form-control input-md" type="text"
-                          value="<%=id %>" <%=readonly %>>
+                          value="<%=id %>" <%=readonly %> <%=idReadonly %>>
                           <span class="help-block"></span>  
                           </div>
                         </div>
@@ -100,7 +109,7 @@
                         <!-- Button -->
 
 						<%
-							if(!opVer){
+							if(!esOperacionVer){
 						%>
                         <div class="form-group">
                           <label class="col-md-4 control-label" for="singlebutton"></label>

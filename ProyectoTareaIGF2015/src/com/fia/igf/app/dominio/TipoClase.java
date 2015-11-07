@@ -11,20 +11,24 @@ import javax.persistence.*;
 @Table(name = "tb_tipo_clase")
 public class TipoClase  implements Serializable{
 	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Basic(optional = false)
     @Column(name = "c_tipo_clase")
 	private String cTipoClase = new String();
+
 	@Basic(optional = false)
     @Column(name = "d_tipo_clase")
 	private String dTipoClase = new String();
+
 	@Basic(optional = false)
 	@Column(name = "f_ingreso")
 	private GregorianCalendar fIngreso = new GregorianCalendar();
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "TipoClase", fetch = FetchType.EAGER)
-    private List<Clase> clases = new ArrayList();;
-	
+
+    @Basic(optional = true)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cTipoClase")
+    private List<Clase> clases = new ArrayList();
+    
 	public List<Clase> getClases() {
 		return clases;
 	}

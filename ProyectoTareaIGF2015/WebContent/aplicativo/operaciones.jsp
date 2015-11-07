@@ -11,30 +11,67 @@
 	<%@ page import="java.util.Date" %>
     
     <%
-
+    String operacion = request.getParameter("operacion");
+    String uriLista="/aplicativo/lista.jsp";
     String msg="";
-    ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-    CtrlAplicativo ctrlAplicativo = (CtrlAplicativo)ac.getBean("ctrlAplicativo");
-    String id= request.getParameter("id");
-    String descripcion= request.getParameter("descripcion");
-    String strFechaIngreso = request.getParameter("fechaIngreso");
-    Date fechaIngreso= new Date();
-    boolean aplicativoCreado=false;
+	String id=(request.getParameter("id") != null) ? request.getParameter("id") : "" ;
 
-	SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
-	try{
-		fechaIngreso = formatter.parse(strFechaIngreso);
-		
-	}catch(ParseException e){
-		e.printStackTrace();
-	}
-    aplicativoCreado=ctrlAplicativo.crearAplicativo(id, descripcion, fechaIngreso);
-    if(aplicativoCreado){
-    	msg="Aplicativo creado";
-    }else{
-    	msg="Aplicativo no creado";
+	boolean esOperacionCrear=false;
+	boolean esOperacionEditar=false;
+	boolean esOperacionEliminar=false;
+
+    boolean aplicativoCreado=false;
+    boolean aplicativoEditado=false;
+    boolean aplicativoEliminado=false;
+
+    if(operacion != null){
+    	esOperacionCrear=operacion.equalsIgnoreCase("crear");
+        esOperacionEditar=operacion.equalsIgnoreCase("editar");
+        esOperacionEliminar=operacion.equalsIgnoreCase("eliminar");
     }
-    
+
+    if((esOperacionCrear || esOperacionEditar || esOperacionEliminar) && id!=""){
+    	ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+    	CtrlAplicativo ctrlAplicativo = (CtrlAplicativo)ac.getBean("ctrlAplicativo");
+    	Aplicativo aplicativo = new Aplicativo();
+
+  		String descripcion= request.getParameter("descripcion");
+   		String strFechaIngreso = request.getParameter("fechaIngreso");
+   		Date fechaIngreso= new Date();
+
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+		try{
+			fechaIngreso = formatter.parse(strFechaIngreso);
+		}catch(ParseException e){
+			e.printStackTrace();
+		}
+
+    	if(esOperacionCrear){
+    		aplicativoCreado=ctrlAplicativo.crearAplicativo(id, descripcion, fechaIngreso);
+
+    		if(aplicativoCreado){
+    			msg="Aplicativo creado";
+    		}else{
+    			msg="Aplicativo no creado";
+    		}
+    	}
+    	
+    	if(esOperacionEditar){
+    		aplicativo=ctrlAplicativo.obtenerPorId(id);
+    		aplicativo.setdAplicativo(descripcion);
+    		aplicativo.setfIngreso(fechaIngreso);
+    		ctrlAplicativo.actualizar(aplicativo);
+    	}
+
+    	if(esOperacionEliminar){
+    		aplicativoEliminado = ctrlAplicativo.borraAplicativo(id);
+    		msg="Aplicativo Eliminado";
+    	}
+    }
+    else{
+    	msg="Ninguna operación seleccionada";
+    }
+
     	
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -46,5 +83,6 @@
 <body>
 Esta pagina deberia de Realizar una operación y al final redireccionar
 <%=msg %>
+
 </body>
 </html>
