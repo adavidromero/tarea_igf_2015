@@ -57,5 +57,7 @@ public class ClaseInterface {
 	public void setcInterface(Interface cInterface) {
 		this.cInterface = cInterface;
 	}
+	
+	
 
 }

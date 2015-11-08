@@ -54,5 +54,7 @@ public class InterfaceImplementa {
 	public void setInterfacePadre(Interface interfacePadre) {
 		this.interfacePadre = interfacePadre;
 	}
+	
+	
 
 }

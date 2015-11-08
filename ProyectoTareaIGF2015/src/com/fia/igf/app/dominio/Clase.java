@@ -20,6 +20,7 @@ public class Clase {
     @Column(name = "d_clase")
     private String dClase;
 
+    @Basic(optional = false)
     @Column(name = "c_usuario")
     private String cUsuario;
 
@@ -47,6 +48,19 @@ public class Clase {
     @Basic(optional = true)
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="cClase")
 	private List<ClaseInterface> clasesInterfaces;
+
+    @Basic(optional = true)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="cClase")
+	private List<Metodo> metodos;
+
+    @Basic(optional = true)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="cClase")
+	private List<Atributo> atributos;
+
+    @Basic(optional = true)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="cClase")
+	private List<Observacion> observaciones;
+
     
     public Clase(){
     	
@@ -123,6 +137,30 @@ public class Clase {
 
 	public void setClasesInterfaces(List<ClaseInterface> clasesInterfaces) {
 		this.clasesInterfaces = clasesInterfaces;
+	}
+
+	public List<Metodo> getMetodos() {
+		return metodos;
+	}
+
+	public void setMetodos(List<Metodo> metodos) {
+		this.metodos = metodos;
+	}
+
+	public List<Atributo> getAtributos() {
+		return atributos;
+	}
+
+	public void setAtributos(List<Atributo> atributos) {
+		this.atributos = atributos;
+	}
+
+	public List<Observacion> getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(List<Observacion> observaciones) {
+		this.observaciones = observaciones;
 	}
 
 	

@@ -1,11 +1,14 @@
 package com.fia.igf.app.dominio;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,6 +32,10 @@ public class TipoMetodo {
     @Column(name = "f_ingreso")
     @Temporal(TemporalType.DATE)
     private Date fIngreso;
+
+    @Basic(optional = true)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="cTipoMetodo")
+	private List<Metodo> metodos;
     
     public TipoMetodo(){
     	
@@ -56,6 +63,14 @@ public class TipoMetodo {
 
 	public void setfIngreso(Date fIngreso) {
 		this.fIngreso = fIngreso;
+	}
+
+	public List<Metodo> getMetodos() {
+		return metodos;
+	}
+
+	public void setMetodos(List<Metodo> metodos) {
+		this.metodos = metodos;
 	}
     
 }
