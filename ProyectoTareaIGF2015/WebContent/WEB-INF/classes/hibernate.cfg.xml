@@ -50,6 +50,9 @@
         <mapping class="com.fia.igf.app.dominio.TipoClase"/>
         <mapping class="com.fia.igf.app.dominio.TipoMetodo"/>
         <mapping class="com.fia.igf.app.dominio.Metodo"/>
+        <mapping class="com.fia.igf.app.dominio.Atributo"/>
+        <mapping class="com.fia.igf.app.dominio.Observacion"/>
+        <mapping class="com.fia.igf.app.dominio.Parametro"/>
 
     </session-factory>
 

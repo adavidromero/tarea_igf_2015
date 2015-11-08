@@ -36,7 +36,7 @@ public class Parametro {
 	@Id
     @Basic(optional = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cParametro")
+    @Column(name = "c_parametro")
     private Integer cParametro;
 
     @Basic(optional = false)
