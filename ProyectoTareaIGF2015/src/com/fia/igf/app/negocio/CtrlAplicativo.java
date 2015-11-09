@@ -32,7 +32,7 @@ public class CtrlAplicativo {
 	}
 	
 	public boolean borraAplicativo(String id){
-		if(aplicativoDao.obtenerPorId(Aplicativo.class, id)==null){
+		if(aplicativoDao.obtenerPorId(Aplicativo.class, id)!=null){
 			Aplicativo aplicativo = aplicativoDao.obtenerPorId(Aplicativo.class, id);
 			aplicativoDao.eliminar(aplicativo);
 			return true;

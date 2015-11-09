@@ -6,7 +6,7 @@
     <%@ page import="com.fia.igf.app.negocio.*" %>
     <%@ page import="com.fia.igf.app.dominio.*" %>
     <%@ page import="java.text.DateFormat" %>
-	<%@ page import="java.text.SimpleDateFormat"%>;
+	<%@ page import="java.text.SimpleDateFormat"%>
 	<%@ page import="java.text.ParseException" %>
 	<%@ page import="java.util.Date" %>
     
@@ -35,6 +35,15 @@
     	CtrlAplicativo ctrlAplicativo = (CtrlAplicativo)ac.getBean("ctrlAplicativo");
     	Aplicativo aplicativo = new Aplicativo();
 
+    	if(esOperacionEliminar){
+    		aplicativoEliminado = ctrlAplicativo.borraAplicativo(id);
+    		if(aplicativoEliminado==true){
+    			msg="Aplicativo Eliminado";
+    		}else{
+    			msg="Aplicativo No Eliminado";
+    		}
+    	}else{
+
   		String descripcion= request.getParameter("descripcion");
    		String strFechaIngreso = request.getParameter("fechaIngreso");
    		Date fechaIngreso= new Date();
@@ -61,17 +70,16 @@
     		aplicativo.setdAplicativo(descripcion);
     		aplicativo.setfIngreso(fechaIngreso);
     		ctrlAplicativo.actualizar(aplicativo);
+    		msg="Aplicativo modificado con exito!";
+    	}
+    		
     	}
 
-    	if(esOperacionEliminar){
-    		aplicativoEliminado = ctrlAplicativo.borraAplicativo(id);
-    		msg="Aplicativo Eliminado";
-    	}
+
     }
     else{
     	msg="Ninguna operación seleccionada";
     }
-
     	
     %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -82,6 +90,15 @@
 </head>
 <body>
 Esta pagina deberia de Realizar una operación y al final redireccionar
+<%
+	String redirectURL = request.getContextPath()+uriLista;
+//request.getScheme()+"//"+request.getServerName()+
+	//":"+request.getServerPort()+
+
+	//Luego de realizar la operación redireccionar al listado correspondiente
+    response.sendRedirect(redirectURL);
+%>
+<%=redirectURL %>
 <%=msg %>
 
 </body>

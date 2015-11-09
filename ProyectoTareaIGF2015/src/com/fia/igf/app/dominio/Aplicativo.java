@@ -30,7 +30,6 @@ public class Aplicativo implements Serializable{
 	@Column(name = "f_ingreso")
 	private Date fIngreso;
 
-
     @Basic(optional = true)
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="cAplicativo")
 	private  List<Clase> clases= new ArrayList();

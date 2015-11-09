@@ -66,7 +66,7 @@
                         	<span class="glyphicon glyphicon-eye-open"></span></a>
                         	<a href="<%=context_path %>/aplicativo/nuevo_editar_ver.jsp?operacion=editar&id=<%=aplicativo.getcAplicativo() %>">
                         	<span class="glyphicon glyphicon-pencil"></span></a>
-                        	<a href="#"><span class="glyphicon glyphicon-remove"></span></a>
+                        	<a class="eliminar" data-caplicacion="<%=aplicativo.getcAplicativo() %>" href="#"><span class="glyphicon glyphicon-remove"></span></a>
                         	</td>
                         	</tr>
                         	<%
@@ -77,6 +77,36 @@
                         <tfoot>
                         </tfoot>
                         </table>
+                        <div class="modal fade" id="modal-confirmar-eliminacion">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Confirmar Eliminación</h4>
+                              </div>
+                              <div class="modal-body">
+                                <p>Confirmar Eliminación de Aplicativo <strong id="elim_caplicacion"></strong></p>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <a id="link_confirma_eliminacion" href="#"><button type="button" class="btn btn-primary">Confirmar</button></a>
+                              </div>
+                            </div><!-- /.modal-content -->
+                          </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                        <script>
+                        function readyFn(){
+                        	$(".eliminar").click(function(e){
+                        		e.preventDefault();
+                        		var caplicacion = $(this).attr('data-caplicacion');
+                        		$('#elim_caplicacion').text(caplicacion);
+                        		$('#link_confirma_eliminacion').attr('href','operaciones.jsp?operacion=eliminar&id='+caplicacion);
+                        		$('#modal-confirmar-eliminacion').modal('show');
+                        	});
+                        }
+                        
+                        $(document).ready(readyFn);
+                        </script>
                     </div>
                 </div>
             </div>
