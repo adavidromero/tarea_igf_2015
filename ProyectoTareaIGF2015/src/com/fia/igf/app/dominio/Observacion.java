@@ -40,8 +40,8 @@ public class Observacion {
     private Date fIngreso;
 
     @Basic(optional = false)
-    @Column(name = "c_activo")
-    private Integer cActivo;
+    @Column(name = "b_activo")
+    private Integer bActivo;
 
 	@ManyToOne 
 	@JoinColumn(name = "c_clase", referencedColumnName = "c_clase")
@@ -92,11 +92,11 @@ public class Observacion {
 	}
 
 	public Integer getcActivo() {
-		return cActivo;
+		return bActivo;
 	}
 
 	public void setcActivo(Integer cActivo) {
-		this.cActivo = cActivo;
+		this.bActivo = cActivo;
 	}
 
 	public Clase getcClase() {

@@ -42,8 +42,8 @@ public class Atributo {
     private String dAtributo;
 
     @Basic(optional = false)
-    @Column(name = "d_tipo_atributo", length=50)
-    private String dTipoAtributo;
+    @Column(name = "d_tipo_dato_atributo", length=50)
+    private String dTipoDatoAtributo;
 	
     @Basic(optional = false)
     @Column(name = "c_usuario", length=30)
@@ -96,11 +96,11 @@ public class Atributo {
 	}
 
 	public String getdTipoAtributo() {
-		return dTipoAtributo;
+		return dTipoDatoAtributo;
 	}
 
 	public void setdTipoAtributo(String dTipoAtributo) {
-		this.dTipoAtributo = dTipoAtributo;
+		this.dTipoDatoAtributo = dTipoAtributo;
 	}
 
 	public String getcUsuario() {

@@ -12,7 +12,6 @@ public class Clase {
 
 	@Id
     @Basic(optional = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "c_clase")
     private Integer cClase;
 
@@ -65,13 +64,28 @@ public class Clase {
     public Clase(){
     	
     }
+    
 
-	public Integer getcClase() {
-		return cClase;
+	public Clase(Integer cClase, String dClase, String cUsuario, Date fIngreso,
+			Aplicativo cAplicativo, Clase clasePadre, TipoClase cTipoClase) {
+		super();
+		this.cClase=cClase;
+		this.dClase = dClase;
+		this.cUsuario = cUsuario;
+		this.fIngreso = fIngreso;
+		this.cAplicativo = cAplicativo;
+		this.clasePadre = clasePadre;
+		this.cTipoClase = cTipoClase;
 	}
+
+
 
 	public void setcClase(Integer cClase) {
 		this.cClase = cClase;
+	}
+
+	public Integer getcClase() {
+		return cClase;
 	}
 
 	public String getdClase() {

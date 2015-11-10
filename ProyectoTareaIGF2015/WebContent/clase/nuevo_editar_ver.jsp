@@ -5,6 +5,7 @@
     <%@ page import="org.springframework.web.context.support.*" %>
     <%@ page import="com.fia.igf.app.negocio.*" %>
     <%@ page import="com.fia.igf.app.dominio.*" %>
+    <%@ page import="com.fia.igf.app.utilidades.ui.*" %>
     <%@ page import="java.text.DateFormat" %>
 	<%@ page import="java.text.SimpleDateFormat"%>
 	<%@ page import="java.text.ParseException" %>
@@ -23,17 +24,21 @@
 <%@include file="../navbar.jsp" %>
 <%
 
-
     ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
     CtrlClase ctrlClase = (CtrlClase)ac.getBean("ctrlClase");
+    ListHelper listHelper = (ListHelper)ac.getBean("listHelper");
 	String operacion=request.getParameter("operacion");
 	String id=(request.getParameter("id") != null) ? request.getParameter("id") : "" ;
 	String descripcion="";
 	String fechaIngreso="";
 	String readonly="";
 	String idReadonly="";
+	String usuario="";
+	String aplicativo="";
 	boolean esOperacionEditar=false;
 	boolean esOperacionVer=false;
+	
+	Clase clase = null;
 
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     if(operacion != null){
@@ -42,8 +47,10 @@
     }
 
 	if((esOperacionEditar || esOperacionVer) && id!=""){
-		Clase clase = ctrlClase.obtenerPorId(Integer.parseInt(id));
+		clase = ctrlClase.obtenerPorId(Integer.parseInt(id));
 		descripcion=clase.getdClase();
+		usuario=clase.getcUsuario();
+		aplicativo=clase.getcAplicativo().getdAplicativo();
 		try{
 			fechaIngreso=formatter.format(clase.getfIngreso());
 		}catch(Exception e){
@@ -65,21 +72,21 @@
                 <div class="row">
                     <div class="col-lg-12">
                     <!-- Aqui tiene que ir el contenido -->
-                        <h1>Aplicativos</h1>
-                        <div class="pull-right"><a href="<%=context_path %>/aplicativo/lista.jsp">
+                        <h1>Clases</h1>
+                        <div class="pull-right"><a href="<%=context_path %>/clase/lista.jsp">
                         <button class="btn btn-primary">Regresar a Listado</button></a></div>
-                        <form class="form-horizontal" action="<%=context_path %>/aplicativo/operaciones.jsp" method="post">
+                        <form class="form-horizontal" action="<%=context_path %>/clase/operaciones.jsp" method="post">
                         <input type="text" id="operacion" name="operacion" value="<%=operacion %>" class="hidden">
                         <fieldset>
 
                         <!-- Form Name -->
-                        <legend>Nuevo Aplicativo</legend>
+                        <legend>Nueva Clase</legend>
 
                         <!-- Text input-->
                         <div class="form-group">
                           <label class="col-md-4 control-label" for="textinput">Codigo:</label>  
                           <div class="col-md-4">
-                          <input id="id" name="id" placeholder="ej: AM001" class="form-control input-md" type="text"
+                          <input id="id" name="id" placeholder="1" class="form-control input-md" type="text"
                           value="<%=id %>" <%=readonly %> <%=idReadonly %>>
                           <span class="help-block"></span>  
                           </div>
@@ -89,11 +96,32 @@
                         <div class="form-group">
                           <label class="col-md-4 control-label" for="textinput">Descripción:</label>  
                           <div class="col-md-4">
-                          <input id="descripcion" name="descripcion" placeholder="escriba su descripción"
-                           class="form-control input-md" type="text" value="<%=descripcion %>" <%=readonly %>>
+                          <input id="descripcion" name="descripcion" placeholder="ej: CtrlClase" class="form-control input-md" type="text"
+                          value="<%=descripcion %>" <%=readonly %>>
                           <span class="help-block"></span>  
                           </div>
                         </div>
+
+                        <!-- Select Basic -->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="tipoClase">Tipo Clase</label>
+                          <div class="col-md-4">
+                          	<%=listHelper.generaListaTipoClase(clase, "tipoClase", readonly) %>
+                          </div>
+                        </div>
+                        
+                        
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="textinput">Usuario</label>  
+                          <div class="col-md-4">
+                          <input id="usuario" name="usuario" placeholder="Usuario" 
+                          class="form-control input-md" type="text" 
+                          value="<%=usuario %>" <%=readonly %>>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
+                        
 
                         <!-- Text input-->
                         <div class="form-group">
@@ -102,6 +130,25 @@
                           <input id="fechaIngreso" name="fechaIngreso" placeholder="dd/mm/yyyy" 
                           class="form-control input-md datepicker" type="text" 
                           value="<%=fechaIngreso %>" <%=readonly %>>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
+                        
+                        
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="aplicativo">Aplicativo</label>  
+                          <div class="col-md-4">
+                          	<%=listHelper.generarSelectListaAplicativos(clase, "aplicativo", readonly) %>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="clasePadre">Clase Padre</label>  
+                          <div class="col-md-4">
+                          	<%=listHelper.generarSelectListaClasesPadres(clase, "clasePadre", readonly) %>
                           <span class="help-block"></span>  
                           </div>
                         </div>

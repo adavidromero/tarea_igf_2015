@@ -15,6 +15,7 @@ import com.fia.igf.app.dominio.Aplicativo;
 public class CtrlAplicativo {
 	@Autowired 
 	private AplicativoDAO aplicativoDao;
+
 	@Autowired
 	public CtrlAplicativo(AplicativoDAO aplicativoDao){
 		this.aplicativoDao=aplicativoDao;

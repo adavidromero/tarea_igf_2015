@@ -30,18 +30,32 @@
 		 		<constructor-arg ref="hibernateUtil"/>
 		 </bean>
 
-		 <bean id="ctrlClase"
-		 		class="com.fia.igf.app.negocio.CtrlClase">
-		 		<constructor-arg ref="claseDao"/>
-		 </bean>
-
 		 <bean id="tipoClaseDao"
 		 		class="com.fia.igf.app.datos.TipoClaseDAO">
 		 		<constructor-arg ref="hibernateUtil"/>
 		 </bean>
 
+		 <bean id="ctrlClase"
+		 		class="com.fia.igf.app.negocio.CtrlClase">
+		 		<constructor-arg ref="claseDao"/>
+		 		<constructor-arg ref="tipoClaseDao"/>
+		 		<constructor-arg ref="aplicativoDao"/>
+		 </bean>
+
 		 <bean id="ctrlAplicativo"
 		 		class="com.fia.igf.app.negocio.CtrlAplicativo">
+		 		<constructor-arg ref="aplicativoDao"/>
+		 </bean>
+
+		 <bean id="ctrlTipoClase"
+		 		class="com.fia.igf.app.negocio.CtrlTipoClase">
+		 		<constructor-arg ref="tipoClaseDao"/>
+		 </bean>
+
+		 <bean id="listHelper"
+		 		class="com.fia.igf.app.utilidades.ui.ListHelper">
+		 		<constructor-arg ref="claseDao"/>
+		 		<constructor-arg ref="tipoClaseDao"/>
 		 		<constructor-arg ref="aplicativoDao"/>
 		 </bean>
 
