@@ -11,7 +11,7 @@
                     <a href="<%=context_path %>/aplicativo/lista.jsp">TB_aplicativo</a> 
                 </li>
                 <li>
-                    <a href="<%=context_path %>/TB_tipo_clase.html">TB_tipo_clase</a>
+                    <a href="<%=context_path %>/clase/lista.jsp">TB_tipo_clase</a>
                 </li>
                 <li>
                     <a href="<%=context_path %>/AS_inteface.html">AS_clase_interface</a>

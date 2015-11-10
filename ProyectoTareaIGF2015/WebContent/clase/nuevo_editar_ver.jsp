@@ -25,7 +25,7 @@
 
 
     ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-    CtrlAplicativo ctrlAplicativo = (CtrlAplicativo)ac.getBean("ctrlAplicativo");
+    CtrlClase ctrlClase = (CtrlClase)ac.getBean("ctrlClase");
 	String operacion=request.getParameter("operacion");
 	String id=(request.getParameter("id") != null) ? request.getParameter("id") : "" ;
 	String descripcion="";
@@ -42,10 +42,10 @@
     }
 
 	if((esOperacionEditar || esOperacionVer) && id!=""){
-		Aplicativo aplicativo = ctrlAplicativo.obtenerPorId(id);
-		descripcion=aplicativo.getdAplicativo();
+		Clase clase = ctrlClase.obtenerPorId(Integer.parseInt(id));
+		descripcion=clase.getdClase();
 		try{
-			fechaIngreso=formatter.format(aplicativo.getfIngreso());
+			fechaIngreso=formatter.format(clase.getfIngreso());
 		}catch(Exception e){
 			System.out.println(e.getStackTrace());
 		}
