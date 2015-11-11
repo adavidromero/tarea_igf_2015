@@ -40,6 +40,12 @@ public class TipoAtributo {
     	
     }
 
+	public TipoAtributo(String cTipoAtributo, String dTipoAtributo, Date fIngreso) {
+		this.cTipoAtributo=cTipoAtributo;
+		this.dTipoAtributo=dTipoAtributo;
+		this.fIngreso=fIngreso;
+	}
+
 	public String getcTipoAtributo() {
 		return cTipoAtributo;
 	}

@@ -35,6 +35,11 @@
 		 		<constructor-arg ref="hibernateUtil"/>
 		 </bean>
 
+		 <bean id="tipoAtributoDao"
+		 		class="com.fia.igf.app.datos.TipoAtributoDAO">
+		 		<constructor-arg ref="hibernateUtil"/>
+		 </bean>
+
 		 <bean id="ctrlClase"
 		 		class="com.fia.igf.app.negocio.CtrlClase">
 		 		<constructor-arg ref="claseDao"/>
@@ -50,6 +55,11 @@
 		 <bean id="ctrlTipoClase"
 		 		class="com.fia.igf.app.negocio.CtrlTipoClase">
 		 		<constructor-arg ref="tipoClaseDao"/>
+		 </bean>
+
+		 <bean id="ctrlTipoAtributo"
+		 		class="com.fia.igf.app.negocio.CtrlTipoAtributo">
+		 		<constructor-arg ref="tipoAtributoDao"/>
 		 </bean>
 
 		 <bean id="listHelper"
