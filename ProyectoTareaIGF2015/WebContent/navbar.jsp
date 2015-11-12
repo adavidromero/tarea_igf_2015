@@ -30,10 +30,10 @@
                 </li>
 
                 <li>
-                    <a href="<%=context_path %>/TB_tipo_metodo.html">TB_tipo_metodo</a>
+                    <a href="<%=context_path %>/tipometodo/lista.jsp">TB_tipo_metodo</a>
                 </li>
                 <li>
-                    <a href="<%=context_path %>/AS_metodo.html">AS_metodo</a>
+                    <a href="<%=context_path %>/metodo/lista.jsp">AS_metodo</a>
                 </li>
                 <li>
                     <a href="<%=context_path %>/AS_observacion.html">AS_observacion</a>

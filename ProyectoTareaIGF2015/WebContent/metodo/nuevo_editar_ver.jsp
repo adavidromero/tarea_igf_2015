@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listado de Tipos de Métodos</title>
+<title>Listado de Metodos</title>
 <%@include file="../css_js_incluidos.jsp" %>
 </head>
 <body>
@@ -25,7 +25,7 @@
 
 
     ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-    CtrlTipoMetodo ctrlTipoMetodo = (CtrlTipoMetodo)ac.getBean("ctrlTipoMetodo");
+    CtrlMetodo ctrlMetodo = (CtrlMetodo)ac.getBean("ctrlMetodo");
 	String operacion=request.getParameter("operacion");
 	String id=(request.getParameter("id") != null) ? request.getParameter("id") : "" ;
 	String descripcion="";
@@ -42,10 +42,10 @@
     }
 
 	if((esOperacionEditar || esOperacionVer) && id!=""){
-		TipoMetodo tipoMetodo = ctrlTipoMetodo.obtenerPorId(id);
-		descripcion=tipoMetodo.getdTipoMetodo();
+		Metodo metodo = ctrlMetodo.obtenerPorId(id);
+		descripcion=metodo.getdMetodo();
 		try{
-			fechaIngreso=formatter.format(tipoMetodo.getfIngreso());
+			fechaIngreso=formatter.format(metodo.getfIngreso());
 		}catch(Exception e){
 			System.out.println(e.getStackTrace());
 		}
@@ -65,35 +65,37 @@
                 <div class="row">
                     <div class="col-lg-12">
                     <!-- Aqui tiene que ir el contenido -->
-                        <h1>Tipos de Métodos</h1>
-                        <div class="pull-right"><a href="<%=context_path %>/tipometodo/lista.jsp">
+                        <h1> Métodos</h1>
+                        <div class="pull-right"><a href="<%=context_path %>/metodo/lista.jsp">
                         <button class="btn btn-primary">Regresar a Listado</button></a></div>
-                        <form class="form-horizontal" action="<%=context_path %>/tipometodo/operaciones.jsp" method="post">
+                        <form class="form-horizontal" action="<%=context_path %>/metodo/operaciones.jsp" method="post">
                         <input type="text" id="operacion" name="operacion" value="<%=operacion %>" class="hidden">
                         <fieldset>
 
                         <!-- Form Name -->
-                        <legend>Nuevo Tipo de Método</legend>
+                        <legend>Nuevo Método</legend>
 
                         <!-- Text input-->
                         <div class="form-group">
-                          <label class="col-md-4 control-label" for="textinput">Codigo:</label>  
+                          <label class="col-md-4 control-label" for="textinput">Código Método:</label>  
                           <div class="col-md-4">
-                          <input id="id" name="id" placeholder="ej: AM001" class="form-control input-md" type="text"
-                          value="<%=id %>" <%=readonly %> <%=idReadonly %>>
+                          <input id="cMetodo" name="cMetodo" placeholder="ej: AM001" class="form-control input-md" type="text"
+                          value="<%=cMetodo %>" <%=readonly %> <%=idReadonly %>>
                           <span class="help-block"></span>  
                           </div>
                         </div>
 
                         <!-- Text input-->
                         <div class="form-group">
-                          <label class="col-md-4 control-label" for="textinput">Descripción:</label>  
+                          <label class="col-md-4 control-label" for="textinput">Código clase:</label>  
                           <div class="col-md-4">
-                          <input id="descripcion" name="descripcion" placeholder="escriba su descripción"
-                           class="form-control input-md" type="text" value="<%=descripcion %>" <%=readonly %>>
+                          <input id="cClase" name="cClase" placeholder="escriba su descripción"
+                           class="form-control input-md" type="text" value="<%=cClase %>" <%=readonly %>>
                           <span class="help-block"></span>  
                           </div>
                         </div>
+                        
+// public boolean crearMetodo( TipoMetodo ctipoMetodo, String dMetodo, String dtipoRetorno, String usuario, Date fechaIngreso, Integer activo, Integer parametros ){
 
                         <!-- Text input-->
                         <div class="form-group">

@@ -35,6 +35,10 @@ public class Metodo implements Serializable{
 	@ManyToOne 
 	@JoinColumn(name = "c_clase", referencedColumnName = "c_clase")
 	private Clase cClase;
+	
+	@ManyToOne 
+	@JoinColumn(name = "c_tipo_metodo", referencedColumnName = "c_tipo_metodo")
+	private TipoMetodo cTipoMetodo;
 
     @Basic(optional = false)
     @Column(name = "d_metodo", length=50)
@@ -61,9 +65,6 @@ public class Metodo implements Serializable{
     @Column(name = "n_parametros")
     private Integer nParametros;
     
-	@ManyToOne 
-	@JoinColumn(name = "c_tipo_metodo", referencedColumnName = "c_tipo_metodo")
-	private TipoMetodo cTipoMetodo;
 
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="cMetodo")
 	private List<Atributo> atributos;
@@ -75,6 +76,11 @@ public class Metodo implements Serializable{
 		
 	}
 
+	public Metodo(Integer cMetodo, Clase cClase, TipoMetodo cTipoMetodo, String dMetodo, String dTipoRetorno, String cUsuario, Date fIngreso, Integer bActivo, Integer nParametros){
+			this.cMetodo = cMetodo;
+			this.dMetodo = dMetodo;
+			this.fIngreso = fIngreso;
+		}
 
 	public String getdMetodo() {
 		return dMetodo;
@@ -124,8 +130,8 @@ public class Metodo implements Serializable{
 		this.nParametros = nParametros;
 	}
 
-	public TipoMetodo getcTipoMetodo() {
-		return cTipoMetodo;
+	public String getTipoMetodo() {
+		return cTipoMetodo.getcTipoMetodo();
 	}
 
 	public void setcTipoMetodo(TipoMetodo cTipoMetodo) {
@@ -159,8 +165,8 @@ public class Metodo implements Serializable{
 	}
 
 
-	public Clase getcClase() {
-		return cClase;
+	public String getcClase() {
+		return cClase.getcClase().toString();
 	}
 
 
