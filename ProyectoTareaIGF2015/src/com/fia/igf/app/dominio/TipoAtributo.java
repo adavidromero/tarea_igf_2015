@@ -1,5 +1,6 @@
 package com.fia.igf.app.dominio;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="tb_tipo_atributo")
-public class TipoAtributo {
+public class TipoAtributo implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id

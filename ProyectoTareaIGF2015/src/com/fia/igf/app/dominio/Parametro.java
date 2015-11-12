@@ -1,5 +1,6 @@
 package com.fia.igf.app.dominio;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="as_parametro")
-public class Parametro {
+public class Parametro implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 

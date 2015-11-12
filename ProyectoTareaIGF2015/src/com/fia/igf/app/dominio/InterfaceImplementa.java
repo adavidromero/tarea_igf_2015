@@ -1,5 +1,7 @@
 package com.fia.igf.app.dominio;
 
+import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="as_interface_implementa")
-public class InterfaceImplementa {
+public class InterfaceImplementa implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 

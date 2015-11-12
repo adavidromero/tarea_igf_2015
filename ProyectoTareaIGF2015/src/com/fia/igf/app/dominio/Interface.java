@@ -1,5 +1,6 @@
 package com.fia.igf.app.dominio;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="as_interface")
-public class Interface {
+public class Interface implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id

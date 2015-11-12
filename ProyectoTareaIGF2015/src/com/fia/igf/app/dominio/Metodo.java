@@ -1,11 +1,15 @@
 package com.fia.igf.app.dominio;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,13 +23,12 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="as_metodo")
-public class Metodo {
+public class Metodo implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
     @Basic(optional = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "c_metodo")
     private Integer cMetodo;
 	
@@ -62,11 +65,9 @@ public class Metodo {
 	@JoinColumn(name = "c_tipo_metodo", referencedColumnName = "c_tipo_metodo")
 	private TipoMetodo cTipoMetodo;
 
-    @Basic(optional = true)
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="cMetodo")
 	private List<Atributo> atributos;
 
-    @Basic(optional = true)
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="cMetodo")
 	private List<Observacion> observaciones;
 	
@@ -74,21 +75,6 @@ public class Metodo {
 		
 	}
 
-	public Integer getcMetodo() {
-		return cMetodo;
-	}
-
-	public void setcMetodo(Integer cMetodo) {
-		this.cMetodo = cMetodo;
-	}
-
-	public Clase getcClase() {
-		return cClase;
-	}
-
-	public void setcClase(Clase cClase) {
-		this.cClase = cClase;
-	}
 
 	public String getdMetodo() {
 		return dMetodo;
@@ -161,7 +147,25 @@ public class Metodo {
 	public void setObservaciones(List<Observacion> observaciones) {
 		this.observaciones = observaciones;
 	}
-	
-	
+
+
+	public Integer getcMetodo() {
+		return cMetodo;
+	}
+
+
+	public void setcMetodo(Integer cMetodo) {
+		this.cMetodo = cMetodo;
+	}
+
+
+	public Clase getcClase() {
+		return cClase;
+	}
+
+
+	public void setcClase(Clase cClase) {
+		this.cClase = cClase;
+	}
 
 }

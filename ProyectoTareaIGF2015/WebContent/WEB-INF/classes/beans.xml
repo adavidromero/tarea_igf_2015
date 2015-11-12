@@ -35,8 +35,14 @@
 		 		<constructor-arg ref="hibernateUtil"/>
 		 </bean>
 
+
 		 <bean id="tipoAtributoDao"
 		 		class="com.fia.igf.app.datos.TipoAtributoDAO">
+		 		<constructor-arg ref="hibernateUtil"/>
+		 </bean>
+
+		 <bean id="atributoDao"
+		 		class="com.fia.igf.app.datos.AtributoDAO">
 		 		<constructor-arg ref="hibernateUtil"/>
 		 </bean>
 
@@ -59,6 +65,12 @@
 
 		 <bean id="ctrlTipoAtributo"
 		 		class="com.fia.igf.app.negocio.CtrlTipoAtributo">
+		 		<constructor-arg ref="tipoAtributoDao"/>
+		 </bean>
+
+		 <bean id="ctrlAtributo"
+		 		class="com.fia.igf.app.negocio.CtrlAtributo">
+		 		<constructor-arg ref="atributoDao"/>
 		 		<constructor-arg ref="tipoAtributoDao"/>
 		 </bean>
 
