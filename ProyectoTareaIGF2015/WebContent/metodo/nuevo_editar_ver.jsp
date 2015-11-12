@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listado de Metodos</title>
+<title>Listado de Tipos de Métodos</title>
 <%@include file="../css_js_incluidos.jsp" %>
 </head>
 <body>
@@ -27,13 +27,20 @@
     ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
     CtrlMetodo ctrlMetodo = (CtrlMetodo)ac.getBean("ctrlMetodo");
 	String operacion=request.getParameter("operacion");
-	String id=(request.getParameter("id") != null) ? request.getParameter("id") : "" ;
-	String descripcion="";
-	String fechaIngreso="";
-	String readonly="";
-	String idReadonly="";
-	boolean esOperacionEditar=false;
-	boolean esOperacionVer=false;
+	String idMetodo = (request.getParameter("idMetodo") != null) ? request.getParameter("idMetodo") : "" ;
+	String idClase = (request.getParameter("idClase") != null) ? request.getParameter("idClase") : "" ;
+	String idTipoMetodo=(request.getParameter("idTipoMetodo") != null) ? request.getParameter("idTipoMetodo") : "" ;
+	String descripcion = "";
+	String tipoRetorno = "";
+	String usuario = "";
+	String fechaIngreso = "";
+	String activo = "";
+	String parametros = "";
+	
+	String readonly = "";
+	String idReadonly = "";
+	boolean esOperacionEditar = false;
+	boolean esOperacionVer = false;
 
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     if(operacion != null){
@@ -41,8 +48,9 @@
         esOperacionVer=operacion.equalsIgnoreCase("ver");
     }
 
-	if((esOperacionEditar || esOperacionVer) && id!=""){
-		Metodo metodo = ctrlMetodo.obtenerPorId(id);
+	if((esOperacionEditar || esOperacionVer)  && idMetodo!="" && idClase!="" && idTipoMetodo!=""){
+		//System.out.println(idMetodo+"\n"+idClase+"\n"+idTipoMetodo+"\n");
+		Metodo metodo = ctrlMetodo.obtenerPorId(idMetodo);
 		descripcion=metodo.getdMetodo();
 		try{
 			fechaIngreso=formatter.format(metodo.getfIngreso());
@@ -65,7 +73,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                     <!-- Aqui tiene que ir el contenido -->
-                        <h1> Métodos</h1>
+                        <h1>Tipos de Métodos</h1>
                         <div class="pull-right"><a href="<%=context_path %>/metodo/lista.jsp">
                         <button class="btn btn-primary">Regresar a Listado</button></a></div>
                         <form class="form-horizontal" action="<%=context_path %>/metodo/operaciones.jsp" method="post">
@@ -77,25 +85,63 @@
 
                         <!-- Text input-->
                         <div class="form-group">
-                          <label class="col-md-4 control-label" for="textinput">Código Método:</label>  
+                          <label class="col-md-4 control-label" for="textinput">Código del método:</label>  
                           <div class="col-md-4">
-                          <input id="cMetodo" name="cMetodo" placeholder="ej: AM001" class="form-control input-md" type="text"
-                          value="<%=cMetodo %>" <%=readonly %> <%=idReadonly %>>
+                          <input id="idMetodo" name="idMetodo" placeholder="Digite un nuevo codigo del metodo" class="form-control input-md" type="text"
+                          value="<%=idMetodo %>" <%=readonly %> <%=idReadonly %>>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
+                        
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="textinput">Código de clase:</label>  
+                          <div class="col-md-4">
+                          <input id="idClase" name="idClase" placeholder="Digite un codigo de clase existente" class="form-control input-md" type="text"
+                          value="<%=idClase %>" <%=readonly %> <%=idReadonly %>>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
+                        
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="textinput">Código de tipo de método:</label>  
+                          <div class="col-md-4">
+                          <input id="idClase" name="idClase" placeholder="Digite un codigo de tipo de método existente" class="form-control input-md" type="text"
+                          value="<%=idTipoMetodo %>" <%=readonly %> <%=idReadonly %>>
                           <span class="help-block"></span>  
                           </div>
                         </div>
 
                         <!-- Text input-->
                         <div class="form-group">
-                          <label class="col-md-4 control-label" for="textinput">Código clase:</label>  
+                          <label class="col-md-4 control-label" for="textinput">Descripción:</label>  
                           <div class="col-md-4">
-                          <input id="cClase" name="cClase" placeholder="escriba su descripción"
-                           class="form-control input-md" type="text" value="<%=cClase %>" <%=readonly %>>
+                          <input id="descripcion" name="descripcion" placeholder="Escriba su descripción"
+                           class="form-control input-md" type="text" value="<%=descripcion %>" <%=readonly %>>
                           <span class="help-block"></span>  
                           </div>
                         </div>
                         
-// public boolean crearMetodo( TipoMetodo ctipoMetodo, String dMetodo, String dtipoRetorno, String usuario, Date fechaIngreso, Integer activo, Integer parametros ){
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="textinput">Tipo de retorno:</label>  
+                          <div class="col-md-4">
+                          <input id="tipoRetorno" name="tipoRetorno" placeholder="Escriba el tipo de retorno"
+                           class="form-control input-md" type="text" value="<%=tipoRetorno %>" <%=readonly %>>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
+						
+						<!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="textinput">Usuario:</label>  
+                          <div class="col-md-4">
+                          <input id="usuario" name="usuario" placeholder="Escriba su usuario"
+                           class="form-control input-md" type="text" value="<%=usuario %>" <%=readonly %>>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
 
                         <!-- Text input-->
                         <div class="form-group">
@@ -107,6 +153,28 @@
                           <span class="help-block"></span>  
                           </div>
                         </div>
+                        
+                        
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="textinput">Activo:</label>  
+                          <div class="col-md-4">
+                          <input id="activo" name="activo" placeholder="Escriba un número para activo"
+                           class="form-control input-md" type="text" value="<%=activo %>" <%=readonly %>>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
+                        
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="textinput">Parámetros:</label>  
+                          <div class="col-md-4">
+                          <input id="parametros" name="parametros" placeholder="Escriba la cantidad de parámetros"
+                           class="form-control input-md" type="text" value="<%=parametros %>" <%=readonly %>>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
+                        
 
                         <!-- Button -->
 

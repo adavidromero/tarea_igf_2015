@@ -14,7 +14,9 @@
     String operacion = request.getParameter("operacion");
     String uriLista="/metodo/lista.jsp";
     String msg="";
-	String id=(request.getParameter("id") != null) ? request.getParameter("id") : "" ;
+	String idMetodo = (request.getParameter("idMetodo") != null) ? request.getParameter("idMetodo") : "" ;
+	String idClase = (request.getParameter("idClase") != null) ? request.getParameter("idClase") : "" ;
+	String idTipoMetodo=(request.getParameter("idTipoMetodo") != null) ? request.getParameter("idTipoMetodo") : "" ;
 
 	boolean esOperacionCrear=false;
 	boolean esOperacionEditar=false;
@@ -30,13 +32,13 @@
         esOperacionEliminar=operacion.equalsIgnoreCase("eliminar");
     }
 
-    if((esOperacionCrear || esOperacionEditar || esOperacionEliminar) && id!=""){
+    if((esOperacionCrear || esOperacionEditar || esOperacionEliminar) && idMetodo!="" && idClase!="" && idTipoMetodo!=""){
     	ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
     	CtrlMetodo ctrlMetodo = (CtrlMetodo)ac.getBean("ctrlMetodo");
     	Metodo metodo = new Metodo();
 
     	if(esOperacionEliminar){
-    		metodoEliminado = ctrlMetodo.borraMetodo(id);
+    		metodoEliminado = ctrlMetodo.borraMetodo(idMetodo);
     		if(metodoEliminado==true){
     			msg="Tipo de método eliminado";
     		}else{
@@ -57,7 +59,7 @@
 
     	if(esOperacionCrear){
 //                  public boolean crearMetodo(Integer cMetodo, Clase cClase, TipoMetodo ctipoMetodo, String dMetodo, String dtipoRetorno, String usuario, Date fechaIngreso, Integer activo, Integer parametros ){
-    		metodoCreado=ctrlMetodo.crearMetodo(Integer.parseInt(id.trim()), descripcion, fechaIngreso);
+    		metodoCreado=ctrlMetodo.crearMetodo(Integer.parseInt(idMetodo.trim()), descripcion, fechaIngreso);
 
     		if(metodoCreado){
     			msg="Tipo de método creado";
@@ -67,7 +69,7 @@
     	}
     	
     	if(esOperacionEditar){
-    		metodo=ctrlMetodo.obtenerPorId(id);
+    		metodo=ctrlMetodo.obtenerPorId(idMetodo);
     		metodo.setdMetodo(descripcion);
     		
     		metodo.setfIngreso(fechaIngreso);

@@ -86,8 +86,17 @@ public class MetodoDAO implements GenericDAO<Metodo, String>{
 	@Override
 	public Metodo obtenerPorId(Class<Metodo> clazz, String id) {
 		// TODO Auto-generated method stub
+		Metodo metodo = null;
 		iniciaOperacion();
-		Metodo metodo = (Metodo)sesion.get(clazz, id);
+		try {
+			//metodo = (Metodo)sesion.get
+			metodo = (Metodo)sesion.get(clazz, id);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Ocurrio un error...");
+		}
+		
+		
 		sesion.close();
 		return metodo;
 	}
