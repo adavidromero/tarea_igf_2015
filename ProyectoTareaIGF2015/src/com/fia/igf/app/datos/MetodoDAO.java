@@ -76,7 +76,7 @@ public class MetodoDAO implements GenericDAO<Metodo, String>{
 		// TODO Auto-generated method stub
 		iniciaOperacion();
 		//Revisar bien esta sentencia
-		Criteria criteria = sesion.createCriteria(Aplicativo.class)
+		Criteria criteria = sesion.createCriteria(Metodo.class)
 				.addOrder(Order.asc("cMetodo"));
 		List<Metodo> metodo =(List<Metodo>)criteria.list();
 		sesion.close();

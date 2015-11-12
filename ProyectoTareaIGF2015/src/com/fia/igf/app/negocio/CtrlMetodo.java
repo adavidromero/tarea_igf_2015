@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.fia.igf.app.datos.MetodoDAO;
-import com.fia.igf.app.dominio.Metodo;
+import com.fia.igf.app.dominio.*;
+
 
 @Transactional
 @Service
@@ -15,7 +16,7 @@ public class CtrlMetodo {
 	private MetodoDAO metodoDAO;
 
 	@Autowired
-	private CtrlMetodo() {
+	public CtrlMetodo() {
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -24,10 +25,10 @@ public class CtrlMetodo {
 		// TODO Auto-generated constructor stub
 		this.metodoDAO = metodoDAO;
 	}
-	
-	public boolean crearMetodo(Integer id, String descripcion, Date fechaIngreso){
-		if(metodoDAO.obtenerPorId(Metodo.class, id.toString())==null){
-			Metodo metodo = new Metodo(id,descripcion,fechaIngreso);
+
+	public boolean crearMetodo(Integer cMetodo, Clase cClase, TipoMetodo ctipoMetodo, String dMetodo, String dtipoRetorno, String usuario, Date fechaIngreso, Integer activo, Integer parametros ){
+		if(metodoDAO.obtenerPorId(Metodo.class, cMetodo.toString())==null){
+			Metodo metodo = new Metodo();
 			metodoDAO.guardaActualiza(metodo);
 				return true ;
 		}
@@ -35,6 +36,7 @@ public class CtrlMetodo {
 				return false ;
 		}
 	}
+	
 	
 	public boolean borraMetodo(String id){
 		if(metodoDAO.obtenerPorId(Metodo.class, id)!=null){
@@ -47,7 +49,7 @@ public class CtrlMetodo {
 		}
 	}
 	
-	public List<Metodo> obtenerTodosMetodo(){
+	public List<Metodo> obtenerTodosMetodos(){
 		return metodoDAO.obtenerTodos();
 	}
 
