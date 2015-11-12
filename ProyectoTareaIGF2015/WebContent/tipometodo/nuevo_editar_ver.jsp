@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listado de Tipos de Métodos</title>
+<title>Listado Tipo de Metodos</title>
 <%@include file="../css_js_incluidos.jsp" %>
 </head>
 <body>
@@ -65,7 +65,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                     <!-- Aqui tiene que ir el contenido -->
-                        <h1>Tipos de Métodos</h1>
+                        <h1>Tipo de Métodos</h1>
                         <div class="pull-right"><a href="<%=context_path %>/tipometodo/lista.jsp">
                         <button class="btn btn-primary">Regresar a Listado</button></a></div>
                         <form class="form-horizontal" action="<%=context_path %>/tipometodo/operaciones.jsp" method="post">
