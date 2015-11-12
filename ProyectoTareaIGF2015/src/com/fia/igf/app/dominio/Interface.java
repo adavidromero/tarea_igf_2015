@@ -23,7 +23,6 @@ public class Interface implements Serializable{
 
 	@Id
 	@Basic(optional = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "c_interface")
 	public Integer cInterface;
 	
@@ -57,6 +56,15 @@ public class Interface implements Serializable{
     public Interface(){
     	
     }
+
+	public Interface(Integer cInterface, String dInterface, String cUsuario,
+			Date fechaIngreso) {
+		this.cInterface=cInterface;
+		this.dInterface=dInterface;
+		this.cUsuario=cUsuario;
+		this.fIngreso=fechaIngreso;
+
+	}
 
 	public String getdInterface() {
 		return dInterface;

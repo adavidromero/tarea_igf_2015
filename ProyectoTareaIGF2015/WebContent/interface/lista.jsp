@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listado de Aplicativos</title>
+<title>Listado de Tipos Atributos</title>
 <%@include file="../css_js_incluidos.jsp" %>
 </head>
 <body>
@@ -27,14 +27,15 @@
                 <div class="row">
                     <div class="col-lg-12">
                     <!-- Aqui tiene que ir el contenido -->
-                        <h1>Aplicativos </h1>
-                        <div class="pull-right"><a href="<%=context_path %>/atributo/nuevo_editar_ver.jsp?operacion=crear">
+                        <h1>Interface </h1>
+                        <div class="pull-right"><a href="<%=context_path %>/interface/nuevo_editar_ver.jsp?operacion=crear">
                         <button class="btn btn-primary">Nuevo Registro</button></a></div>
                         <table class="table">
                         <thead>
                         	<tr>
                         	<th>Codigo</th>
                         	<th>Descripcion</th>
+                        	<th>Usuario</th>
                         	<th>Fecha Ingreso</th>
                         	<th>Operaciones</th>
                         	</tr>
@@ -43,34 +44,35 @@
                         <%
     					ApplicationContext ac = WebApplicationContextUtils.
     						getRequiredWebApplicationContext(getServletContext());
-    					CtrlAtributo ctrlAtributo = (CtrlAtributo)ac.getBean("ctrlAtributo");
+    					CtrlInterface ctrlInterface = (CtrlInterface)ac.getBean("ctrlInterface");
 
-    					List atributos = ctrlAtributo.obtenerTodosAtributos();
+    					List interfaces = ctrlInterface.obtenerTodosInterfaces();
 						SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
 						String strFechaIngreso="";
-						int length=atributos.size();
+						int length=interfaces.size();
     					for(int i=0;i<length;i++){
-    						Atributo atributo=(Atributo)atributos.get(i);
+    						Interface interfaz=(Interface)interfaces.get(i);
     						try{
-    							strFechaIngreso=formatter.format(atributo.getfIngreso());
+    							strFechaIngreso=formatter.format(interfaz.getfIngreso());
     						}catch(Exception e){
     							System.out.println(e.getStackTrace());
     						}
                         %>
                         	<tr>
-                        	<td><%=atributo.getcAtributo() %></td>
-                        	<td><%=atributo.getdAtributo() %></td>
+                        	<td><%=interfaz.getcInterface() %></td>
+                        	<td><%=interfaz.getdInterface() %></td>
+                        	<td><%=interfaz.getcUsuario() %></td>
                         	<td><%=strFechaIngreso %></td>
                         	<td>
-                        	<a href="<%=context_path %>/atributo/nuevo_editar_ver.jsp?operacion=ver&id=<%=atributo.getcAtributo() %>">
+                        	<a href="<%=context_path %>/interface/nuevo_editar_ver.jsp?operacion=ver&id=<%=interfaz.getcInterface() %>">
                         	<span class="glyphicon glyphicon-eye-open"></span></a>
-                        	<a href="<%=context_path %>/atributo/nuevo_editar_ver.jsp?operacion=editar&id=<%=atributo.getcAtributo() %>">
+                        	<a href="<%=context_path %>/interface/nuevo_editar_ver.jsp?operacion=editar&id=<%=interfaz.getcInterface() %>">
                         	<span class="glyphicon glyphicon-pencil"></span></a>
-							<a class="eliminar" data-codigo="<%=atributo.getcTipoAtributo() %>" 
-                        		data-descripcion=<%=atributo.getdTipoAtributo() %>
-                        		href="#">
+							<a class="eliminar" data-codigo="<%=interfaz.getcInterface() %>" 
+                        		data-descripcion=<%=interfaz.getdInterface() %>
+                        	href="#">
                         	<span class="glyphicon glyphicon-remove"></span></a>
-                            </td>
+                        	</td>
                         	</tr>
                         	<%
     					}
@@ -88,7 +90,7 @@
                                 <h4 class="modal-title">Confirmar Eliminación</h4>
                               </div>
                               <div class="modal-body">
-                                <p>Confirmar Eliminación de TipoAtributo 
+                                <p>Confirmar Eliminación de Interface 
 								<strong id="elim_descripcion"></strong>
 								con el codigo:
                                 <strong id="elim_codigo"></strong></p>

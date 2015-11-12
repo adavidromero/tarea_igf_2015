@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listado de Aplicativos</title>
+<title>Operaciones para Interfaces</title>
 <%@include file="../css_js_incluidos.jsp" %>
 </head>
 <body>
@@ -25,10 +25,11 @@
 
 
     ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-    CtrlAtributo ctrlAtributo = (CtrlAtributo)ac.getBean("ctrlAtributo");
+    CtrlInterface ctrlInterface = (CtrlInterface)ac.getBean("ctrlInterface");
 	String operacion=request.getParameter("operacion");
 	String id=(request.getParameter("id") != null) ? request.getParameter("id") : "" ;
 	String descripcion="";
+	String usuario="";
 	String fechaIngreso="";
 	String readonly="";
 	String idReadonly="";
@@ -42,10 +43,11 @@
     }
 
 	if((esOperacionEditar || esOperacionVer) && id!=""){
-		Atributo atributo = ctrlAtributo.obtenerPorId(Integer.parseInt(id));
-		descripcion=atributo.getdAtributo();
+		Interface interfaz = ctrlInterface.obtenerPorId(Integer.parseInt(id));
+		usuario=interfaz.getcUsuario();
+		descripcion=interfaz.getdInterface();
 		try{
-			fechaIngreso=formatter.format(atributo.getfIngreso());
+			fechaIngreso=formatter.format(interfaz.getfIngreso());
 		}catch(Exception e){
 			System.out.println(e.getStackTrace());
 		}
@@ -66,9 +68,9 @@
                     <div class="col-lg-12">
                     <!-- Aqui tiene que ir el contenido -->
                         <h1>Aplicativos</h1>
-                        <div class="pull-right"><a href="<%=context_path %>/aplicativo/lista.jsp">
+                        <div class="pull-right"><a href="<%=context_path %>/interface/lista.jsp">
                         <button class="btn btn-primary">Regresar a Listado</button></a></div>
-                        <form class="form-horizontal" action="<%=context_path %>/aplicativo/operaciones.jsp" method="post">
+                        <form class="form-horizontal" action="<%=context_path %>/interface/operaciones.jsp" method="post">
                         <input type="text" id="operacion" name="operacion" value="<%=operacion %>" class="hidden">
                         <fieldset>
 
@@ -91,6 +93,15 @@
                           <div class="col-md-4">
                           <input id="descripcion" name="descripcion" placeholder="escriba su descripción"
                            class="form-control input-md" type="text" value="<%=descripcion %>" <%=readonly %>>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="textinput">Usuario:</label>  
+                          <div class="col-md-4">
+                          <input id="usuario" name="usuario" placeholder="escriba su descripción"
+                           class="form-control input-md" type="text" value="<%=usuario %>" <%=readonly %>>
                           <span class="help-block"></span>  
                           </div>
                         </div>
