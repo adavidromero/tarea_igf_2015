@@ -75,12 +75,6 @@ public class Metodo implements Serializable{
 		
 	}
 
-	//(String cAplicativo, String dAplicativo, Date fIngreso) 
-		public Metodo(Integer cMetodo, String dMetodo, Date fIngreso){
-			this.cMetodo = cMetodo;
-			this.dMetodo = dMetodo;
-			this.fIngreso = fIngreso;
-		}
 
 	public String getdMetodo() {
 		return dMetodo;

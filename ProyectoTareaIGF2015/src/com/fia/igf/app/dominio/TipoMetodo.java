@@ -14,8 +14,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 @Entity
 @Table(name="tb_tipo_metodo")
 public class TipoMetodo implements Serializable{
@@ -40,18 +38,9 @@ public class TipoMetodo implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="cTipoMetodo")
 	private List<Metodo> metodos;
     
-	public TipoMetodo(){
-	    	
-	    }
-
-	// constructor
-	public TipoMetodo(String cTipoMetodo, String dTipoMetodo, Date fIngreso){
-		this.cTipoMetodo = cTipoMetodo;
-		this.dTipoMetodo = dTipoMetodo;
-		this.fIngreso = fIngreso;
-	}
-
-    
+    public TipoMetodo(){
+    	
+    }
 
 	public String getcTipoMetodo() {
 		return cTipoMetodo;
