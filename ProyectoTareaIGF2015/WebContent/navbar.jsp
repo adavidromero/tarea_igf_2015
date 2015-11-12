@@ -14,7 +14,7 @@
                     <a href="<%=context_path %>/tipoClase/lista.jsp">TB_tipo_clase</a>
                 </li>
                 <li>
-                    <a href="<%=context_path %>/AS_inteface.html">AS_clase_interface</a>
+                    <a href="<%=context_path %>/claseinterface/lista.jsp">AS_clase_interface</a>
                 </li>
                 <li>
                     <a href="<%=context_path %>/clase/lista.jsp">AS_clase</a>

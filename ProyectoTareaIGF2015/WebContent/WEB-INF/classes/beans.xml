@@ -60,6 +60,11 @@
 		 		class="com.fia.igf.app.datos.InterfaceDAO">
 		 		<constructor-arg ref="hibernateUtil"/>
 		 </bean>
+		 
+		 <bean id="ClaseInterfaceDao"
+		 		class="com.fia.igf.app.datos.ClaseInterfaceDAO">
+		 		<constructor-arg ref="hibernateUtil"/>
+		 </bean>
 
 		 <bean id="ctrlClase"
 		 		class="com.fia.igf.app.negocio.CtrlClase">
@@ -104,6 +109,12 @@
 		 <bean id="ctrlInterface"
 		 		class="com.fia.igf.app.negocio.CtrlInterface">
 		 		<constructor-arg ref="interfaceDao"/>
+		 </bean>
+		 
+		 <bean id="ctrlClaseInterface"
+		 		class="com.fia.igf.app.negocio.CtrlClaseInterface">
+		 		<constructor-arg ref="ClaseDao"/>
+		 		<constructor-arg ref="InterfaceDao"/>
 		 </bean>
 
 		 <bean id="listHelper"
