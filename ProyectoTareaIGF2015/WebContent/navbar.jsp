@@ -11,13 +11,13 @@
                     <a href="<%=context_path %>/aplicativo/lista.jsp">TB_aplicativo</a> 
                 </li>
                 <li>
-                    <a href="<%=context_path %>/clase/lista.jsp">TB_tipo_clase</a>
+                    <a href="<%=context_path %>/tipoClase/lista.jsp">TB_tipo_clase</a>
                 </li>
                 <li>
                     <a href="<%=context_path %>/AS_inteface.html">AS_clase_interface</a>
                 </li>
                 <li>
-                    <a href="<%=context_path %>/AS_clase.html">AS_clase</a>
+                    <a href="<%=context_path %>/clase/lista.jsp">AS_clase</a>
                 </li>
                 <li>
                     <a href="<%=context_path %>/AS_inteface.html">AS_inteface</a>
@@ -39,10 +39,10 @@
                     <a href="<%=context_path %>/AS_observacion.html">AS_observacion</a>
                 </li>
                 <li>
-                    <a href="<%=context_path %>/TB_tipo_atributo.html">TB_tipo_atributo</a>
+                    <a href="<%=context_path %>/tipoAtributo/lista.jsp">TB_tipo_atributo</a>
                 </li>
                 <li>
-                    <a href="<%=context_path %>/AS_atributo.html">AS_atributo</a>
+                    <a href="<%=context_path %>/atributo/lista.jsp">AS_atributo</a>
                 </li>
             </ul>
         </div>
