@@ -41,10 +41,12 @@
                         </thead>
                         <tbody>
                         <%
+                        System.out.println("a empezar el error");
     					ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+    					System.out.println("continuando");
     					CtrlClaseInterface ctrlClaseInterface = (CtrlClaseInterface)ac.getBean("ctrlClaseInterface");
-
     					List claseinterfaces = ctrlClaseInterface.obtenerTodosClaseInterfaces();
+    					System.out.println(claseinterfaces.isEmpty());
 						int length=claseinterfaces.size();
     					for(int i=0;i<length;i++){
     						ClaseInterface claseInterface=(ClaseInterface) claseinterfaces.get(i);

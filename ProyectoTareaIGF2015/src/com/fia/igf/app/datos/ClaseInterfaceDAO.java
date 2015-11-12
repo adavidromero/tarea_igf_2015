@@ -9,11 +9,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.fia.igf.app.dominio.Clase;
 import com.fia.igf.app.dominio.ClaseInterface;
 import com.fia.igf.utilidades.datos.HibernateUtil;
-
+@Repository
 public class ClaseInterfaceDAO implements GenericDAO<ClaseInterface,Integer>{
 
 	@Autowired
@@ -73,8 +74,7 @@ public class ClaseInterfaceDAO implements GenericDAO<ClaseInterface,Integer>{
 	@Override
 	public List<ClaseInterface> obtenerTodos() {
 		iniciaOperacion();
-		Criteria criteria = sesion.createCriteria(ClaseInterface.class)
-				.addOrder(Order.asc("id"));
+		Criteria criteria = sesion.createCriteria(ClaseInterface.class).addOrder(Order.asc("id"));
 		List<ClaseInterface> clases =(List<ClaseInterface>)criteria.list();
 		sesion.close();
 		return clases;

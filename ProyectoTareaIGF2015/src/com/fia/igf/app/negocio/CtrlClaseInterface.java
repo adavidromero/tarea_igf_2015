@@ -31,7 +31,8 @@ public class CtrlClaseInterface {
 	@Autowired 
 	private InterfaceDAO interfaceDao;
 
-	public CtrlClaseInterface(ClaseDAO ClaseDao, InterfaceDAO interfaceDao) {
+	public CtrlClaseInterface(ClaseInterfaceDAO claseInterfaceDao, ClaseDAO ClaseDao, InterfaceDAO interfaceDao) {
+		this.claseInterfaceDao = claseInterfaceDao;
 		this.ClaseDao = ClaseDao;
 		this.interfaceDao = interfaceDao;
 	}

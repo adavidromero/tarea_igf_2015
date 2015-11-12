@@ -61,7 +61,7 @@
 		 		<constructor-arg ref="hibernateUtil"/>
 		 </bean>
 		 
-		 <bean id="ClaseInterfaceDao"
+		 <bean id="claseInterfaceDao"
 		 		class="com.fia.igf.app.datos.ClaseInterfaceDAO">
 		 		<constructor-arg ref="hibernateUtil"/>
 		 </bean>
@@ -113,8 +113,10 @@
 		 
 		 <bean id="ctrlClaseInterface"
 		 		class="com.fia.igf.app.negocio.CtrlClaseInterface">
+		 		<constructor-arg ref="claseInterfaceDao"/>
 		 		<constructor-arg ref="claseDao"/>
 		 		<constructor-arg ref="interfaceDao"/>
+		 		
 		 </bean>
 
 		 <bean id="listHelper"
