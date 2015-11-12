@@ -41,8 +41,7 @@
                         </thead>
                         <tbody>
                         <%
-    					ApplicationContext ac = WebApplicationContextUtils.
-    						getRequiredWebApplicationContext(getServletContext());
+    					ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
     					CtrlAplicativo ctrlAplicativo = (CtrlAplicativo)ac.getBean("ctrlAplicativo");
 
     					List aplicativos = ctrlAplicativo.obtenerTodosAplicativos();

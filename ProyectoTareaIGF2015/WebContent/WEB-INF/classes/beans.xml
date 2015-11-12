@@ -113,8 +113,8 @@
 		 
 		 <bean id="ctrlClaseInterface"
 		 		class="com.fia.igf.app.negocio.CtrlClaseInterface">
-		 		<constructor-arg ref="ClaseDao"/>
-		 		<constructor-arg ref="InterfaceDao"/>
+		 		<constructor-arg ref="claseDao"/>
+		 		<constructor-arg ref="interfaceDao"/>
 		 </bean>
 
 		 <bean id="listHelper"
