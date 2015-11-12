@@ -162,7 +162,7 @@ public class ListHelper {
 			listHtml+="<option value=\"0\">Seleccionar...</option>";
 			for(int i=0; i<length ; i++){
 				Clase clase =clases.get(i);
-				if(clase.getcClase().equalsIgnoreCase(claseInterface.getcClase().getcClase())){
+				if(clase.getcClase().toString().equalsIgnoreCase(claseInterface.getcClase().getcClase().toString())){
 					listHtml+="<option value=\""+clase.getcClase()+"\" selected=\"selected\">"+
 							clase.getdClase()+"</option>";
 				}else{
@@ -194,7 +194,7 @@ public class ListHelper {
 			listHtml+="<option value=\"0\">Seleccionar...</option>";
 			for(int i=0; i<length ; i++){
 				Interface iinterface =interfaces.get(i);
-				if(iinterface.getcInterface().equalsIgnoreCase(claseInterface.getcInterface().getcInterface())){
+				if(iinterface.getcInterface().toString().equalsIgnoreCase(claseInterface.getcInterface().getcInterface().toString())){
 					listHtml+="<option value=\""+iinterface.getcInterface()+"\" selected=\"selected\">"+
 							iinterface.getdInterface()+"</option>";
 				}else{

@@ -85,7 +85,7 @@
                                 <h4 class="modal-title">Confirmar Eliminación</h4>
                               </div>
                               <div class="modal-body">
-                                <p>Confirmar Eliminación de Aplicativo 
+                                <p>Confirmar Eliminación de Clase Interface
 								<strong id="elim_descripcion"></strong>
 								con el codigo:
                                 <strong id="elim_codigo"></strong></p>
