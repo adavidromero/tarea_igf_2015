@@ -32,7 +32,7 @@ public class Metodo implements Serializable{
     @Column(name = "c_metodo")
     private Integer cMetodo;
 	
-	@Id
+	
 	@ManyToOne 
 	@JoinColumn(name = "c_clase", referencedColumnName = "c_clase")
 	private Clase cClase;
