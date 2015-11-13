@@ -23,7 +23,7 @@
                     <a href="<%=context_path %>/interface/lista.jsp">AS_inteface</a>
                 </li>
                 <li>
-                    <a href="<%=context_path %>/AS_interface_implementacion.html">AS_interface_implementacion</a>
+                    <a href="<%=context_path %>/interfaceimplementa/lista.jsp">AS_interface_implementacion</a>
                 </li>
                 <li>
                     <a href="<%=context_path %>/AS_parametro.html">AS_parametro</a>

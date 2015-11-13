@@ -27,6 +27,7 @@ public class InterfaceImplementa implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "c_interface_hijo", referencedColumnName = "c_interface")
 	private Interface interfaceHijo;
+	
 	@ManyToOne
 	@JoinColumn(name = "c_interface_padre", referencedColumnName = "c_interface")
 	private Interface interfacePadre;
