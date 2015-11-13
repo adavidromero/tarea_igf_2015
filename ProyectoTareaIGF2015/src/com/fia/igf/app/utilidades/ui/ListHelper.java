@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fia.igf.app.datos.AplicativoDAO;
 import com.fia.igf.app.datos.ClaseDAO;
+import com.fia.igf.app.datos.InterfaceDAO;
 import com.fia.igf.app.datos.MetodoDAO;
 import com.fia.igf.app.datos.TipoAtributoDAO;
 import com.fia.igf.app.datos.TipoClaseDAO;
@@ -16,6 +17,8 @@ import com.fia.igf.app.dominio.Atributo;
 import com.fia.igf.app.dominio.Clase;
 import com.fia.igf.app.dominio.ClaseInterface;
 import com.fia.igf.app.dominio.Interface;
+import com.fia.igf.app.dominio.Metodo;
+import com.fia.igf.app.dominio.TipoAtributo;
 import com.fia.igf.app.dominio.TipoClase;
 
 @Transactional
@@ -39,6 +42,8 @@ public class ListHelper {
 
 	@Autowired 
 	private InterfaceDAO interfaceDao;
+	
+	
 
 	@Autowired
 	public ListHelper(ClaseDAO claseDao,
@@ -267,6 +272,70 @@ public class ListHelper {
 				TipoAtributo tipoAtributo=tiposAtributos.get(i);
 				listHtml+="<option value=\""+tipoAtributo.getcTipoAtributo()+"\">"+
 				tipoAtributo.getdTipoAtributo()+"</option>";
+			}
+			listHtml+="</select>";
+		}
+		return listHtml;
+	}
+	
+	public String generaListaClase(ClaseInterface claseInterface,String nameId, String readonly){
+				String listHtml="";
+				List <Clase> clases = claseDao.obtenerTodos();
+				int length = clases.size();
+				if(claseInterface!=null ){
+					listHtml+="<select id=\""+nameId+"\" name=\""+nameId+"\" class=\"form-control\" "+readonly+">";
+					listHtml+="<option value=\"0\">Seleccionar...</option>";
+					for(int i=0; i<length ; i++){
+						Clase clase =clases.get(i);
+						if(clase.getcClase().toString().equalsIgnoreCase(claseInterface.getcClase().getcClase().toString())){
+							listHtml+="<option value=\""+clase.getcClase()+"\" selected=\"selected\">"+
+									clase.getdClase()+"</option>";
+						}else{
+							listHtml+="<option value=\""+clase.getcClase()+"\">"+
+									clase.getdClase()+"</option>";
+						}
+					}
+					listHtml+="</select>";
+					
+				}else{
+					listHtml+="<select id=\""+nameId+"\" name=\""+nameId+"\" class=\"form-control\" "+readonly+">";
+					listHtml+="<option value=\"0\">Seleccionar...</option>";
+					for(int i=0; i<length ; i++){
+						Clase clase=clases.get(i);
+						listHtml+="<option value=\""+clase.getcClase()+"\">"+
+						clase.getdClase()+"</option>";
+					}
+					listHtml+="</select>";
+				}
+				return listHtml;
+			}
+			
+	public String generaListaInterface(ClaseInterface claseInterface,String nameId, String readonly){
+		String listHtml="";
+		List <Interface> interfaces = interfaceDao.obtenerTodos();
+		int length = interfaces.size();
+		if(claseInterface!=null ){
+			listHtml+="<select id=\""+nameId+"\" name=\""+nameId+"\" class=\"form-control\" "+readonly+">";
+			listHtml+="<option value=\"0\">Seleccionar...</option>";
+			for(int i=0; i<length ; i++){
+				Interface iinterface =interfaces.get(i);
+				if(iinterface.getcInterface().toString().equalsIgnoreCase(claseInterface.getcInterface().getcInterface().toString())){
+					listHtml+="<option value=\""+iinterface.getcInterface()+"\" selected=\"selected\">"+
+							iinterface.getdInterface()+"</option>";
+				}else{
+					listHtml+="<option value=\""+iinterface.getcInterface()+"\">"+
+							iinterface.getdInterface()+"</option>";
+				}
+			}
+			listHtml+="</select>";
+			
+		}else{
+			listHtml+="<select id=\""+nameId+"\" name=\""+nameId+"\" class=\"form-control\" "+readonly+">";
+			listHtml+="<option value=\"0\">Seleccionar...</option>";
+			for(int i=0; i<length ; i++){
+				Interface iinterface=interfaces.get(i);
+				listHtml+="<option value=\""+iinterface.getcInterface()+"\">"+
+				iinterface.getdInterface()+"</option>";
 			}
 			listHtml+="</select>";
 		}
