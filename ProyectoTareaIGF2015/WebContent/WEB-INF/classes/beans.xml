@@ -124,6 +124,7 @@
 		 		<constructor-arg ref="claseDao"/>
 		 		<constructor-arg ref="tipoClaseDao"/>
 		 		<constructor-arg ref="aplicativoDao"/>
+		 		<constructor-arg ref="interfaceDao"/>
 		 </bean>
 
 

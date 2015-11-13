@@ -29,7 +29,7 @@
     ListHelper listHelper = (ListHelper)ac.getBean("listHelper");
 	String operacion=request.getParameter("operacion");
 	String id=(request.getParameter("id") != null) ? request.getParameter("id") : "" ;
-	String Clase="";
+	String clase="";
 	String Interface="";
 	String readonly="";
 	String idReadonly="";
@@ -40,7 +40,7 @@
 
 	if((esOperacionEditar || esOperacionVer) && id!=""){
 		claseinterface = ctrlClaseInterface.obtenerPorId(Integer.parseInt(id));
-		Clase=claseinterface.getcClase().getdClase();
+		clase=claseinterface.getcClase().getdClase();
 		Interface=claseinterface.getcInterface().getdInterface();
 
 		if(esOperacionEditar){
@@ -86,7 +86,7 @@
                           </div>
                         </div>
                         
-                        <!-- Select Basic -->
+                        <!-- Select Basic --> 
                         <div class="form-group">
                           <label class="col-md-4 control-label" for="interface">Interface</label>
                           <div class="col-md-4">

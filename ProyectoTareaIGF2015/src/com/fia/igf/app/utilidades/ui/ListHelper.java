@@ -34,11 +34,13 @@ public class ListHelper {
 	@Autowired
 	public ListHelper(ClaseDAO claseDao,
 			TipoClaseDAO tipoClaseDao,
-			AplicativoDAO aplicativoDao
+			AplicativoDAO aplicativoDao,
+			InterfaceDAO interfaceDao
 			){
 		this.claseDao=claseDao;
 		this.tipoClaseDao=tipoClaseDao;
 		this.aplicativoDao=aplicativoDao;
+		this.interfaceDao=interfaceDao;
 	}
 	
 	
@@ -195,10 +197,10 @@ public class ListHelper {
 			for(int i=0; i<length ; i++){
 				Interface iinterface =interfaces.get(i);
 				if(iinterface.getcInterface().toString().equalsIgnoreCase(claseInterface.getcInterface().getcInterface().toString())){
-					listHtml+="<option value=\""+iinterface.getcInterface()+"\" selected=\"selected\">"+
+					listHtml+="<option value=\""+iinterface.getcInterface().toString()+"\" selected=\"selected\">"+
 							iinterface.getdInterface()+"</option>";
 				}else{
-					listHtml+="<option value=\""+iinterface.getcInterface()+"\">"+
+					listHtml+="<option value=\""+iinterface.getcInterface().toString()+"\">"+
 							iinterface.getdInterface()+"</option>";
 				}
 			}
@@ -209,7 +211,7 @@ public class ListHelper {
 			listHtml+="<option value=\"0\">Seleccionar...</option>";
 			for(int i=0; i<length ; i++){
 				Interface iinterface=interfaces.get(i);
-				listHtml+="<option value=\""+iinterface.getcInterface()+"\">"+
+				listHtml+="<option value=\""+iinterface.getcInterface().toString()+"\">"+
 				iinterface.getdInterface()+"</option>";
 			}
 			listHtml+="</select>";

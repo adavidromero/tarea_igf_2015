@@ -25,9 +25,9 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12"> 
                     <!-- Aqui tiene que ir el contenido -->
-                        <h1>Clases </h1>
+                        <h1>Clase Interfaces</h1>
                         <div class="pull-right"><a href="<%=context_path %>/claseinterface/nuevo_editar_ver.jsp?operacion=crear">
                         <button class="btn btn-primary">Nuevo Registro</button></a></div>
                         <table class="table">
@@ -41,9 +41,7 @@
                         </thead>
                         <tbody>
                         <%
-                        System.out.println("a empezar el error");
     					ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-    					System.out.println("continuando");
     					CtrlClaseInterface ctrlClaseInterface = (CtrlClaseInterface)ac.getBean("ctrlClaseInterface");
     					List claseinterfaces = ctrlClaseInterface.obtenerTodosClaseInterfaces();
     					System.out.println(claseinterfaces.isEmpty());
