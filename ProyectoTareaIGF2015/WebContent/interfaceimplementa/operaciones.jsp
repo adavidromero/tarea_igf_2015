@@ -12,51 +12,43 @@
     
     <%
     String operacion = request.getParameter("operacion");
-    String uriLista="/clase/lista.jsp";
+    String uriLista="/aplicativo/lista.jsp";
     String msg="";
 	String id=(request.getParameter("id") != null) ? request.getParameter("id") : "" ;
+
 	boolean esOperacionCrear=false;
 	boolean esOperacionEditar=false;
 	boolean esOperacionEliminar=false;
 
-    boolean claseCreada=false;
-    boolean claseEditada=false;
-    boolean claseEliminada=false;
+    boolean aplicativoCreado=false;
+    boolean aplicativoEditado=false;
+    boolean aplicativoEliminado=false;
 
     if(operacion != null){
-
-    	System.out.println("PING");
     	esOperacionCrear=operacion.equalsIgnoreCase("crear");
         esOperacionEditar=operacion.equalsIgnoreCase("editar");
         esOperacionEliminar=operacion.equalsIgnoreCase("eliminar");
     }
 
-    if((esOperacionCrear || esOperacionEditar || esOperacionEliminar)){
+    if((esOperacionCrear || esOperacionEditar || esOperacionEliminar) && id!=""){
     	ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-    	CtrlClase ctrlClase = (CtrlClase)ac.getBean("ctrlClase");
     	CtrlAplicativo ctrlAplicativo = (CtrlAplicativo)ac.getBean("ctrlAplicativo");
-    	CtrlTipoClase ctrlTipoClase = (CtrlTipoClase)ac.getBean("ctrlTipoClase");
-    	Clase clase = new Clase();
+    	Aplicativo aplicativo = new Aplicativo();
 
     	if(esOperacionEliminar){
-    		claseEliminada = ctrlClase.borraClase(Integer.parseInt(id));
-    		if(claseEliminada==true){
+    		aplicativoEliminado = ctrlAplicativo.borraAplicativo(id);
+    		if(aplicativoEliminado==true){
     			msg="Aplicativo Eliminado";
     		}else{
     			msg="Aplicativo No Eliminado";
     		}
     	}else{
 
-    	/* datos de la tabla a llenar */
   		String descripcion= request.getParameter("descripcion");
    		String strFechaIngreso = request.getParameter("fechaIngreso");
-   		String usuario = request.getParameter("usuario");
-   		String aplicativo = request.getParameter("aplicativo");
-   		String clasePadre = request.getParameter("clasePadre");
-   		String tipoClase = request.getParameter("tipoClase");
    		Date fechaIngreso= new Date();
 
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		try{
 			fechaIngreso = formatter.parse(strFechaIngreso);
 		}catch(ParseException e){
@@ -64,10 +56,9 @@
 		}
 
     	if(esOperacionCrear){
-    		System.out.println("llega a operacionCrear");
-    		claseCreada=ctrlClase.crearClase(Integer.parseInt(id),descripcion,usuario,fechaIngreso,
-    				aplicativo,clasePadre,tipoClase);
-    		if(claseCreada){
+    		aplicativoCreado=ctrlAplicativo.crearAplicativo(id, descripcion, fechaIngreso);
+
+    		if(aplicativoCreado){
     			msg="Aplicativo creado";
     		}else{
     			msg="Aplicativo no creado";
@@ -75,14 +66,10 @@
     	}
     	
     	if(esOperacionEditar){
-    		clase=ctrlClase.obtenerPorId(Integer.parseInt(id));
-    		clase.setdClase(descripcion);
-    		clase.setcUsuario(usuario);
-    		clase.setfIngreso(fechaIngreso);
-    		clase.setcAplicativo(ctrlAplicativo.obtenerPorId(aplicativo));
-    		clase.setClasePadre(ctrlClase.obtenerPorId(Integer.parseInt(clasePadre)));
-    		clase.setcTipoClase(ctrlTipoClase.obtenerPorId(tipoClase));
-    		ctrlClase.actualizar(clase);
+    		aplicativo=ctrlAplicativo.obtenerPorId(id);
+    		aplicativo.setdAplicativo(descripcion);
+    		aplicativo.setfIngreso(fechaIngreso);
+    		ctrlAplicativo.actualizar(aplicativo);
     		msg="Aplicativo modificado con exito!";
     	}
     		
@@ -105,6 +92,8 @@
 Esta pagina deberia de Realizar una operación y al final redireccionar
 <%
 	String redirectURL = request.getContextPath()+uriLista;
+//request.getScheme()+"//"+request.getServerName()+
+	//":"+request.getServerPort()+
 
 	//Luego de realizar la operación redireccionar al listado correspondiente
     response.sendRedirect(redirectURL);
