@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -73,11 +74,10 @@ public class MetodoDAO implements GenericDAO<Metodo, String>{
 
 	@Override
 	public List<Metodo> obtenerTodos() {
-		// TODO Auto-generated method stub
 		iniciaOperacion();
 		//Revisar bien esta sentencia
 		Criteria criteria = sesion.createCriteria(Metodo.class)
-				.addOrder(Order.asc("cMetodo"));
+				.addOrder(Order.asc("id"));
 		List<Metodo> metodo =(List<Metodo>)criteria.list();
 		sesion.close();
 		return metodo;
@@ -85,18 +85,24 @@ public class MetodoDAO implements GenericDAO<Metodo, String>{
 
 	@Override
 	public Metodo obtenerPorId(Class<Metodo> clazz, String id) {
-		// TODO Auto-generated method stub
 		Metodo metodo = null;
 		iniciaOperacion();
 		try {
-			//metodo = (Metodo)sesion.get
 			metodo = (Metodo)sesion.get(clazz, id);
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println("Ocurrio un error...");
 		}
-		
-		
+		sesion.close();
+		return metodo;
+	}
+	public Metodo obtenerPorIdCompuesto(String cClase, String cMetodo) {
+		iniciaOperacion();
+		String queryStr="from Metodo m where m.id.cMetodo=:cMetodo and "+
+						"m.id.cClase.cClase=:cClase";
+		Query query=sesion.createQuery(queryStr);
+		query.setParameter("cMetodo", Integer.parseInt(cMetodo));
+		query.setParameter("cClase", Integer.parseInt(cClase));
+		Metodo metodo = (Metodo)query.uniqueResult();
 		sesion.close();
 		return metodo;
 	}

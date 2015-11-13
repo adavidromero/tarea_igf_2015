@@ -96,8 +96,6 @@
 		 <bean id="ctrlMetodo"
 		 		class="com.fia.igf.app.negocio.CtrlMetodo">
 		 		<constructor-arg ref="MetodoDao"/>
-		 		<constructor-arg ref="claseDao"/>
-		 		<constructor-arg ref="tipoMetodoDao"/>
 		 </bean>
 
 		 <bean id="ctrlAtributo"
@@ -126,20 +124,12 @@
 		 		<constructor-arg ref="claseDao"/>
 		 		<constructor-arg ref="tipoClaseDao"/>
 		 		<constructor-arg ref="aplicativoDao"/>
+<<<<<<< HEAD
 		 		<constructor-arg ref="MetodoDao"/>
-		 		<constructor-arg ref="interfaceDao"/>
 		 		<constructor-arg ref="tipoAtributoDao"/>
-		 </bean>
-
-		 <bean id="listHelper2"
-		 		class="com.fia.igf.app.utilidades.ui.ListHelper2">
-		 		<constructor-arg ref="claseDao"/>
-		 		<constructor-arg ref="tipoClaseDao"/>
-		 		<constructor-arg ref="aplicativoDao"/>
-		 		<constructor-arg ref="MetodoDao"/>
+=======
 		 		<constructor-arg ref="interfaceDao"/>
-		 		<constructor-arg ref="tipoAtributoDao"/>
-		 		<constructor-arg ref="tipoMetodoDao"/>
+>>>>>>> origin/master
 		 </bean>
 
 

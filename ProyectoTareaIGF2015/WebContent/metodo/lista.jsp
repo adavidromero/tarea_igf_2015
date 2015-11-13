@@ -64,9 +64,9 @@
     						}
                         %>
                         	<tr>
-                        	<td><%=metodo.getcClase()%></td>
+                        	<td><%=metodo.getcClase().getdClase()%></td>
                         	<td><%=metodo.getcMetodo() %></td>
-                        	<td><%=metodo.getTipoMetodo() %></td>
+                        	<td><%=metodo.getcTipoMetodo().getcTipoMetodo() %></td>
                         	<td><%=metodo.getdMetodo() %></td>
                         	<td><%=metodo.getdTipoRetorno() %></td>
                         	<td><%=metodo.getcUsuario() %></td>
@@ -75,11 +75,15 @@
                         	<td><%=metodo.getnParametros() %></td>
                             
                         	<td>
-                        	<a href="<%=context_path %>/metodo/nuevo_editar_ver.jsp?operacion=ver&idMetodo=<%=metodo.getcMetodo() %>&idClase=<%= metodo.getcClase() %>&idTipoMetodo=<%=metodo.getTipoMetodo() %>">
+                        	<a href="<%=context_path %>/metodo/nuevo_editar_ver.jsp?operacion=ver&idMetodo=<%=metodo.getcMetodo() %>&idClase=<%= metodo.getcClase().getcClase() %>">
                         	<span class="glyphicon glyphicon-eye-open"></span></a>
-                        	<a href="<%=context_path %>/metodo/nuevo_editar_ver.jsp?operacion=editar&idMetodo=<%=metodo.getcMetodo() %>&idClase=<%= metodo.getcClase() %>&idTipoMetodo=<%=metodo.getTipoMetodo() %>">
+                        	<a href="<%=context_path %>/metodo/nuevo_editar_ver.jsp?operacion=editar&idMetodo=<%=metodo.getcMetodo() %>&idClase=<%= metodo.getcClase().getcClase() %>">
                         	<span class="glyphicon glyphicon-pencil"></span></a>
-                        	<a class="eliminar" data-caplicacion="<%=metodo.getcMetodo() %>" href="#"><span class="glyphicon glyphicon-remove"></span></a>
+                        	<a class="eliminar" 
+                        	data-cmetodo="<%=metodo.getcMetodo() %>" 
+                        	data-cclase="<%=metodo.getcClase().getcClase() %>" 
+                        	data-dmetodo="<%=metodo.getdMetodo() %>" 
+                        	href="#"><span class="glyphicon glyphicon-remove"></span></a>
                         	</td>
                         	</tr>
                         	<%
@@ -98,7 +102,7 @@
                                 <h4 class="modal-title">Confirmar Eliminación</h4>
                               </div>
                               <div class="modal-body">
-                                <p>Confirmar Eliminación de Tipo de Método <strong id="elim_caplicacion"></strong></p>
+                                <p>Confirmar Eliminación de Método <strong id="elim_caplicacion"></strong></p>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -111,9 +115,13 @@
                         function readyFn(){
                         	$(".eliminar").click(function(e){
                         		e.preventDefault();
-                        		var caplicacion = $(this).attr('data-caplicacion');
-                        		$('#elim_caplicacion').text(caplicacion);
-                        		$('#link_confirma_eliminacion').attr('href','operaciones.jsp?operacion=eliminar&id='+caplicacion);
+                        		var cClase = $(this).attr('data-cclase');
+                        		var cMetodo = $(this).attr('data-cmetodo');
+                        		var dMetodo = $(this).attr('data-dmetodo');
+                        		$('#elim_caplicacion').text(dMetodo);
+                        		$('#link_confirma_eliminacion').attr('href',
+                        				'operaciones.jsp?operacion=eliminar&cClase='+cClase
+                        				+'&cMetodo='+cMetodo);
                         		$('#modal-confirmar-eliminacion').modal('show');
                         	});
                         }

@@ -24,8 +24,6 @@ public class Observacion implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-    @Basic(optional = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "c_observacion")
     private Integer cObservacion;
 
@@ -46,15 +44,23 @@ public class Observacion implements Serializable{
     @Column(name = "b_activo")
     private Integer bActivo;
 
-
-
-	@ManyToOne 
-	@JoinColumn(name = "c_metodo", referencedColumnName = "c_metodo")
+    @Basic(optional = true)
+    @ManyToOne 
+	@JoinColumns({
+		@JoinColumn(name = "c_metodo", referencedColumnName = "c_metodo",insertable = false, updatable = false),
+		@JoinColumn(name = "c_clase", referencedColumnName = "c_clase",insertable = false, updatable = false)
+	})
 	private Metodo cMetodo;
 
-	@ManyToOne 
-	@JoinColumn(name = "c_parametro", referencedColumnName = "c_parametro")
-	private Parametro cParametro ;
+    @Basic(optional = true)
+    @ManyToOne 
+	@JoinColumns({
+		@JoinColumn(name = "c_clase", referencedColumnName = "c_clase"),
+		@JoinColumn(name = "c_metodo", referencedColumnName = "c_metodo"),
+		@JoinColumn(name = "c_parametro", referencedColumnName = "c_parametro"),
+	})
+	private Parametro cParametro;
+
 
 	public Integer getcObservacion() {
 		return cObservacion;

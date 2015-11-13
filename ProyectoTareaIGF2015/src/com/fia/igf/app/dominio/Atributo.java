@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -33,7 +34,10 @@ public class Atributo implements Serializable{
     private AtributoId id;
 
 	@ManyToOne 
-	@JoinColumn(name = "c_metodo", referencedColumnName = "c_metodo")
+	@JoinColumns({
+		@JoinColumn(name = "c_metodo", referencedColumnName = "c_metodo",insertable = false, updatable = false),
+		@JoinColumn(name = "c_clase", referencedColumnName = "c_clase",insertable = false, updatable = false)
+	})
 	private Metodo cMetodo;
 
     @Basic(optional = false)

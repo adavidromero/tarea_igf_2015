@@ -8,17 +8,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fia.igf.app.datos.AplicativoDAO;
 import com.fia.igf.app.datos.ClaseDAO;
-import com.fia.igf.app.datos.InterfaceDAO;
+<<<<<<< HEAD
 import com.fia.igf.app.datos.MetodoDAO;
 import com.fia.igf.app.datos.TipoAtributoDAO;
+=======
+import com.fia.igf.app.datos.InterfaceDAO;
+>>>>>>> origin/master
 import com.fia.igf.app.datos.TipoClaseDAO;
 import com.fia.igf.app.dominio.Aplicativo;
 import com.fia.igf.app.dominio.Atributo;
 import com.fia.igf.app.dominio.Clase;
-import com.fia.igf.app.dominio.ClaseInterface;
-import com.fia.igf.app.dominio.Interface;
+<<<<<<< HEAD
 import com.fia.igf.app.dominio.Metodo;
 import com.fia.igf.app.dominio.TipoAtributo;
+=======
+import com.fia.igf.app.dominio.ClaseInterface;
+import com.fia.igf.app.dominio.Interface;
+>>>>>>> origin/master
 import com.fia.igf.app.dominio.TipoClase;
 
 @Transactional
@@ -33,30 +39,38 @@ public class ListHelper {
 	@Autowired 
 	private AplicativoDAO aplicativoDao;
 	
+<<<<<<< HEAD
 	
 	@Autowired 
 	private MetodoDAO metodoDao;
 
 	@Autowired 
 	private TipoAtributoDAO tipoAtributoDao;
-
+=======
 	@Autowired 
 	private InterfaceDAO interfaceDao;
+>>>>>>> origin/master
 
 	@Autowired
 	public ListHelper(ClaseDAO claseDao,
 			TipoClaseDAO tipoClaseDao,
 			AplicativoDAO aplicativoDao,
+<<<<<<< HEAD
 			MetodoDAO metodoDao,
-			TipoAtributoDAO tipoAtributoDao,
+			TipoAtributoDAO tipoAtributoDao
+=======
 			InterfaceDAO interfaceDao
+>>>>>>> origin/master
 			){
 		this.claseDao=claseDao;
 		this.tipoClaseDao=tipoClaseDao;
 		this.aplicativoDao=aplicativoDao;
+<<<<<<< HEAD
 		this.metodoDao=metodoDao;
 		this.tipoAtributoDao=tipoAtributoDao;
+=======
 		this.interfaceDao=interfaceDao;
+>>>>>>> origin/master
 	}
 	
 	
@@ -171,6 +185,7 @@ public class ListHelper {
 		return listHtml;
 	}
 	
+<<<<<<< HEAD
 	
 	public String generaListaClasesParaAtributo(Atributo atributo,String nameId, String readonly){
 		String listHtml="";
@@ -225,20 +240,48 @@ public class ListHelper {
 				}
 			}
 			listHtml+="</select>";
+=======
+	public String generaListaClase(ClaseInterface claseInterface,String nameId, String readonly){
+		String listHtml="";
+		List <Clase> clases = claseDao.obtenerTodos();
+		int length = clases.size();
+		if(claseInterface!=null ){
+			listHtml+="<select id=\""+nameId+"\" name=\""+nameId+"\" class=\"form-control\" "+readonly+">";
+			listHtml+="<option value=\"0\">Seleccionar...</option>";
+			for(int i=0; i<length ; i++){
+				Clase clase =clases.get(i);
+				if(clase.getcClase().toString().equalsIgnoreCase(claseInterface.getcClase().getcClase().toString())){
+					listHtml+="<option value=\""+clase.getcClase()+"\" selected=\"selected\">"+
+							clase.getdClase()+"</option>";
+				}else{
+					listHtml+="<option value=\""+clase.getcClase()+"\">"+
+							clase.getdClase()+"</option>";
+				}
+			}
+			listHtml+="</select>";
+			
+>>>>>>> origin/master
 		}else{
 			listHtml+="<select id=\""+nameId+"\" name=\""+nameId+"\" class=\"form-control\" "+readonly+">";
 			listHtml+="<option value=\"0\">Seleccionar...</option>";
 			for(int i=0; i<length ; i++){
+<<<<<<< HEAD
 				Metodo metodoTmp=metodos.get(i);
 						listHtml+="<option value=\""+metodoTmp.getcMetodo()+"_"+
 							metodoTmp.getcClase()+"\">"+
 							metodoTmp.getdMetodo()+"</option>";
+=======
+				Clase clase=clases.get(i);
+				listHtml+="<option value=\""+clase.getcClase()+"\">"+
+				clase.getdClase()+"</option>";
+>>>>>>> origin/master
 			}
 			listHtml+="</select>";
 		}
 		return listHtml;
 	}
 	
+<<<<<<< HEAD
 	public String obtenerNombreClaseDeMetodo(Integer id){
 		Clase clase=claseDao.obtenerPorId(Clase.class,id);
 		return clase.getdClase();
@@ -263,13 +306,40 @@ public class ListHelper {
 				}
 			}
 			listHtml+="</select>";
+=======
+	public String generaListaInterface(ClaseInterface claseInterface,String nameId, String readonly){
+		String listHtml="";
+		List <Interface> interfaces = interfaceDao.obtenerTodos();
+		int length = interfaces.size();
+		if(claseInterface!=null ){
+			listHtml+="<select id=\""+nameId+"\" name=\""+nameId+"\" class=\"form-control\" "+readonly+">";
+			listHtml+="<option value=\"0\">Seleccionar...</option>";
+			for(int i=0; i<length ; i++){
+				Interface iinterface =interfaces.get(i);
+				if(iinterface.getcInterface().toString().equalsIgnoreCase(claseInterface.getcInterface().getcInterface().toString())){
+					listHtml+="<option value=\""+iinterface.getcInterface().toString()+"\" selected=\"selected\">"+
+							iinterface.getdInterface()+"</option>";
+				}else{
+					listHtml+="<option value=\""+iinterface.getcInterface().toString()+"\">"+
+							iinterface.getdInterface()+"</option>";
+				}
+			}
+			listHtml+="</select>";
+			
+>>>>>>> origin/master
 		}else{
 			listHtml+="<select id=\""+nameId+"\" name=\""+nameId+"\" class=\"form-control\" "+readonly+">";
 			listHtml+="<option value=\"0\">Seleccionar...</option>";
 			for(int i=0; i<length ; i++){
+<<<<<<< HEAD
 				TipoAtributo tipoAtributo=tiposAtributos.get(i);
 				listHtml+="<option value=\""+tipoAtributo.getcTipoAtributo()+"\">"+
 				tipoAtributo.getdTipoAtributo()+"</option>";
+=======
+				Interface iinterface=interfaces.get(i);
+				listHtml+="<option value=\""+iinterface.getcInterface().toString()+"\">"+
+				iinterface.getdInterface()+"</option>";
+>>>>>>> origin/master
 			}
 			listHtml+="</select>";
 		}

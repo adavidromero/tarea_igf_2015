@@ -7,11 +7,14 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -24,21 +27,9 @@ public class Parametro implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	@EmbeddedId
     @Basic(optional = false)
-	@ManyToOne 
-	@JoinColumn(name = "c_clase", referencedColumnName = "c_clase")
-	private Clase cClase;
-
-    @Basic(optional = false)
-	@ManyToOne 
-	@JoinColumn(name = "c_metodo", referencedColumnName = "c_metodo")
-	private Atributo cMetodo;
-
-	@Id
-    @Basic(optional = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "c_parametro")
-    private Integer cParametro;
+    private ParametroPK id;
 
     @Basic(optional = false)
     @Column(name = "d_parametro", length=50)
@@ -61,28 +52,21 @@ public class Parametro implements Serializable{
  	@OneToMany(cascade=CascadeType.ALL, mappedBy="cParametro")
  	private List<Observacion> observaciones;
 
-	public Clase getcClase() {
-		return cClase;
-	}
-
-	public void setcClase(Clase cClase) {
-		this.cClase = cClase;
-	}
-
-	public Atributo getcMetodo() {
-		return cMetodo;
-	}
-
-	public void setcMetodo(Atributo cMetodo) {
-		this.cMetodo = cMetodo;
-	}
 
 	public Integer getcParametro() {
-		return cParametro;
+		return this.id.getcParametro();
 	}
 
 	public void setcParametro(Integer cParametro) {
-		this.cParametro = cParametro;
+		this.id.setcParametro(cParametro);
+	}
+	
+	public Metodo getcMetodo(){
+		return this.id.getcMetodo();
+	}
+	
+	public void setcMetodo(Metodo cMetodo){
+		this.id.setcMetodo(cMetodo);
 	}
 
 	public String getdParametro() {
@@ -123,6 +107,43 @@ public class Parametro implements Serializable{
 
 	public void setObservaciones(List<Observacion> observaciones) {
 		this.observaciones = observaciones;
+	}
+
+}
+
+@Embeddable
+class ParametroPK implements Serializable{
+
+	@Column(name="c_parametro")
+	Integer cParametro;
+
+	@ManyToOne 
+	@JoinColumns({
+		@JoinColumn(name = "c_metodo", referencedColumnName = "c_metodo"),
+		@JoinColumn(name = "c_clase", referencedColumnName = "c_clase")
+	})
+	private Metodo cMetodo;
+
+	public ParametroPK(Integer cParametro, Metodo cMetodo) {
+		super();
+		this.cParametro = cParametro;
+		this.cMetodo = cMetodo;
+	}
+
+	public Integer getcParametro() {
+		return cParametro;
+	}
+
+	public void setcParametro(Integer cParametro) {
+		this.cParametro = cParametro;
+	}
+
+	public Metodo getcMetodo() {
+		return cMetodo;
+	}
+
+	public void setcMetodo(Metodo cMetodo) {
+		this.cMetodo = cMetodo;
 	}
 
 }

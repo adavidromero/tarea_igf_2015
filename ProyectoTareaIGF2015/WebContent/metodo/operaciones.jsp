@@ -14,9 +14,8 @@
     String operacion = request.getParameter("operacion");
     String uriLista="/metodo/lista.jsp";
     String msg="";
-	String idMetodo = (request.getParameter("idMetodo") != null) ? request.getParameter("idMetodo") : "" ;
-	String idClase = (request.getParameter("idClase") != null) ? request.getParameter("idClase") : "" ;
-	String idTipoMetodo=(request.getParameter("idTipoMetodo") != null) ? request.getParameter("idTipoMetodo") : "" ;
+	String cMetodo = (request.getParameter("cMetodo") != null) ? request.getParameter("cMetodo") : "" ;
+	String cClase = (request.getParameter("cClase") != null) ? request.getParameter("cClase") : "" ;
 
 	boolean esOperacionCrear=false;
 	boolean esOperacionEditar=false;
@@ -32,13 +31,13 @@
         esOperacionEliminar=operacion.equalsIgnoreCase("eliminar");
     }
 
-    if((esOperacionCrear || esOperacionEditar || esOperacionEliminar) && idMetodo!="" && idClase!="" && idTipoMetodo!=""){
+    if((esOperacionCrear || esOperacionEditar || esOperacionEliminar) && cMetodo!="" && cClase!=""){
     	ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
     	CtrlMetodo ctrlMetodo = (CtrlMetodo)ac.getBean("ctrlMetodo");
     	Metodo metodo = new Metodo();
 
     	if(esOperacionEliminar){
-    		metodoEliminado = ctrlMetodo.borraMetodo(idMetodo);
+    		metodoEliminado = ctrlMetodo.borraMetodoIdCompuesta(cClase,cMetodo);
     		if(metodoEliminado==true){
     			msg="Tipo de método eliminado";
     		}else{
@@ -48,9 +47,15 @@
 
   		String descripcion= request.getParameter("descripcion");
    		String strFechaIngreso = request.getParameter("fechaIngreso");
+   		String dTipoRetorno = request.getParameter("tipoRetorno");
+   		String cUsuario= request.getParameter("usuario");
+   		String bActivo= request.getParameter("activo");
+   		String nParametros= request.getParameter("parametros");
+   		String cTipoMetodo= request.getParameter("cTipoMetodo");
+
    		Date fechaIngreso= new Date();
 
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		try{
 			fechaIngreso = formatter.parse(strFechaIngreso);
 		}catch(ParseException e){
@@ -58,22 +63,40 @@
 		}
 
     	if(esOperacionCrear){
-//                  public boolean crearMetodo(Integer cMetodo, Clase cClase, TipoMetodo ctipoMetodo, String dMetodo, String dtipoRetorno, String usuario, Date fechaIngreso, Integer activo, Integer parametros ){
-    		metodoCreado=ctrlMetodo.crearMetodo(Integer.parseInt(idMetodo.trim()), descripcion, fechaIngreso);
+    		metodoCreado=ctrlMetodo.crearMetodo(
+                                cClase,
+                                cMetodo,
+                                descripcion,
+                                dTipoRetorno,
+                                cUsuario,
+                                fechaIngreso,
+                                bActivo,
+                                nParametros,
+                                cTipoMetodo
+			);
 
     		if(metodoCreado){
     			msg="Tipo de método creado";
+    			System.out.println(msg);
     		}else{
     			msg="Tipo de metodo no creado";
+    			System.out.println(msg);
     		}
     	}
     	
     	if(esOperacionEditar){
-    		metodo=ctrlMetodo.obtenerPorId(idMetodo);
-    		metodo.setdMetodo(descripcion);
+    		metodoCreado=ctrlMetodo.editarMetodo(
+                                cClase,
+                                cMetodo,
+                                descripcion,
+                                dTipoRetorno,
+                                cUsuario,
+                                fechaIngreso,
+                                bActivo,
+                                nParametros,
+                                cTipoMetodo
+			);
     		
-    		metodo.setfIngreso(fechaIngreso);
-    		ctrlMetodo.actualizar(metodo);
     		msg="Tipo de método modificado con exito!";
     	}
     		

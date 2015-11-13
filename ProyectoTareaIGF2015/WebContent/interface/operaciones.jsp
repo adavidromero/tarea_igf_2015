@@ -49,7 +49,7 @@
    		String strFechaIngreso = request.getParameter("fechaIngreso");
    		Date fechaIngreso= new Date();
 
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/mm/yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		try{
 			fechaIngreso = formatter.parse(strFechaIngreso);
 		}catch(ParseException e){

@@ -16,15 +16,15 @@ public class TipoClase  implements Serializable{
 	@Id
 	@Basic(optional = false)
     @Column(name = "c_tipo_clase")
-	private String cTipoClase = new String();
+	private String cTipoClase;
 
 	@Basic(optional = false)
     @Column(name = "d_tipo_clase")
-	private String dTipoClase = new String();
+	private String dTipoClase;
 
 	@Basic(optional = false)
 	@Column(name = "f_ingreso")
-	private Date fIngreso = new Date();
+	private Date fIngreso;
 
     @Basic(optional = true)
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cTipoClase")
@@ -41,7 +41,7 @@ public class TipoClase  implements Serializable{
 	}
 	public TipoClase(String cTipoClase, String descripcion, Date fechaIngreso) {
 		this.cTipoClase=cTipoClase;
-		this.cTipoClase=dTipoClase;
+		this.dTipoClase=descripcion;
 		this.fIngreso=fechaIngreso;
 		// TODO Auto-generated constructor stub
 	}

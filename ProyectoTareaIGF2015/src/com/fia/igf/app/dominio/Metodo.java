@@ -8,6 +8,7 @@ import javax.persistence.AttributeOverrides;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,22 +27,9 @@ public class Metodo implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	//
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Basic(optional = false)
-    @Column(name = "c_metodo", length=11)
-    private String cMetodo;
-	
-	@Basic(optional = false)
-	@Column(name = "c_clase", length=11)
-	private String cClase;
-
-	@Basic(optional = false)
-	@Column(name = "c_tipometodo", length=1)
-	private String cTipoMetodo;
-	
-	//*/
+	@EmbeddedId
+    @Basic(optional = false)
+    private MetodoPK id;
 	
     @Basic(optional = false)
     @Column(name = "d_metodo", length=50)
@@ -50,6 +38,10 @@ public class Metodo implements Serializable{
     @Basic(optional = false)
     @Column(name = "d_tipo_retorno",length=50)
     private String dTipoRetorno;
+
+	@ManyToOne 
+	@JoinColumn(name = "c_tipo_metodo", referencedColumnName = "c_tipo_metodo")
+	private TipoMetodo cTipoMetodo;
 
     @Basic(optional = false)
     @Column(name = "c_usuario",length=30)
@@ -76,6 +68,11 @@ public class Metodo implements Serializable{
 	private List<Observacion> observaciones;
 	
 	public Metodo(){
+
+	}
+
+	public Metodo(Clase cClase, Integer cMetodo){
+		this.id = new MetodoPK(cClase, cMetodo);
 		
 	}
 
@@ -84,43 +81,6 @@ public class Metodo implements Serializable{
 			this.dMetodo = dMetodo;
 			this.fIngreso = fIngreso;
 		}
-/*
-	public MetodoPK getCompId() {
-		return compId;
-	}
-
-	public void setCompId(MetodoPK compId) {
-		this.compId = compId;
-	}
-
-	public void setCompId(Integer cMetodo, Clase cClase, TipoMetodo cTipoMetodo) {
-		this.compId.setcMetodo(cMetodo);
-		this.compId.setcClase(cClase);
-		this.compId.setcTipoMetodo(cTipoMetodo);
-	}//*/
-
-	/**
-	 * Metodo que contiene el codigo del metodo
-	 * @return Una cadena con el resultado
-	 * /
-	public String getcMetodo() {
-		return compId.getcMetodo().toString();
-	}
-	/**
-	 * Metodo que contiene el codigo de la clase
-	 * @return Una cadena con el resultado
-	 * /
-	public String getcClase() {
-		return compId.getcClase().getcClase().toString();
-	}
-	/**
-	 * Metodo que contiene el codigo del tipo de metodo
-	 * @return Una cadena con el resultado
-	 * /
-	public String getcTipoMetodo() {
-		return compId.getcTipoMetodo().getcTipoMetodo();
-	}//*/
-	
 	
 	public String getdMetodo() {
 		return dMetodo;
@@ -187,31 +147,68 @@ public class Metodo implements Serializable{
 		this.observaciones = observaciones;
 	}
 
-	public String getTipoMetodo() {
-		System.out.println("codigo tipo metodo: "+cTipoMetodo);
+
+	public TipoMetodo getcTipoMetodo() {
 		return cTipoMetodo;
 	}
 
-	public void setcTipoMetodo(String cTipoMetodo) {
+	public void setcTipoMetodo(TipoMetodo cTipoMetodo) {
 		this.cTipoMetodo = cTipoMetodo;
 	}
 
-	public String getcMetodo() {
+	public Integer getcMetodo() {
+		return this.id.getcMetodo();
+	}
+
+	public void setcMetodo(Integer cMetodo) {
+		this.id.setcMetodo(cMetodo);
+	}
+
+	public Clase getcClase() {
+		return this.id.getcClase();
+	}
+
+	public void setcClase(Clase cClase) {
+		this.id.setcClase(cClase);
+	}
+
+}
+
+@Embeddable
+class MetodoPK implements Serializable{
+    private static final long serialVersionUID = 1L;
+    
+    @Column(name = "c_metodo")
+    private Integer cMetodo;
+		
+	@ManyToOne 
+	@JoinColumn(name = "c_clase", referencedColumnName = "c_clase")
+	private Clase cClase;
+	
+	public MetodoPK(){
+		
+	}
+	
+	public MetodoPK(Clase cClase, Integer cMetodo){
+		this.cClase=cClase;
+		this.cMetodo=cMetodo;
+	}
+	
+	//Generando set and get
+	public Integer getcMetodo() {
 		return cMetodo;
 	}
 
-	public void setcMetodo(String cMetodo) {
+	public void setcMetodo(Integer cMetodo) {
 		this.cMetodo = cMetodo;
 	}
 
-	public String getcClase() {
+	public Clase getcClase() {
 		return cClase;
 	}
 
-	public void setcClase(String cClase) {
+	public void setcClase(Clase cClase) {
 		this.cClase = cClase;
 	}
-
 	
-
 }

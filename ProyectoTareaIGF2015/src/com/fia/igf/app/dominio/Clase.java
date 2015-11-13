@@ -49,11 +49,6 @@ public class Clase implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="cClase")
 	private List<ClaseInterface> clasesInterfaces;
 
-    @Basic(optional = true)
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="cClase")
-	private List<Metodo> metodos;
-
-   
 
     
     public Clase(){
@@ -147,16 +142,5 @@ public class Clase implements Serializable{
 		this.clasesInterfaces = clasesInterfaces;
 	}
 
-	public List<Metodo> getMetodos() {
-		return metodos;
-	}
-
-	public void setMetodos(List<Metodo> metodos) {
-		this.metodos = metodos;
-	}
-
-
-
-	
 	
 }

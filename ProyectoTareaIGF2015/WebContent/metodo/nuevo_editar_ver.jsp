@@ -5,6 +5,7 @@
     <%@ page import="org.springframework.web.context.support.*" %>
     <%@ page import="com.fia.igf.app.negocio.*" %>
     <%@ page import="com.fia.igf.app.dominio.*" %>
+    <%@ page import="com.fia.igf.app.utilidades.ui.*" %>
     <%@ page import="java.text.DateFormat" %>
 	<%@ page import="java.text.SimpleDateFormat"%>
 	<%@ page import="java.text.ParseException" %>
@@ -23,20 +24,20 @@
 <%@include file="../navbar.jsp" %>
 <%
 
-
     ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
     CtrlMetodo ctrlMetodo = (CtrlMetodo)ac.getBean("ctrlMetodo");
+    ListHelper2 listHelper = (ListHelper2)ac.getBean("listHelper2");
 	String operacion=request.getParameter("operacion");
-	String idMetodo = (request.getParameter("idMetodo") != null) ? request.getParameter("idMetodo") : "" ;
-	String idClase = (request.getParameter("idClase") != null) ? request.getParameter("idClase") : "" ;
-	String idTipoMetodo=(request.getParameter("idTipoMetodo") != null) ? request.getParameter("idTipoMetodo") : "" ;
+	String cMetodo = (request.getParameter("idMetodo") != null) ? request.getParameter("idMetodo") : "" ;
+	String cClase = (request.getParameter("idClase") != null) ? request.getParameter("idClase") : "" ;
+	String idTipoMetodo= "";
 	String descripcion = "";
 	String tipoRetorno = "";
 	String usuario = "";
 	String fechaIngreso = "";
 	String activo = "";
 	String parametros = "";
-	
+	Metodo metodo = null; 
 	String readonly = "";
 	String idReadonly = "";
 	boolean esOperacionEditar = false;
@@ -48,10 +49,17 @@
         esOperacionVer=operacion.equalsIgnoreCase("ver");
     }
 
-	if((esOperacionEditar || esOperacionVer)  && idMetodo!="" && idClase!="" && idTipoMetodo!=""){
+	if((esOperacionEditar || esOperacionVer)  && cClase!="" && cMetodo!=""){
 		//System.out.println(idMetodo+"\n"+idClase+"\n"+idTipoMetodo+"\n");
-		Metodo metodo = ctrlMetodo.obtenerPorId(idMetodo);
+		//Metodo metodo = ctrlMetodo.obtenerPorId(idMetodo);
+		metodo = ctrlMetodo.obtenerPorIdCompuesto(cClase,cMetodo);
 		descripcion=metodo.getdMetodo();
+		idTipoMetodo= "";
+		descripcion = metodo.getdMetodo();
+		tipoRetorno = metodo.getdTipoRetorno();
+		usuario = metodo.getcUsuario();
+		activo = metodo.getbActivo().toString();
+		parametros = metodo.getnParametros().toString();
 		try{
 			fechaIngreso=formatter.format(metodo.getfIngreso());
 		}catch(Exception e){
@@ -87,8 +95,8 @@
                         <div class="form-group">
                           <label class="col-md-4 control-label" for="textinput">Código del método:</label>  
                           <div class="col-md-4">
-                          <input id="idMetodo" name="idMetodo" placeholder="Digite un nuevo codigo del metodo" class="form-control input-md" type="text"
-                          value="<%=idMetodo %>" <%=readonly %> <%=idReadonly %>>
+                          <input id="cMetodo" name="cMetodo" placeholder="Digite un nuevo codigo del metodo" class="form-control input-md" type="text"
+                          value="<%=cMetodo %>" <%=readonly %> <%=idReadonly %>>
                           <span class="help-block"></span>  
                           </div>
                         </div>
@@ -97,8 +105,7 @@
                         <div class="form-group">
                           <label class="col-md-4 control-label" for="textinput">Código de clase:</label>  
                           <div class="col-md-4">
-                          <input id="idClase" name="idClase" placeholder="Digite un codigo de clase existente" class="form-control input-md" type="text"
-                          value="<%=idClase %>" <%=readonly %> <%=idReadonly %>>
+                          <%=listHelper.generaListaClasesMetodo(metodo, "cClase", readonly) %>
                           <span class="help-block"></span>  
                           </div>
                         </div>
@@ -107,8 +114,7 @@
                         <div class="form-group">
                           <label class="col-md-4 control-label" for="textinput">Código de tipo de método:</label>  
                           <div class="col-md-4">
-                          <input id="idClase" name="idClase" placeholder="Digite un codigo de tipo de método existente" class="form-control input-md" type="text"
-                          value="<%=idTipoMetodo %>" <%=readonly %> <%=idReadonly %>>
+                          <%=listHelper.generaListaTiposMetodoParaMetodo(metodo, "cTipoMetodo", readonly) %>
                           <span class="help-block"></span>  
                           </div>
                         </div>
@@ -161,7 +167,7 @@
                           <div class="col-md-4">
                           <input id="activo" name="activo" placeholder="Escriba un número para activo"
                            class="form-control input-md" type="text" value="<%=activo %>" <%=readonly %>>
-                          <span class="help-block"></span>  
+                          <span class="help-block">Escriba 0 para inactivo 1 para activo</span>  
                           </div>
                         </div>
                         
