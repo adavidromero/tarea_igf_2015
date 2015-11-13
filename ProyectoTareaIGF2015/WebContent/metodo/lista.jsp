@@ -73,12 +73,11 @@
                         	<td><%=strFechaIngreso %></td>
                         	<td><%=metodo.getbActivo() %></td>
                         	<td><%=metodo.getnParametros() %></td>
-                                      	
-                        	
+                            
                         	<td>
-                        	<a href="<%=context_path %>/metodo/nuevo_editar_ver.jsp?operacion=ver&id=<%=metodo.getcMetodo() %>">
+                        	<a href="<%=context_path %>/metodo/nuevo_editar_ver.jsp?operacion=ver&idMetodo=<%=metodo.getcMetodo() %>&idClase=<%= metodo.getcClase() %>&idTipoMetodo=<%=metodo.getTipoMetodo() %>">
                         	<span class="glyphicon glyphicon-eye-open"></span></a>
-                        	<a href="<%=context_path %>/metodo/nuevo_editar_ver.jsp?operacion=editar&id=<%=metodo.getcMetodo() %>&idclase=<%= metodo.getcClase() %>">
+                        	<a href="<%=context_path %>/metodo/nuevo_editar_ver.jsp?operacion=editar&idMetodo=<%=metodo.getcMetodo() %>&idClase=<%= metodo.getcClase() %>&idTipoMetodo=<%=metodo.getTipoMetodo() %>">
                         	<span class="glyphicon glyphicon-pencil"></span></a>
                         	<a class="eliminar" data-caplicacion="<%=metodo.getcMetodo() %>" href="#"><span class="glyphicon glyphicon-remove"></span></a>
                         	</td>

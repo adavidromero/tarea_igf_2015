@@ -11,40 +11,56 @@ import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.fia.igf.app.dominio.*;
+import com.fia.igf.app.dominio.Clase;
+import com.fia.igf.app.dominio.ClaseInterface;
 import com.fia.igf.utilidades.datos.HibernateUtil;
-
 @Repository
-public class MetodoDAO implements GenericDAO<Metodo, String>{
+public class ClaseInterfaceDAO implements GenericDAO<ClaseInterface,Integer>{
+
 	@Autowired
 	private HibernateUtil hibernateUtil;
+	
+	@Autowired
+	public ClaseInterfaceDAO(HibernateUtil hibernateUtil){
+		this.hibernateUtil=hibernateUtil;
+		
+	}
+
 	private SessionFactory sessionFactory = hibernateUtil.getSessionFactory();
 	private Session sesion;
 	private Transaction tx;
-	
-	@Autowired
-	public MetodoDAO(HibernateUtil hibernateUtil) {
-		// TODO Auto-generated constructor stub
-		this.hibernateUtil = hibernateUtil;
-	}
-	//Metodo extraido de AplicativoDAO
+
 	private void iniciaOperacion() throws HibernateException{
 		sesion = sessionFactory.openSession();
 		tx = sesion.beginTransaction();
 	}
-		
-		//Metodo extraido de AplicativoDAO
+
 	private void manejaExcepcion(HibernateException he) throws HibernateException{
 		tx.rollback();
 		throw new HibernateException("Ocurrió un error en la capa DAO",he);
 	}
-
+	
 	@Override
-	public void guardaActualiza(Metodo metodo) {
-		// TODO Auto-generated method stub
+	public void guardaActualiza(ClaseInterface obj) {
 		try{
 			iniciaOperacion();
-			sesion.saveOrUpdate(metodo);
+			sesion.saveOrUpdate(obj);
+			tx.commit();
+			sesion.flush();
+		}catch(HibernateException he){
+			manejaExcepcion(he);
+			throw he;
+		}finally{
+			sesion.close();
+		}
+		
+	}
+
+	@Override
+	public void eliminar(ClaseInterface obj) {
+		try{
+			iniciaOperacion();
+			sesion.delete(obj);
 			tx.commit();
 			sesion.flush();
 		}catch(HibernateException he){
@@ -56,49 +72,20 @@ public class MetodoDAO implements GenericDAO<Metodo, String>{
 	}
 
 	@Override
-	public void eliminar(Metodo metodo) {
-		// TODO Auto-generated method stub
-		try{
-			iniciaOperacion();
-			sesion.delete(metodo);
-			tx.commit();
-			sesion.flush();
-		}catch(HibernateException he){
-			manejaExcepcion(he);
-			throw he;
-		}finally{
-			sesion.close();
-		}
+	public List<ClaseInterface> obtenerTodos() {
+		iniciaOperacion();
+		Criteria criteria = sesion.createCriteria(ClaseInterface.class).addOrder(Order.asc("id"));
+		List<ClaseInterface> clases =(List<ClaseInterface>)criteria.list();
+		sesion.close();
+		return clases;
 	}
 
 	@Override
-	public List<Metodo> obtenerTodos() {
-		// TODO Auto-generated method stub
+	public ClaseInterface obtenerPorId(Class<ClaseInterface> clazz, Integer id) {
 		iniciaOperacion();
-		//Revisar bien esta sentencia
-		Criteria criteria = sesion.createCriteria(Metodo.class)
-				.addOrder(Order.asc("cMetodo"));
-		List<Metodo> metodo =(List<Metodo>)criteria.list();
+		ClaseInterface claseInterface = (ClaseInterface) sesion.get(clazz, id);
 		sesion.close();
-		return metodo;
-	}
-
-	@Override
-	public Metodo obtenerPorId(Class<Metodo> clazz, String id) {
-		// TODO Auto-generated method stub
-		Metodo metodo = null;
-		iniciaOperacion();
-		try {
-			//metodo = (Metodo)sesion.get
-			metodo = (Metodo)sesion.get(clazz, id);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Ocurrio un error...");
-		}
-		
-		
-		sesion.close();
-		return metodo;
+		return claseInterface;
 	}
 
 }

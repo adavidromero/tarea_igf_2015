@@ -14,8 +14,8 @@ import com.fia.igf.app.datos.TipoClaseDAO;
 import com.fia.igf.app.dominio.Aplicativo;
 import com.fia.igf.app.dominio.Atributo;
 import com.fia.igf.app.dominio.Clase;
-import com.fia.igf.app.dominio.Metodo;
-import com.fia.igf.app.dominio.TipoAtributo;
+import com.fia.igf.app.dominio.ClaseInterface;
+import com.fia.igf.app.dominio.Interface;
 import com.fia.igf.app.dominio.TipoClase;
 
 @Transactional
@@ -37,18 +37,23 @@ public class ListHelper {
 	@Autowired 
 	private TipoAtributoDAO tipoAtributoDao;
 
+	@Autowired 
+	private InterfaceDAO interfaceDao;
+
 	@Autowired
 	public ListHelper(ClaseDAO claseDao,
 			TipoClaseDAO tipoClaseDao,
 			AplicativoDAO aplicativoDao,
 			MetodoDAO metodoDao,
-			TipoAtributoDAO tipoAtributoDao
+			TipoAtributoDAO tipoAtributoDao,
+			InterfaceDAO interfaceDao
 			){
 		this.claseDao=claseDao;
 		this.tipoClaseDao=tipoClaseDao;
 		this.aplicativoDao=aplicativoDao;
 		this.metodoDao=metodoDao;
 		this.tipoAtributoDao=tipoAtributoDao;
+		this.interfaceDao=interfaceDao;
 	}
 	
 	

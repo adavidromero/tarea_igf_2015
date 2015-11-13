@@ -34,6 +34,14 @@ public class ClaseInterface implements Serializable{
 	public ClaseInterface(){
 		
 	}
+	
+	public ClaseInterface(Integer cClaseInterface, Clase cClase,
+			Interface cInterface) {
+		super();
+		this.cClaseInterface = cClaseInterface;
+		this.cClase = cClase;
+		this.cInterface = cInterface;
+	}
 
 	public Integer getcClaseInterface() {
 		return cClaseInterface;

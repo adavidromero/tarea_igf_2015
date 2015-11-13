@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listado de Aplicativos</title>
+<title>Listado de Clase Interface</title>
 <%@include file="../css_js_incluidos.jsp" %>
 </head>
 <body>
@@ -25,47 +25,48 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12"> 
                     <!-- Aqui tiene que ir el contenido -->
-                        <h1>Aplicativos </h1>
-                        <div class="pull-right"><a href="<%=context_path %>/aplicativo/nuevo_editar_ver.jsp?operacion=crear">
+                        <h1>Clase Interfaces</h1>
+                        <div class="pull-right"><a href="<%=context_path %>/claseinterface/nuevo_editar_ver.jsp?operacion=crear">
                         <button class="btn btn-primary">Nuevo Registro</button></a></div>
                         <table class="table">
                         <thead>
                         	<tr>
                         	<th>Codigo</th>
-                        	<th>Descripcion</th>
-                        	<th>Fecha Ingreso</th>
+                        	<th>Clase</th>
+                        	<th>Interface</th>
                         	<th>Operaciones</th>
                         	</tr>
                         </thead>
                         <tbody>
                         <%
     					ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-    					CtrlAplicativo ctrlAplicativo = (CtrlAplicativo)ac.getBean("ctrlAplicativo");
-
-    					List aplicativos = ctrlAplicativo.obtenerTodosAplicativos();
-						SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
-						String strFechaIngreso="";
-						int length=aplicativos.size();
+    					CtrlClaseInterface ctrlClaseInterface = (CtrlClaseInterface)ac.getBean("ctrlClaseInterface");
+    					List claseinterfaces = ctrlClaseInterface.obtenerTodosClaseInterfaces();
+    					System.out.println(claseinterfaces.isEmpty());
+						int length=claseinterfaces.size();
     					for(int i=0;i<length;i++){
-    						Aplicativo aplicativo=(Aplicativo)aplicativos.get(i);
-    						try{
-    							strFechaIngreso=formatter.format(aplicativo.getfIngreso());
-    						}catch(Exception e){
-    							System.out.println(e.getStackTrace());
+    						ClaseInterface claseInterface=(ClaseInterface) claseinterfaces.get(i);
+    						String strClase="No definida";
+    						if(claseInterface.getcClase()!=null){
+    							strClase=claseInterface.getcClase().getdClase();
     						}
+
                         %>
                         	<tr>
-                        	<td><%=aplicativo.getcAplicativo() %></td>
-                        	<td><%=aplicativo.getdAplicativo() %></td>
-                        	<td><%=strFechaIngreso %></td>
+                        	<td><%=claseInterface.getcClaseInterface() %></td>
+                        	<td><%=claseInterface.getcClase().getdClase()%></td>
+                        	<td><%=claseInterface.getcInterface().getdInterface()%></td>
                         	<td>
-                        	<a href="<%=context_path %>/aplicativo/nuevo_editar_ver.jsp?operacion=ver&id=<%=aplicativo.getcAplicativo() %>">
+                        	<a href="<%=context_path %>/claseinterface/nuevo_editar_ver.jsp?operacion=ver&id=<%=claseInterface.getcClaseInterface() %>">
                         	<span class="glyphicon glyphicon-eye-open"></span></a>
-                        	<a href="<%=context_path %>/aplicativo/nuevo_editar_ver.jsp?operacion=editar&id=<%=aplicativo.getcAplicativo() %>">
+                        	<a href="<%=context_path %>/claseinterface/nuevo_editar_ver.jsp?operacion=editar&id=<%=claseInterface.getcClaseInterface() %>">
                         	<span class="glyphicon glyphicon-pencil"></span></a>
-                        	<a class="eliminar" data-caplicacion="<%=aplicativo.getcAplicativo() %>" href="#"><span class="glyphicon glyphicon-remove"></span></a>
+                        	<a class="eliminar" data-codigo="<%=claseInterface.getcClaseInterface().toString() %>" 
+                        		data-descripcion=<%=claseInterface.getcClaseInterface() %>
+                        	href="#">
+                        	<span class="glyphicon glyphicon-remove"></span></a>
                         	</td>
                         	</tr>
                         	<%
@@ -84,7 +85,10 @@
                                 <h4 class="modal-title">Confirmar Eliminación</h4>
                               </div>
                               <div class="modal-body">
-                                <p>Confirmar Eliminación de Aplicativo <strong id="elim_caplicacion"></strong></p>
+                                <p>Confirmar Eliminación de Clase Interface
+								<strong id="elim_descripcion"></strong>
+								con el codigo:
+                                <strong id="elim_codigo"></strong></p>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -93,13 +97,16 @@
                             </div><!-- /.modal-content -->
                           </div><!-- /.modal-dialog -->
                         </div><!-- /.modal -->
+
                         <script>
                         function readyFn(){
                         	$(".eliminar").click(function(e){
                         		e.preventDefault();
-                        		var caplicacion = $(this).attr('data-caplicacion');
-                        		$('#elim_caplicacion').text(caplicacion);
-                        		$('#link_confirma_eliminacion').attr('href','operaciones.jsp?operacion=eliminar&id='+caplicacion);
+                        		var codigo = $(this).attr('data-codigo');
+                        		var descripcion = $(this).attr('data-descripcion');
+                        		$('#elim_codigo').text(codigo);
+                        		$('#elim_descripcion').text(descripcion);
+                        		$('#link_confirma_eliminacion').attr('href','operaciones.jsp?operacion=eliminar&id='+codigo);
                         		$('#modal-confirmar-eliminacion').modal('show');
                         	});
                         }
