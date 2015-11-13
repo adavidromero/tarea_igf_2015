@@ -19,7 +19,6 @@ public class ClaseInterface implements Serializable{
 
 	@Id
     @Basic(optional = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "c_clase_interface")
     private Integer cClaseInterface;
 

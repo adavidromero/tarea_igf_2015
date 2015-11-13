@@ -52,7 +52,6 @@ public class Parametro implements Serializable{
  	@OneToMany(cascade=CascadeType.ALL, mappedBy="cParametro")
  	private List<Observacion> observaciones;
 
-
 	public Integer getcParametro() {
 		return this.id.getcParametro();
 	}
@@ -123,6 +122,10 @@ class ParametroPK implements Serializable{
 		@JoinColumn(name = "c_clase", referencedColumnName = "c_clase")
 	})
 	private Metodo cMetodo;
+	
+	public ParametroPK(){
+		
+	}
 
 	public ParametroPK(Integer cParametro, Metodo cMetodo) {
 		super();

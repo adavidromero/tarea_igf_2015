@@ -26,7 +26,7 @@
                     <a href="<%=context_path %>/interfaceimplementa/lista.jsp">AS_interface_implementacion</a>
                 </li>
                 <li>
-                    <a href="<%=context_path %>/AS_parametro.html">AS_parametro</a>
+                    <a href="<%=context_path %>/parametro/lista.jsp">AS_parametro</a>
                 </li>
 
                 <li>
@@ -36,7 +36,7 @@
                     <a href="<%=context_path %>/metodo/lista.jsp">AS_metodo</a>
                 </li>
                 <li>
-                    <a href="<%=context_path %>/AS_observacion.html">AS_observacion</a>
+                    <a href="<%=context_path %>/observacion/lista.jsp">AS_observacion</a>
                 </li>
                 <li>
                     <a href="<%=context_path %>/tipoAtributo/lista.jsp">TB_tipo_atributo</a>

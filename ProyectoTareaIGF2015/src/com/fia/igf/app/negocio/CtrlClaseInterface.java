@@ -45,8 +45,6 @@ public class CtrlClaseInterface {
 					
 			ClaseInterface claseinterface = new ClaseInterface(cClaseInterface,clase,cinterface);
 			claseInterfaceDao.guardaActualiza(claseinterface);
-			Integer cClaseInterfaceCreada=claseinterface.getcClaseInterface();
-			System.out.println("Id de claseInterface ingresada: "+cClaseInterfaceCreada);
 			return true ;
 		}
 	
