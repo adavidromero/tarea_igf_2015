@@ -8,13 +8,14 @@
     <%@ page import="java.text.DateFormat" %>
 	<%@ page import="java.text.SimpleDateFormat"%>
 	<%@ page import="java.text.ParseException" %>
+    <%@ page import="com.fia.igf.app.utilidades.ui.*" %>
 	<%@ page import="java.util.Date" %>
 	<%@ page import="java.util.List" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Listado de Aplicativos</title>
+<title>Listado de Parametros</title>
 <%@include file="../css_js_incluidos.jsp" %>
 </head>
 <body>
@@ -26,6 +27,7 @@
 
     ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
     CtrlParametro ctrlParametro = (CtrlParametro)ac.getBean("ctrlParametro");
+    ListHelper2 listHelper = (ListHelper2)ac.getBean("listHelper2");
 	String operacion=request.getParameter("operacion");
 	String cClase=(request.getParameter("cClase") != null) ? request.getParameter("cClase") : "" ;
 	String cMetodo=(request.getParameter("cMetodo") != null) ? request.getParameter("cMetodo") : "" ;
@@ -38,7 +40,7 @@
 	String idReadonly="";
 	boolean esOperacionEditar=false;
 	boolean esOperacionVer=false;
-
+	Parametro parametro =null;
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     if(operacion != null){
         esOperacionEditar=operacion.equalsIgnoreCase("editar");
@@ -46,9 +48,11 @@
     }
 
 	if((esOperacionEditar || esOperacionVer) && cClase!="" && cMetodo!="" && cParametro!=""){
-		Parametro parametro = ctrlParametro.obtenerPorIdCompuesto(cClase,cMetodo,cParametro);
-
+		parametro = ctrlParametro.obtenerPorIdCompuesto(cClase,cMetodo,cParametro);
 		descripcion=parametro.getdParametro();
+		dTipoParametro=parametro.getdTipoParametro();
+		cUsuario=parametro.getcUsuario();
+
 		try{
 			fechaIngreso=formatter.format(parametro.getfIngreso());
 		}catch(Exception e){
@@ -70,19 +74,19 @@
                 <div class="row">
                     <div class="col-lg-12">
                     <!-- Aqui tiene que ir el contenido -->
-                        <h1>Aplicativos</h1>
-                        <div class="pull-right"><a href="<%=context_path %>/tipoAtributo/lista.jsp">
+                        <h1>Parametros</h1>
+                        <div class="pull-right"><a href="<%=context_path %>/parametro/lista.jsp">
                         <button class="btn btn-primary">Regresar a Listado</button></a></div>
-                        <form class="form-horizontal" action="<%=context_path %>/tipoAtributo/operaciones.jsp" method="post">
+                        <form class="form-horizontal" action="<%=context_path %>/parametro/operaciones.jsp" method="post">
                         <input type="text" id="operacion" name="operacion" value="<%=operacion %>" class="hidden">
                         <fieldset>
 
                         <!-- Form Name -->
-                        <legend>Nuevo Aplicativo</legend>
+                        <legend>Nuevo </legend>
 
                         <!-- Text input-->
                         <div class="form-group">
-                          <label class="col-md-4 control-label" for="textinput">Codigo:</label>  
+                          <label class="col-md-4 control-label" for="textinput">Codigo Parametro:</label>  
                           <div class="col-md-4">
                           <input id="cParametro" name="cParametro" placeholder="ej: AM001" class="form-control input-md" type="text"
                           value="<%=cParametro %>" <%=readonly %> <%=idReadonly %>>
@@ -93,10 +97,18 @@
 
                         <!-- Text input-->
                         <div class="form-group">
-                          <label class="col-md-4 control-label" for="textinput">Codigo:</label>  
+                          <label class="col-md-4 control-label" for="textinput">Clase:</label>  
                           <div class="col-md-4">
-                          <input id="cClase" name="cClase" placeholder="ej: AM001" class="form-control input-md" type="text"
-                          value="<%=cClase %>" <%=readonly %> <%=idReadonly %>>
+                          <%=listHelper.generaListaClasesParametro(parametro, "cClase", readonly) %>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="textinput">Metodo:</label>  
+                          <div class="col-md-4">
+                          <%=listHelper.generaListaMetodosParametro(parametro, "cMetodo", readonly) %>
                           <span class="help-block"></span>  
                           </div>
                         </div>
@@ -107,6 +119,26 @@
                           <div class="col-md-4">
                           <input id="descripcion" name="descripcion" placeholder="escriba su descripción"
                            class="form-control input-md" type="text" value="<%=descripcion %>" <%=readonly %>>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="textinput">Descripción Tipo Parametro:</label>  
+                          <div class="col-md-4">
+                          <input id="dTipoParametro" name="dTipoParametro" placeholder="escriba su descripción"
+                           class="form-control input-md" type="text" value="<%=dTipoParametro %>" <%=readonly %>>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="textinput">Usuario:</label>  
+                          <div class="col-md-4">
+                          <input id="cUsuario" name="cUsuario" placeholder="escriba su descripción"
+                           class="form-control input-md" type="text" value="<%=cUsuario %>" <%=readonly %>>
                           <span class="help-block"></span>  
                           </div>
                         </div>

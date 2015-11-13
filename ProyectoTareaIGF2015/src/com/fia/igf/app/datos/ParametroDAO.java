@@ -94,8 +94,8 @@ public class ParametroDAO implements GenericDAO<Parametro, Integer>{
 	public Parametro obtenerPorIdCompuesto(String cClase, String cMetodo,
 			String cParametro) {
 		iniciaOperacion();
-		String queryStr="from Parametro p where p.id.cMetodo.cMetodo=:cMetodo and "+
-						"p.id.cMetodo.cClase.cClase=:cClase and "+
+		String queryStr="from Parametro p where p.id.cMetodo.id.cMetodo=:cMetodo and "+
+						"p.id.cMetodo.id.cClase.cClase=:cClase and "+
 						"p.id.cParametro=:cParametro";
 		Query query=sesion.createQuery(queryStr);
 		query.setParameter("cMetodo", Integer.parseInt(cMetodo));
@@ -104,6 +104,11 @@ public class ParametroDAO implements GenericDAO<Parametro, Integer>{
 		Parametro parametro = (Parametro)query.uniqueResult();
 		sesion.close();
 		return parametro;
+	}
+
+	public boolean eliminar(String cClase, String cMetodo, String cParametro) {
+		this.eliminar(obtenerPorIdCompuesto(cClase,cMetodo,cParametro));
+		return true;
 	}
 
 }

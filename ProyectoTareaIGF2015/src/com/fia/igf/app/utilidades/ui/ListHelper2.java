@@ -10,6 +10,7 @@ import com.fia.igf.app.datos.AplicativoDAO;
 import com.fia.igf.app.datos.ClaseDAO;
 import com.fia.igf.app.datos.InterfaceDAO;
 import com.fia.igf.app.datos.MetodoDAO;
+import com.fia.igf.app.datos.ParametroDAO;
 import com.fia.igf.app.datos.TipoAtributoDAO;
 import com.fia.igf.app.datos.TipoClaseDAO;
 import com.fia.igf.app.datos.TipoMetodoDAO;
@@ -19,6 +20,7 @@ import com.fia.igf.app.dominio.Clase;
 import com.fia.igf.app.dominio.ClaseInterface;
 import com.fia.igf.app.dominio.Interface;
 import com.fia.igf.app.dominio.Metodo;
+import com.fia.igf.app.dominio.Parametro;
 import com.fia.igf.app.dominio.TipoAtributo;
 import com.fia.igf.app.dominio.TipoClase;
 import com.fia.igf.app.dominio.TipoMetodo;
@@ -48,6 +50,9 @@ public class ListHelper2 {
 	@Autowired 
 	private TipoMetodoDAO tipoMetodoDao;
 
+	@Autowired 
+	private ParametroDAO parametroDao;
+
 	@Autowired
 	public ListHelper2(ClaseDAO claseDao,
 			TipoClaseDAO tipoClaseDao,
@@ -55,7 +60,8 @@ public class ListHelper2 {
 			MetodoDAO metodoDao,
 			TipoAtributoDAO tipoAtributoDao,
 			InterfaceDAO interfaceDao,
-			TipoMetodoDAO tipoMetodoDao
+			TipoMetodoDAO tipoMetodoDao,
+			ParametroDAO parametroDao
 			){
 		this.claseDao=claseDao;
 		this.tipoClaseDao=tipoClaseDao;
@@ -64,6 +70,7 @@ public class ListHelper2 {
 		this.tipoAtributoDao=tipoAtributoDao;
 		this.interfaceDao=interfaceDao;
 		this.tipoMetodoDao=tipoMetodoDao;
+		this.parametroDao=parametroDao;
 	}
 	
 	
@@ -346,6 +353,66 @@ public class ListHelper2 {
 		return listHtml;
 	}
 	
+	public String generaListaClasesParametro(Parametro parametro,String nameId, String readonly){
+		String listHtml="";
+		List <Clase> clases = claseDao.obtenerTodos();
+		int length = clases.size();
+		if(parametro!=null){
+			listHtml+="<select id=\""+nameId+"\" name=\""+nameId+"\" class=\"form-control\" "+readonly+">";
+			listHtml+="<option value=\"0\">Seleccionar...</option>";
+			for(int i=0; i<length ; i++){
+				Clase claseTmp=clases.get(i);
+				if(claseTmp.getcClase()==parametro.getcMetodo().getcClase().getcClase()){
+						listHtml+="<option value=\""+claseTmp.getcClase()+"\" selected=\"selected\">"+
+							claseTmp.getdClase()+"</option>";
+				}else{
+					listHtml+="<option value=\""+claseTmp.getcClase()+"\">"+
+							claseTmp.getdClase()+"</option>";
+				}
+			}
+			listHtml+="</select>";
+		}else{
+			listHtml+="<select id=\""+nameId+"\" name=\""+nameId+"\" class=\"form-control\" "+readonly+">";
+			listHtml+="<option value=\"0\">Seleccionar...</option>";
+			for(int i=0; i<length ; i++){
+				Clase claseTmp=clases.get(i);
+				listHtml+="<option value=\""+claseTmp.getcClase()+"\">"+
+				claseTmp.getdClase()+"</option>";
+			}
+			listHtml+="</select>";
+		}
+		return listHtml;
+	}	
 	
+	public String generaListaMetodosParametro(Parametro parametro,String nameId, String readonly){
+		String listHtml="";
+		List <Metodo> metodos = metodoDao.obtenerTodos();
+		int length = metodos.size();
+		if(parametro!=null){
+			listHtml+="<select id=\""+nameId+"\" name=\""+nameId+"\" class=\"form-control\" "+readonly+">";
+			listHtml+="<option value=\"0\">Seleccionar...</option>";
+			for(int i=0; i<length ; i++){
+				Metodo metodo=metodos.get(i);
+				if(metodo.getcMetodo()==parametro.getcMetodo().getcMetodo()){
+						listHtml+="<option value=\""+metodo.getcMetodo()+"\" selected=\"selected\">"+
+							metodo.getdMetodo()+"</option>";
+				}else{
+					listHtml+="<option value=\""+metodo.getcMetodo()+"\">"+
+							metodo.getdMetodo()+"</option>";
+				}
+			}
+			listHtml+="</select>";
+		}else{
+			listHtml+="<select id=\""+nameId+"\" name=\""+nameId+"\" class=\"form-control\" "+readonly+">";
+			listHtml+="<option value=\"0\">Seleccionar...</option>";
+			for(int i=0; i<length ; i++){
+				Metodo metodo=metodos.get(i);
+				listHtml+="<option value=\""+metodo.getcMetodo()+"\">"+
+				metodo.getdMetodo()+"</option>";
+			}
+			listHtml+="</select>";
+		}
+		return listHtml;
+	}	
 
 }

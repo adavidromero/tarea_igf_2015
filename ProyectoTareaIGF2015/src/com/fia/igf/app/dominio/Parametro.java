@@ -51,6 +51,14 @@ public class Parametro implements Serializable{
     @Basic(optional = true)
  	@OneToMany(cascade=CascadeType.ALL, mappedBy="cParametro")
  	private List<Observacion> observaciones;
+    
+    public Parametro(){
+    	
+    }
+    
+    public Parametro(Metodo cMetodo, Integer cParametro){
+    	this.id = new ParametroPK(cParametro,cMetodo);
+    }
 
 	public Integer getcParametro() {
 		return this.id.getcParametro();

@@ -27,8 +27,13 @@ public class CtrlInterfaceImplementa {
 	}
 	
 	@Autowired
-	public CtrlInterfaceImplementa (InterfaceImplementaDAO interfaceImplementaDao){
-		this.interImplementaDao=interImplementaDao;
+	public CtrlInterfaceImplementa (InterfaceImplementaDAO interfaceImplementaDao,
+				InterfaceDAO interfaceDaoHijo,
+				InterfaceDAO interfaceDaoPadre
+			){
+		this.interImplementaDao=interfaceImplementaDao;
+		this.interfaceDaoHijo=interfaceDaoHijo;
+		this.interfaceDaoPadre=interfaceDaoPadre;
 	}
 
 	public boolean crearInterfaceImplementa(String id, String idInterfaceHijo, String idInterfacePadre){

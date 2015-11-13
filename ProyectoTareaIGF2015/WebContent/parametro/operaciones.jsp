@@ -12,17 +12,22 @@
     
     <%
     String operacion = request.getParameter("operacion");
-    String uriLista="/tipoAtributo/lista.jsp";
+    String uriLista="/parametro/lista.jsp";
     String msg="";
-	String id=(request.getParameter("id") != null) ? request.getParameter("id") : "" ;
+	String cParametro=(request.getParameter("cParametro") != null) ? request.getParameter("cParametro") : "" ;
+	String cClase=(request.getParameter("cClase") != null) ? request.getParameter("cClase") : "" ;
+	String cMetodo=(request.getParameter("cMetodo") != null) ? request.getParameter("cMetodo") : "" ;
+	String dParametro="";
+	String dTipoParametro="";
+	String cUsuario="";
 
 	boolean esOperacionCrear=false;
 	boolean esOperacionEditar=false;
 	boolean esOperacionEliminar=false;
 
-    boolean tipoAtributoCreado=false;
-    boolean tipoAtributoEditado=false;
-    boolean tipoAtributoEliminado=false;
+    boolean parametroCreado=false;
+    boolean parametroEditado=false;
+    boolean parametroEliminado=false;
 
     if(operacion != null){
     	esOperacionCrear=operacion.equalsIgnoreCase("crear");
@@ -30,22 +35,25 @@
         esOperacionEliminar=operacion.equalsIgnoreCase("eliminar");
     }
 
-    if((esOperacionCrear || esOperacionEditar || esOperacionEliminar) && id!=""){
+    if((esOperacionCrear || esOperacionEditar || esOperacionEliminar) && 
+    		cParametro!="" && cClase!="" && cMetodo!=""){
     	ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-    	CtrlTipoAtributo ctrlTipoAtributo = (CtrlTipoAtributo)ac.getBean("ctrlTipoAtributo");
-    	TipoAtributo tipoAtributo = new TipoAtributo();
+    	CtrlParametro ctrlParametro = (CtrlParametro)ac.getBean("ctrlParametro");
+    	Parametro parametro = new Parametro();
 
     	if(esOperacionEliminar){
-    		tipoAtributoEliminado = ctrlTipoAtributo.borraAplicativo(id);
-    		if(tipoAtributoEliminado==true){
+    		parametroEliminado = ctrlParametro.eliminarPorIdCompuesto(cClase, cMetodo, cParametro);
+    		if(parametroEliminado==true){
     			msg="TipoAtributo Eliminado";
     		}else{
     			msg="TipoAtributo No Eliminado";
     		}
     	}else{
 
-  		String descripcion= request.getParameter("descripcion");
    		String strFechaIngreso = request.getParameter("fechaIngreso");
+		dParametro=request.getParameter("descripcion");
+		dTipoParametro=request.getParameter("dTipoParametro");
+		cUsuario=request.getParameter("cUsuario");
    		Date fechaIngreso= new Date();
 
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -56,9 +64,17 @@
 		}
 
     	if(esOperacionCrear){
-    		tipoAtributoCreado=ctrlTipoAtributo.crearTipoAtributo(id, descripcion, fechaIngreso);
+    		parametroCreado=ctrlParametro.crearParametro(
+				cClase,
+				cMetodo,
+				cParametro,
+				dParametro,
+				dTipoParametro,
+				cUsuario,
+				fechaIngreso
+    		);
 
-    		if(tipoAtributoCreado){
+    		if(parametroCreado){
     			msg="TipoAtributo creado";
     		}else{
     			msg="TipoAtributo no creado";
@@ -66,10 +82,15 @@
     	}
     	
     	if(esOperacionEditar){
-    		tipoAtributo=ctrlTipoAtributo.obtenerPorId(id);
-    		tipoAtributo.setdTipoAtributo(descripcion);
-    		tipoAtributo.setfIngreso(fechaIngreso);
-    		ctrlTipoAtributo.actualizar(tipoAtributo);
+    		parametroCreado=ctrlParametro.editarParametro(
+				cClase,
+				cMetodo,
+				cParametro,
+				dParametro,
+				dTipoParametro,
+				cUsuario,
+				fechaIngreso
+    		);
     		msg="Aplicativo modificado con exito!";
     	}
     		

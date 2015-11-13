@@ -108,6 +108,8 @@
 		 <bean id="ctrlInterfaceImplementa"
 		 		class="com.fia.igf.app.negocio.CtrlInterfaceImplementa ">
 		 		<constructor-arg ref="interfaceImplementaDao"/>
+		 		<constructor-arg ref="interfaceDao"/>
+		 		<constructor-arg ref="interfaceDao"/>
 		 </bean>
 		 
 		 
@@ -141,6 +143,7 @@
 		 <bean id="ctrlParametro"
 		 		class="com.fia.igf.app.negocio.CtrlParametro">
 		 		<constructor-arg ref="parametroDao"/>
+		 		<constructor-arg ref="MetodoDao"/>
 		 </bean>
 
 		 <bean id="listHelper"
@@ -162,9 +165,7 @@
 		 		<constructor-arg ref="interfaceDao"/>
 		 		<constructor-arg ref="tipoAtributoDao"/>
 		 		<constructor-arg ref="tipoMetodoDao"/>
+		 		<constructor-arg ref="parametroDao"/>
 		 </bean>
 
-
-
-		 
 </beans>

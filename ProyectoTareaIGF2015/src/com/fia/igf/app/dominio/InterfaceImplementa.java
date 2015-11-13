@@ -19,10 +19,9 @@ public class InterfaceImplementa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "c_interface_implementa")
-	private String cInterfaceImplementa = new String();
+	private String cInterfaceImplementa ;
 
 	@ManyToOne
 	@JoinColumn(name = "c_interface_hijo", referencedColumnName = "c_interface")
