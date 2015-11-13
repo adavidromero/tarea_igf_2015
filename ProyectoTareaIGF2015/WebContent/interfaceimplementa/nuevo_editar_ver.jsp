@@ -5,6 +5,7 @@
     <%@ page import="org.springframework.web.context.support.*" %>
     <%@ page import="com.fia.igf.app.negocio.*" %>
     <%@ page import="com.fia.igf.app.dominio.*" %>
+    <%@ page import="com.fia.igf.app.utilidades.ui.*" %>
     <%@ page import="java.text.DateFormat" %>
 	<%@ page import="java.text.SimpleDateFormat"%>
 	<%@ page import="java.text.ParseException" %>
@@ -24,15 +25,15 @@
 <%
 
     ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-    CtrlAplicativo ctrlAplicativo = (CtrlAplicativo)ac.getBean("ctrlAplicativo");
+    CtrlInterfaceImplementa ctrlInterfaceImplementa = (CtrlInterfaceImplementa)ac.getBean("ctrlInterfaceImplementa");
+    ListHelper2 listHelper = (ListHelper2)ac.getBean("listHelper2");
 	String operacion=request.getParameter("operacion");
 	String id=(request.getParameter("id") != null) ? request.getParameter("id") : "" ;
-	String descripcion="";
-	String fechaIngreso="";
 	String readonly="";
 	String idReadonly="";
 	boolean esOperacionEditar=false;
 	boolean esOperacionVer=false;
+	InterfaceImplementa interfaceImplementa =null;
 
 	SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     if(operacion != null){
@@ -41,14 +42,7 @@
     }
 
 	if((esOperacionEditar || esOperacionVer) && id!=""){
-		Aplicativo aplicativo = ctrlAplicativo.obtenerPorId(id);
-		descripcion=aplicativo.getdAplicativo();
-		try{
-			fechaIngreso=formatter.format(aplicativo.getfIngreso());
-		}catch(Exception e){
-			System.out.println(e.getStackTrace());
-		}
-
+		interfaceImplementa = ctrlInterfaceImplementa.obtenerPorId(Integer.parseInt(id));
 		if(esOperacionEditar){
 			idReadonly="readonly";
 		}
@@ -65,9 +59,9 @@
                     <div class="col-lg-12">
                     <!-- Aqui tiene que ir el contenido -->
                         <h1>Tipos de Métodos</h1>
-                        <div class="pull-right"><a href="<%=context_path %>/aplicativo/lista.jsp">
+                        <div class="pull-right"><a href="<%=context_path %>/interfaceimplementa/lista.jsp">
                         <button class="btn btn-primary">Regresar a Listado</button></a></div>
-                        <form class="form-horizontal" action="<%=context_path %>/aplicativo/operaciones.jsp" method="post">
+                        <form class="form-horizontal" action="<%=context_path %>/interfaceimplementa/operaciones.jsp" method="post">
                         <input type="text" id="operacion" name="operacion" value="<%=operacion %>" class="hidden">
                         <fieldset>
 
@@ -86,24 +80,22 @@
 
                         <!-- Text input-->
                         <div class="form-group">
-                          <label class="col-md-4 control-label" for="textinput">Descripción:</label>  
+                          <label class="col-md-4 control-label" for="textinput">Interface Hijo:</label>  
                           <div class="col-md-4">
-                          <input id="descripcion" name="descripcion" placeholder="escriba su descripción"
-                           class="form-control input-md" type="text" value="<%=descripcion %>" <%=readonly %>>
+                          <%=listHelper.generarSelectListaInterfaceHijoInterfaceImplementa(interfaceImplementa, "cInterfaceHijo", readonly) %>
                           <span class="help-block"></span>  
                           </div>
                         </div>
 
                         <!-- Text input-->
                         <div class="form-group">
-                          <label class="col-md-4 control-label" for="textinput">Fecha</label>  
+                          <label class="col-md-4 control-label" for="textinput">Interface Hijo:</label>  
                           <div class="col-md-4">
-                          <input id="fechaIngreso" name="fechaIngreso" placeholder="dd/mm/yyyy" 
-                          class="form-control input-md datepicker" type="text" 
-                          value="<%=fechaIngreso %>" <%=readonly %>>
+                          <%=listHelper.generarSelectListaInterfacePadreInterfaceImplementa(interfaceImplementa, "cInterfacePadre", readonly) %>
                           <span class="help-block"></span>  
                           </div>
                         </div>
+
 
                         <!-- Button -->
 

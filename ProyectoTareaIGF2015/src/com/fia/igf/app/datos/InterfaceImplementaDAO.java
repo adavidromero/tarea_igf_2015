@@ -88,17 +88,8 @@ public class InterfaceImplementaDAO implements GenericDAO<InterfaceImplementa,In
 	@Override
 	public InterfaceImplementa obtenerPorId(Class<InterfaceImplementa> clazz,
 			Integer id) {
-		InterfaceImplementa interImplementa = null;
 		iniciaOperacion();
-		try {
-			//metodo = (Metodo)sesion.get
-			interImplementa = (InterfaceImplementa)sesion.get(clazz, id);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("Ocurrio un error...");
-		}
-		
-		
+		InterfaceImplementa interImplementa = (InterfaceImplementa)sesion.get(clazz, id);
 		sesion.close();
 		return interImplementa;
 	}

@@ -12,17 +12,19 @@
     
     <%
     String operacion = request.getParameter("operacion");
-    String uriLista="/aplicativo/lista.jsp";
+    String uriLista="/interfaceimplementa/lista.jsp";
     String msg="";
 	String id=(request.getParameter("id") != null) ? request.getParameter("id") : "" ;
+	String cInterfaceHijo="";
+	String cInterfacePadre="";
 
 	boolean esOperacionCrear=false;
 	boolean esOperacionEditar=false;
 	boolean esOperacionEliminar=false;
 
-    boolean aplicativoCreado=false;
-    boolean aplicativoEditado=false;
-    boolean aplicativoEliminado=false;
+    boolean iiCreado=false;
+    boolean iiEditado=false;
+    boolean iiEliminado=false;
 
     if(operacion != null){
     	esOperacionCrear=operacion.equalsIgnoreCase("crear");
@@ -32,12 +34,14 @@
 
     if((esOperacionCrear || esOperacionEditar || esOperacionEliminar) && id!=""){
     	ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-    	CtrlAplicativo ctrlAplicativo = (CtrlAplicativo)ac.getBean("ctrlAplicativo");
-    	Aplicativo aplicativo = new Aplicativo();
+    	CtrlInterfaceImplementa ctrlInterfaceImplementa = (CtrlInterfaceImplementa)ac.getBean("ctrlInterfaceImplementa");
+    	InterfaceImplementa interfaceImplementa = new InterfaceImplementa();
+    	cInterfaceHijo=request.getParameter("cInterfaceHijo");
+    	cInterfacePadre=request.getParameter("cInterfacePadre");
 
     	if(esOperacionEliminar){
-    		aplicativoEliminado = ctrlAplicativo.borraAplicativo(id);
-    		if(aplicativoEliminado==true){
+    		iiEliminado = ctrlInterfaceImplementa.borraInterfaceImplementa(Integer.parseInt(id));
+    		if(iiEliminado==true){
     			msg="Aplicativo Eliminado";
     		}else{
     			msg="Aplicativo No Eliminado";
@@ -45,20 +49,11 @@
     	}else{
 
   		String descripcion= request.getParameter("descripcion");
-   		String strFechaIngreso = request.getParameter("fechaIngreso");
-   		Date fechaIngreso= new Date();
-
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-		try{
-			fechaIngreso = formatter.parse(strFechaIngreso);
-		}catch(ParseException e){
-			e.printStackTrace();
-		}
 
     	if(esOperacionCrear){
-    		aplicativoCreado=ctrlAplicativo.crearAplicativo(id, descripcion, fechaIngreso);
+    		iiCreado=ctrlInterfaceImplementa.crearInterfaceImplementa(id, cInterfaceHijo, cInterfacePadre);
 
-    		if(aplicativoCreado){
+    		if(iiCreado){
     			msg="Aplicativo creado";
     		}else{
     			msg="Aplicativo no creado";
@@ -66,10 +61,7 @@
     	}
     	
     	if(esOperacionEditar){
-    		aplicativo=ctrlAplicativo.obtenerPorId(id);
-    		aplicativo.setdAplicativo(descripcion);
-    		aplicativo.setfIngreso(fechaIngreso);
-    		ctrlAplicativo.actualizar(aplicativo);
+    		iiEditado=ctrlInterfaceImplementa.actualizar(id,cInterfaceHijo,cInterfacePadre);
     		msg="Aplicativo modificado con exito!";
     	}
     		

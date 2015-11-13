@@ -21,7 +21,7 @@ public class InterfaceImplementa implements Serializable {
 	@Id
 	@Basic(optional = false)
 	@Column(name = "c_interface_implementa")
-	private String cInterfaceImplementa ;
+	private Integer cInterfaceImplementa ;
 
 	@ManyToOne
 	@JoinColumn(name = "c_interface_hijo", referencedColumnName = "c_interface")
@@ -35,18 +35,18 @@ public class InterfaceImplementa implements Serializable {
 
 	}
 
-	public InterfaceImplementa(String cInterfaceImplementa,
+	public InterfaceImplementa(Integer cInterfaceImplementa,
 			Interface interfaceHijo, Interface interfacePadre) {
 		this.cInterfaceImplementa = cInterfaceImplementa;
 		this.interfaceHijo = interfaceHijo;
 		this.interfacePadre = interfacePadre;
 	}
 
-	public String getcInterfaceImplementa() {
+	public Integer getcInterfaceImplementa() {
 		return cInterfaceImplementa;
 	}
 
-	public void setcInterfaceImplementa(String cInterfaceImplementa) {
+	public void setcInterfaceImplementa(Integer cInterfaceImplementa) {
 		this.cInterfaceImplementa = cInterfaceImplementa;
 	}
 

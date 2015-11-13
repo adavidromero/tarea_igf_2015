@@ -102,7 +102,7 @@
                         <div class="form-group">
                           <label class="col-md-4 control-label" for="textinput">Codigo Atributo:</label>  
                           <div class="col-md-4">
-                          <input id="id" name="id" placeholder="ej: AM001" class="form-control input-md" type="text"
+                          <input id="id" name="id" placeholder="ej: 123" class="form-control input-md" type="text"
                           value="<%=cAtributo %>" <%=readonly %> <%=idReadonly %>>
                           <span class="help-block"></span>  
                           </div>
@@ -113,7 +113,7 @@
                         <div class="form-group">
                           <label class="col-md-4 control-label" for="textinput">Metodo:</label>  
                           <div class="col-md-4">
-                          <input id="metodo" name="metodo" placeholder="" class="form-control input-md" type="text"
+                          <input id="cMetodo" name="cMetodo" placeholder="" class="form-control input-md" type="text"
                           value="<%=metodo %>" <%=readonly %> <%=idReadonly %>>
                           <span class="help-block"></span>  
                           </div>
@@ -144,7 +144,7 @@
                         <div class="form-group">
                           <label class="col-md-4 control-label" for="textinput">Usuario:</label>  
                           <div class="col-md-4">
-                          <input id="descripcion" name="descripcion" placeholder="escriba su descripción"
+                          <input id="cUsuario" name="cUsuario" placeholder="escriba su descripción"
                            class="form-control input-md" type="text" value="<%=usuario %>" <%=readonly %>>
                           <span class="help-block"></span>  
                           </div>

@@ -52,15 +52,15 @@
     						
                         %>
                         	<tr>
-                        	<td><%=interfaceImplementa.getcInterfaceImplementa() %></td>
-                        	<td><%=interfaceImplementa.getInterfaceHijo() %></td>
-                        	<td><%=interfaceImplementa.getInterfacePadre() %></td>
+                        	<td><%=interfaceImplementa.getcInterfaceImplementa().toString() %></td>
+                        	<td><%=interfaceImplementa.getInterfaceHijo().getdInterface() %></td>
+                        	<td><%=interfaceImplementa.getInterfacePadre().getdInterface() %></td>
                         	<td>
-                        	<a href="<%=context_path %>/interfaceimplementa/nuevo_editar_ver.jsp?operacion=ver&id=<%=interfaceImplementa.getcInterfaceImplementa() %>">
+                        	<a href="<%=context_path %>/interfaceimplementa/nuevo_editar_ver.jsp?operacion=ver&id=<%=interfaceImplementa.getcInterfaceImplementa().toString() %>">
                         	<span class="glyphicon glyphicon-eye-open"></span></a>
-                        	<a href="<%=context_path %>/interfaceimplementa/nuevo_editar_ver.jsp?operacion=editar&id=<%=interfaceImplementa.getcInterfaceImplementa() %>">
+                        	<a href="<%=context_path %>/interfaceimplementa/nuevo_editar_ver.jsp?operacion=editar&id=<%=interfaceImplementa.getcInterfaceImplementa().toString() %>">
                         	<span class="glyphicon glyphicon-pencil"></span></a>
-                        	<a class="eliminar" data-caplicacion="<%=interfaceImplementa.getcInterfaceImplementa() %>" href="#"><span class="glyphicon glyphicon-remove"></span></a>
+                        	<a class="eliminar" data-caplicacion="<%=interfaceImplementa.getcInterfaceImplementa().toString() %>" href="#"><span class="glyphicon glyphicon-remove"></span></a>
                         	</td>
                         	</tr>
                         	<%

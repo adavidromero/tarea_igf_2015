@@ -19,6 +19,7 @@ import com.fia.igf.app.dominio.Atributo;
 import com.fia.igf.app.dominio.Clase;
 import com.fia.igf.app.dominio.ClaseInterface;
 import com.fia.igf.app.dominio.Interface;
+import com.fia.igf.app.dominio.InterfaceImplementa;
 import com.fia.igf.app.dominio.Metodo;
 import com.fia.igf.app.dominio.Parametro;
 import com.fia.igf.app.dominio.TipoAtributo;
@@ -414,5 +415,71 @@ public class ListHelper2 {
 		}
 		return listHtml;
 	}	
+	
+	
+	
+	public String generarSelectListaInterfaceHijoInterfaceImplementa(InterfaceImplementa interfaceImplementa,String nameId, String readonly){
+		String listHtml="";
+		List <Interface> interfaces = interfaceDao.obtenerTodos();
+		int length = interfaces.size();
+		if(interfaceImplementa!=null ){
+			listHtml+="<select id=\""+nameId+"\" name=\""+nameId+"\" class=\"form-control\" "+readonly+">";
+			listHtml+="<option value=\"0\">Seleccionar...</option>";
+			for(int i=0; i<length ; i++){
+				Interface interfaz=interfaces.get(i);
+				if(interfaz.getcInterface()==interfaceImplementa.getInterfaceHijo().getcInterface()){
+						listHtml+="<option value=\""+interfaz.getcInterface()+"\" selected=\"selected\">"+
+							interfaz.getdInterface()+"</option>";
+				}else{
+					listHtml+="<option value=\""+interfaz.getcInterface()+"\">"+
+							interfaz.getdInterface()+"</option>";
+				}
+			}
+			listHtml+="</select>";
+		}else{
+			listHtml+="<select id=\""+nameId+"\" name=\""+nameId+"\" class=\"form-control\" "+readonly+">";
+			listHtml+="<option value=\"0\">Seleccionar...</option>";
+			for(int i=0; i<length ; i++){
+				Interface interfaz=interfaces.get(i);
+				listHtml+="<option value=\""+interfaz.getcInterface()+"\">"+
+				interfaz.getdInterface()+"</option>";
+			}
+			listHtml+="</select>";
+		}
+		return listHtml;
+	}
+	
+	
+	
+	public String generarSelectListaInterfacePadreInterfaceImplementa(InterfaceImplementa interfaceImplementa,String nameId, String readonly){
+		String listHtml="";
+		List <Interface> interfaces = interfaceDao.obtenerTodos();
+		int length = interfaces.size();
+		if(interfaceImplementa!=null ){
+			listHtml+="<select id=\""+nameId+"\" name=\""+nameId+"\" class=\"form-control\" "+readonly+">";
+			listHtml+="<option value=\"0\">Seleccionar...</option>";
+			for(int i=0; i<length ; i++){
+				Interface interfaz=interfaces.get(i);
+				if(interfaz.getcInterface()==interfaceImplementa.getInterfacePadre().getcInterface()){
+						listHtml+="<option value=\""+interfaz.getcInterface()+"\" selected=\"selected\">"+
+							interfaz.getdInterface()+"</option>";
+				}else{
+					listHtml+="<option value=\""+interfaz.getcInterface()+"\">"+
+							interfaz.getdInterface()+"</option>";
+				}
+			}
+			listHtml+="</select>";
+		}else{
+			listHtml+="<select id=\""+nameId+"\" name=\""+nameId+"\" class=\"form-control\" "+readonly+">";
+			listHtml+="<option value=\"0\">Seleccionar...</option>";
+			for(int i=0; i<length ; i++){
+				Interface interfaz=interfaces.get(i);
+				listHtml+="<option value=\""+interfaz.getcInterface()+"\">"+
+				interfaz.getdInterface()+"</option>";
+			}
+			listHtml+="</select>";
+		}
+		return listHtml;
+	}
 
 }

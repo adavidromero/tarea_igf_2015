@@ -40,24 +40,19 @@ public class CtrlInterfaceImplementa {
 		Integer idPadre = new Integer("0");
 		Integer idHijo = new Integer("0");
 		Interface hijo, padre;
-		
 		try {
 			//Inicializando id
 			 idPadre = Integer.parseInt(idInterfacePadre.trim());
 			 idHijo = Integer.parseInt(idInterfaceHijo.trim());
-			 
 		} catch (Exception e) {
 			// TODO: handle exception
-			
 		}
 		
 		hijo = interfaceDaoHijo.obtenerPorId(Interface.class, idHijo);
 		padre = interfaceDaoPadre.obtenerPorId(Interface.class, idPadre);
-		
-		
 		if( hijo != null && padre != null){
 			
-				InterfaceImplementa interImplementa = new InterfaceImplementa(id,hijo,padre);
+				InterfaceImplementa interImplementa = new InterfaceImplementa(Integer.parseInt(id),hijo,padre);
 				interImplementaDao.guardaActualiza(interImplementa);
 				return true ;
 		}
@@ -84,6 +79,17 @@ public class CtrlInterfaceImplementa {
 
 	public InterfaceImplementa obtenerPorId(Integer id){
 		return interImplementaDao.obtenerPorId(InterfaceImplementa.class, id);
+	}
+	
+	public boolean actualizar(String id, String cInterfaceHijo, String cInterfacePadre){
+		InterfaceImplementa iimp=interImplementaDao.obtenerPorId(InterfaceImplementa.class, Integer.parseInt(id));
+		Interface hijo=interfaceDaoPadre.obtenerPorId(Interface.class, Integer.parseInt(cInterfaceHijo));
+		Interface padre=interfaceDaoPadre.obtenerPorId(Interface.class, Integer.parseInt(cInterfacePadre));
+		iimp.setInterfaceHijo(hijo);
+		iimp.setInterfacePadre(padre);
+		interImplementaDao.guardaActualiza(iimp);
+		return true;
+		
 	}
 	
 	public boolean actualizar(InterfaceImplementa interImplementa){
