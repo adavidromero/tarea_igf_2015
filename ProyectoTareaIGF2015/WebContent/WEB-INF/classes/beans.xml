@@ -111,6 +111,8 @@
 		 		<constructor-arg ref="claseDao"/>
 		 		<constructor-arg ref="tipoClaseDao"/>
 		 		<constructor-arg ref="aplicativoDao"/>
+		 		<constructor-arg ref="MetodoDao"/>
+		 		<constructor-arg ref="tipoAtributoDao"/>
 		 </bean>
 
 

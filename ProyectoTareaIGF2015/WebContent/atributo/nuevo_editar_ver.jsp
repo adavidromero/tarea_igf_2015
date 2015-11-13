@@ -4,6 +4,7 @@
     <%@ page import="org.springframework.context.support.*" %>
     <%@ page import="org.springframework.web.context.support.*" %>
     <%@ page import="com.fia.igf.app.negocio.*" %>
+    <%@ page import="com.fia.igf.app.utilidades.ui.*" %>
     <%@ page import="com.fia.igf.app.dominio.*" %>
     <%@ page import="java.text.DateFormat" %>
 	<%@ page import="java.text.SimpleDateFormat"%>
@@ -26,10 +27,17 @@
 
     ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
     CtrlAtributo ctrlAtributo = (CtrlAtributo)ac.getBean("ctrlAtributo");
+    ListHelper listHelper = (ListHelper)ac.getBean("listHelper");
 	String operacion=request.getParameter("operacion");
-	String id=(request.getParameter("id") != null) ? request.getParameter("id") : "" ;
+	Atributo atributo = null;
+	String cAtributo=(request.getParameter("cAtributo") != null) ? request.getParameter("cAtributo") : "" ;
+	String cClase=(request.getParameter("cClase") != null) ? request.getParameter("cClase") : "" ;
+	String metodo="";
 	String descripcion="";
+	String descripcionTipoDatoAtributo="";
+	String usuario="";
 	String fechaIngreso="";
+	String tipoAtributo="";
 	String readonly="";
 	String idReadonly="";
 	boolean esOperacionEditar=false;
@@ -41,9 +49,15 @@
         esOperacionVer=operacion.equalsIgnoreCase("ver");
     }
 
-	if((esOperacionEditar || esOperacionVer) && id!=""){
-		Atributo atributo = ctrlAtributo.obtenerPorId(Integer.parseInt(id));
+	if((esOperacionEditar || esOperacionVer) && cAtributo!="" && cClase!=""){
+		atributo = ctrlAtributo.obtenerPorId(cAtributo,cClase);
 		descripcion=atributo.getdAtributo();
+		metodo=atributo.getcMetodo().getdMetodo();
+		descripcion=atributo.getdAtributo();
+		descripcionTipoDatoAtributo=atributo.getdTipoDatoAtributo();
+		usuario=atributo.getcUsuario();
+		tipoAtributo=atributo.getcTipoAtributo().getdTipoAtributo();
+		
 		try{
 			fechaIngreso=formatter.format(atributo.getfIngreso());
 		}catch(Exception e){
@@ -65,22 +79,42 @@
                 <div class="row">
                     <div class="col-lg-12">
                     <!-- Aqui tiene que ir el contenido -->
-                        <h1>Aplicativos</h1>
-                        <div class="pull-right"><a href="<%=context_path %>/aplicativo/lista.jsp">
+                        <h1>Atributos</h1>
+                        <div class="pull-right"><a href="<%=context_path %>/atributo/lista.jsp">
                         <button class="btn btn-primary">Regresar a Listado</button></a></div>
-                        <form class="form-horizontal" action="<%=context_path %>/aplicativo/operaciones.jsp" method="post">
+                        <form class="form-horizontal" action="<%=context_path %>/atributo/operaciones.jsp" method="post">
                         <input type="text" id="operacion" name="operacion" value="<%=operacion %>" class="hidden">
                         <fieldset>
 
                         <!-- Form Name -->
-                        <legend>Nuevo Aplicativo</legend>
+                        <legend>Nuevo Atributo</legend>
+
+                        <!-- Text input cambiar por select-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="textinput">Clase:</label>  
+                          <div class="col-md-4">
+                          <%=listHelper.generaListaClasesParaAtributo(atributo, "clase", readonly) %>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
 
                         <!-- Text input-->
                         <div class="form-group">
-                          <label class="col-md-4 control-label" for="textinput">Codigo:</label>  
+                          <label class="col-md-4 control-label" for="textinput">Codigo Atributo:</label>  
                           <div class="col-md-4">
                           <input id="id" name="id" placeholder="ej: AM001" class="form-control input-md" type="text"
-                          value="<%=id %>" <%=readonly %> <%=idReadonly %>>
+                          value="<%=cAtributo %>" <%=readonly %> <%=idReadonly %>>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
+                        
+                        
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="textinput">Metodo:</label>  
+                          <div class="col-md-4">
+                          <input id="metodo" name="metodo" placeholder="" class="form-control input-md" type="text"
+                          value="<%=metodo %>" <%=readonly %> <%=idReadonly %>>
                           <span class="help-block"></span>  
                           </div>
                         </div>
@@ -94,6 +128,28 @@
                           <span class="help-block"></span>  
                           </div>
                         </div>
+                        
+                        
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="textinput">Descripción Tipo Dato Atributo:</label>  
+                          <div class="col-md-4">
+                          <input id="descripcionTipoDatoAtributo" name="descripcionTipoDatoAtributo" placeholder="escriba su descripción"
+                           class="form-control input-md" type="text" value="<%=descripcionTipoDatoAtributo %>" <%=readonly %>>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
+                        
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="textinput">Usuario:</label>  
+                          <div class="col-md-4">
+                          <input id="descripcion" name="descripcion" placeholder="escriba su descripción"
+                           class="form-control input-md" type="text" value="<%=usuario %>" <%=readonly %>>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
+                        
 
                         <!-- Text input-->
                         <div class="form-group">
@@ -105,7 +161,15 @@
                           <span class="help-block"></span>  
                           </div>
                         </div>
-
+                        
+                        <!-- Text input-->
+                        <div class="form-group">
+                          <label class="col-md-4 control-label" for="textinput">Tipo Atributo:</label>  
+                          <div class="col-md-4">
+                          <%=listHelper.listaTipoAtributo(atributo, "tipoAtributo", readonly) %>
+                          <span class="help-block"></span>  
+                          </div>
+                        </div>
                         <!-- Button -->
 
 						<%

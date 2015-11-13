@@ -27,15 +27,20 @@
                 <div class="row">
                     <div class="col-lg-12">
                     <!-- Aqui tiene que ir el contenido -->
-                        <h1>Aplicativos </h1>
+                        <h1>Atributos </h1>
                         <div class="pull-right"><a href="<%=context_path %>/atributo/nuevo_editar_ver.jsp?operacion=crear">
                         <button class="btn btn-primary">Nuevo Registro</button></a></div>
                         <table class="table">
                         <thead>
                         	<tr>
+                        	<th>Clase</th>
                         	<th>Codigo</th>
+                        	<th>Metodo</th>
                         	<th>Descripcion</th>
+                        	<th>Descripcion Tipo <br>Dato Atributo</th>
+                        	<th>Usuario</th>
                         	<th>Fecha Ingreso</th>
+                        	<th>TipoAtributo</th>
                         	<th>Operaciones</th>
                         	</tr>
                         </thead>
@@ -58,15 +63,20 @@
     						}
                         %>
                         	<tr>
+                        	<td><%=atributo.getcClase().getdClase() %></td>
                         	<td><%=atributo.getcAtributo() %></td>
+                        	<td><%=atributo.getcMetodo().getdMetodo() %></td>
                         	<td><%=atributo.getdAtributo() %></td>
+                        	<td><%=atributo.getdTipoDatoAtributo() %></td>
+                        	<td><%=atributo.getcUsuario() %></td>
                         	<td><%=strFechaIngreso %></td>
+                        	<td><%=atributo.getcTipoAtributo().getdTipoAtributo() %></td>
                         	<td>
-                        	<a href="<%=context_path %>/atributo/nuevo_editar_ver.jsp?operacion=ver&id=<%=atributo.getcAtributo() %>">
+                        	<a href="<%=context_path %>/atributo/nuevo_editar_ver.jsp?operacion=ver&cAtributo=<%=atributo.getcAtributo() %>&cClase=<%=atributo.getcClase().getcClase() %>">
                         	<span class="glyphicon glyphicon-eye-open"></span></a>
-                        	<a href="<%=context_path %>/atributo/nuevo_editar_ver.jsp?operacion=editar&id=<%=atributo.getcAtributo() %>">
+                        	<a href="<%=context_path %>/atributo/nuevo_editar_ver.jsp?operacion=editar&cAtributo=<%=atributo.getcAtributo() %>&cClase=<%=atributo.getcClase().getcClase() %>">
                         	<span class="glyphicon glyphicon-pencil"></span></a>
-							<a class="eliminar" data-codigo="<%=atributo.getcTipoAtributo() %>" 
+							<a class="eliminar" data-codigo="" 
                         		data-descripcion=<%=atributo.getdTipoAtributo() %>
                         		href="#">
                         	<span class="glyphicon glyphicon-remove"></span></a>

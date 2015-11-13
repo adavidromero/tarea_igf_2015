@@ -53,19 +53,12 @@ public class Clase implements Serializable{
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="cClase")
 	private List<Metodo> metodos;
 
-    @Basic(optional = true)
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="cClase")
-	private List<Atributo> atributos;
-
-    @Basic(optional = true)
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="cClase")
-	private List<Observacion> observaciones;
+   
 
     
     public Clase(){
     	
     }
-    
 
 	public Clase(Integer cClase, String dClase, String cUsuario, Date fIngreso,
 			Aplicativo cAplicativo, Clase clasePadre, TipoClase cTipoClase) {
@@ -162,21 +155,7 @@ public class Clase implements Serializable{
 		this.metodos = metodos;
 	}
 
-	public List<Atributo> getAtributos() {
-		return atributos;
-	}
 
-	public void setAtributos(List<Atributo> atributos) {
-		this.atributos = atributos;
-	}
-
-	public List<Observacion> getObservaciones() {
-		return observaciones;
-	}
-
-	public void setObservaciones(List<Observacion> observaciones) {
-		this.observaciones = observaciones;
-	}
 
 	
 	

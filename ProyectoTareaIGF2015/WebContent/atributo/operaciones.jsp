@@ -15,14 +15,22 @@
     String uriLista="/aplicativo/lista.jsp";
     String msg="";
 	String id=(request.getParameter("id") != null) ? request.getParameter("id") : "" ;
+	String cAtributo=(request.getParameter("cAtributo") != null) ? request.getParameter("cAtributo") : "" ;
+	String cClase=(request.getParameter("cClase") != null) ? request.getParameter("cClase") : "" ;
+	String metodo ="";
+	String descripcion="";
+	String descripcionTipoDatoAtributo="";
+	String usuario="";
+	String fechaIngreso="";
+	String tipoAtributo="";
 
 	boolean esOperacionCrear=false;
 	boolean esOperacionEditar=false;
 	boolean esOperacionEliminar=false;
 
-    boolean aplicativoCreado=false;
-    boolean aplicativoEditado=false;
-    boolean aplicativoEliminado=false;
+    boolean atributoCreado=false;
+    boolean atributoEditado=false;
+    boolean atributoEliminado=false;
 
     if(operacion != null){
     	esOperacionCrear=operacion.equalsIgnoreCase("crear");
@@ -30,17 +38,19 @@
         esOperacionEliminar=operacion.equalsIgnoreCase("eliminar");
     }
 
-    if((esOperacionCrear || esOperacionEditar || esOperacionEliminar) && id!=""){
+    if((esOperacionCrear || esOperacionEditar || esOperacionEliminar) && cAtributo!="" && cClase!=""){
     	ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-    	CtrlAplicativo ctrlAplicativo = (CtrlAplicativo)ac.getBean("ctrlAplicativo");
-    	Aplicativo aplicativo = new Aplicativo();
+    	CtrlAtributo ctrlAtributo = (CtrlAtributo)ac.getBean("ctrlAtributo");
+    	Atributo atributo = new Atributo();
+    	metodo = atributo.getcMetodo().getcMetodo();
 
     	if(esOperacionEliminar){
-    		aplicativoEliminado = ctrlAplicativo.borraAplicativo(id);
-    		if(aplicativoEliminado==true){
-    			msg="Aplicativo Eliminado";
+    		atributoEliminado = ctrlAtributo.borraAtributo(Integer.parseInt(cAtributo),
+    				Integer.parseInt(cClase));
+    		if(atributoEliminado==true){
+    			msg="Atributo Eliminado";
     		}else{
-    			msg="Aplicativo No Eliminado";
+    			msg="Atributo No Eliminado";
     		}
     	}else{
 
@@ -56,7 +66,7 @@
 		}
 
     	if(esOperacionCrear){
-    		aplicativoCreado=ctrlAplicativo.crearAplicativo(id, descripcion, fechaIngreso);
+    		atributoCreado=ctrlAtributo.crearAtributo();
 
     		if(aplicativoCreado){
     			msg="Aplicativo creado";

@@ -5,11 +5,13 @@ import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -44,13 +46,7 @@ public class Observacion implements Serializable{
     @Column(name = "b_activo")
     private Integer bActivo;
 
-	@ManyToOne 
-	@JoinColumn(name = "c_clase", referencedColumnName = "c_clase")
-	private Clase cClase;
 
-	@ManyToOne 
-	@JoinColumn(name = "c_atributo", referencedColumnName = "c_atributo")
-	private Atributo cAtributo;
 
 	@ManyToOne 
 	@JoinColumn(name = "c_metodo", referencedColumnName = "c_metodo")
@@ -100,21 +96,7 @@ public class Observacion implements Serializable{
 		this.bActivo = cActivo;
 	}
 
-	public Clase getcClase() {
-		return cClase;
-	}
-
-	public void setcClase(Clase cClase) {
-		this.cClase = cClase;
-	}
-
-	public Atributo getcAtributo() {
-		return cAtributo;
-	}
-
-	public void setcAtributo(Atributo cAtributo) {
-		this.cAtributo = cAtributo;
-	}
+	
 
 	public Metodo getcMetodo() {
 		return cMetodo;
@@ -133,3 +115,4 @@ public class Observacion implements Serializable{
 	}
 
 }
+

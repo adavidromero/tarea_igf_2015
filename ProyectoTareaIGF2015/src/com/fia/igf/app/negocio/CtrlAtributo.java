@@ -54,13 +54,25 @@ public class CtrlAtributo {
 		return atributoDao.obtenerTodos();
 	}
 
-	public Atributo obtenerPorId(Integer id){
-		return atributoDao.obtenerPorId(Atributo.class, id);
+	public Atributo obtenerPorId(String cAtributo, String cClase){
+		return atributoDao.obtenerPorIdCompuesto(Integer.parseInt(cClase)
+				, Integer.parseInt(cAtributo));
 	}
 	
 	public boolean actualizar(Atributo atributo){
 		atributoDao.guardaActualiza(atributo);
 		return false;
+	}
+	
+	public boolean borraAtributo(Integer cAtributo, Integer cClase){
+		if(atributoDao.obtenerPorIdCompuesto(cAtributo,cClase)!=null){
+			Atributo atributo = atributoDao.obtenerPorIdCompuesto(cAtributo,cClase);
+			atributoDao.eliminar(atributo);
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 }

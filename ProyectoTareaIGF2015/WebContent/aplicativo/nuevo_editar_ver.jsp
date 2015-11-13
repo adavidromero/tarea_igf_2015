@@ -23,9 +23,8 @@
 <%@include file="../navbar.jsp" %>
 <%
 
-
     ApplicationContext ac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-    CtrlTipoMetodo ctrlTipoMetodo = (CtrlTipoMetodo)ac.getBean("ctrlTipoMetodo");
+    CtrlAplicativo ctrlAplicativo = (CtrlAplicativo)ac.getBean("ctrlAplicativo");
 	String operacion=request.getParameter("operacion");
 	String id=(request.getParameter("id") != null) ? request.getParameter("id") : "" ;
 	String descripcion="";
@@ -42,10 +41,10 @@
     }
 
 	if((esOperacionEditar || esOperacionVer) && id!=""){
-		TipoMetodo tipoMetodo = ctrlTipoMetodo.obtenerPorId(id);
-		descripcion=tipoMetodo.getdTipoMetodo();
+		Aplicativo aplicativo = ctrlAplicativo.obtenerPorId(id);
+		descripcion=aplicativo.getdAplicativo();
 		try{
-			fechaIngreso=formatter.format(tipoMetodo.getfIngreso());
+			fechaIngreso=formatter.format(aplicativo.getfIngreso());
 		}catch(Exception e){
 			System.out.println(e.getStackTrace());
 		}
@@ -66,14 +65,14 @@
                     <div class="col-lg-12">
                     <!-- Aqui tiene que ir el contenido -->
                         <h1>Tipos de Métodos</h1>
-                        <div class="pull-right"><a href="<%=context_path %>/tipometodo/lista.jsp">
+                        <div class="pull-right"><a href="<%=context_path %>/aplicativo/lista.jsp">
                         <button class="btn btn-primary">Regresar a Listado</button></a></div>
-                        <form class="form-horizontal" action="<%=context_path %>/tipometodo/operaciones.jsp" method="post">
+                        <form class="form-horizontal" action="<%=context_path %>/aplicativo/operaciones.jsp" method="post">
                         <input type="text" id="operacion" name="operacion" value="<%=operacion %>" class="hidden">
                         <fieldset>
 
                         <!-- Form Name -->
-                        <legend>Nuevo Tipo de Método</legend>
+                        <legend>Nuevo Aplicativo</legend>
 
                         <!-- Text input-->
                         <div class="form-group">

@@ -4,9 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,15 +28,9 @@ public class Atributo implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@EmbeddedId
     @Basic(optional = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "c_atributo")
-    private Integer cAtributo;
-
-	@ManyToOne 
-	@JoinColumn(name = "c_clase", referencedColumnName = "c_clase")
-	private Clase cClase;
+    private AtributoId id;
 
 	@ManyToOne 
 	@JoinColumn(name = "c_metodo", referencedColumnName = "c_metodo")
@@ -58,26 +56,43 @@ public class Atributo implements Serializable{
 	@ManyToOne 
 	@JoinColumn(name = "c_tipo_atributo", referencedColumnName = "c_tipo_atributo")
 	private TipoAtributo cTipoAtributo ;
-
-    @Basic(optional = true)
-	@OneToMany(cascade=CascadeType.ALL, mappedBy="cAtributo")
-	private List<Atributo> atributos;
-
-
-	public Integer getcAtributo() {
-		return cAtributo;
-	}
-
-	public void setcAtributo(Integer cAtributo) {
-		this.cAtributo = cAtributo;
+	
+	public Atributo(){
+		
 	}
 
 	public Clase getcClase() {
-		return cClase;
+		return id.getcClase();
 	}
 
 	public void setcClase(Clase cClase) {
-		this.cClase = cClase;
+		this.id.setcClase(cClase);
+	}
+
+	public Integer getcAtributo() {
+		return id.getcAtributo();
+	}
+
+	public void setcAtributo(Integer cAtributo) {
+		this.id.setcAtributo(cAtributo);
+	} 
+
+
+	public AtributoId getId() {
+		return id;
+	}
+
+	public void setId(AtributoId id) {
+		this.id = id;
+	}
+	
+
+	public String getdTipoDatoAtributo() {
+		return dTipoDatoAtributo;
+	}
+
+	public void setdTipoDatoAtributo(String dTipoDatoAtributo) {
+		this.dTipoDatoAtributo = dTipoDatoAtributo;
 	}
 
 	public Metodo getcMetodo() {
@@ -128,13 +143,46 @@ public class Atributo implements Serializable{
 		this.cTipoAtributo = cTipoAtributo;
 	}
 
-	public List<Atributo> getAtributos() {
-		return atributos;
+	public Atributo(Clase cClase, Integer cAtributo, Metodo cMetodo, String dAtributo, String dTipoDatoAtributo,
+			String cUsuario, Date fIngreso, TipoAtributo cTipoAtributo) {
+		super();
+		this.setcClase(cClase);
+		this.setcAtributo(cAtributo);
+		this.cMetodo = cMetodo;
+		this.dAtributo = dAtributo;
+		this.dTipoDatoAtributo = dTipoDatoAtributo;
+		this.cUsuario = cUsuario;
+		this.fIngreso = fIngreso;
+		this.cTipoAtributo = cTipoAtributo;
 	}
 
-	public void setAtributos(List<Atributo> atributos) {
-		this.atributos = atributos;
+
+}
+
+@Embeddable
+class AtributoId implements Serializable{
+
+	@ManyToOne 
+	@JoinColumn(name = "c_clase", referencedColumnName = "c_clase")
+	Clase cClase;
+
+	@Column(name="c_atributo")
+	Integer cAtributo;
+
+	public Clase getcClase() {
+		return cClase;
+	}
+
+	public void setcClase(Clase cClase) {
+		this.cClase = cClase;
+	}
+
+	public Integer getcAtributo() {
+		return cAtributo;
+	}
+
+	public void setcAtributo(Integer cAtributo) {
+		this.cAtributo = cAtributo;
 	}
 	
-
 }

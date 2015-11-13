@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -75,18 +76,29 @@ public class AtributoDAO implements GenericDAO<Atributo, Integer>{
 	public List<Atributo> obtenerTodos() {
 		iniciaOperacion();
 		Criteria criteria = sesion.createCriteria(Atributo.class)
-				.addOrder(Order.asc("cAtributo"));
+				.addOrder(Order.asc("id"));
 		List<Atributo> atributos =(List<Atributo>)criteria.list();
 		sesion.close();
 		return atributos;
 	}
 
+	/* No usar */
 	@Override
 	public Atributo obtenerPorId(Class<Atributo> clazz, Integer id) {
+		return null;
+	}
+	
+	public Atributo obtenerPorIdCompuesto(Integer cAtributo, Integer cClase){
 		iniciaOperacion();
-		Atributo atributo = (Atributo)sesion.get(clazz, id);
+		String query="from Atributo a where a.id.cAtributo=:cAtributo and "+
+						"a.id.cClase.cClase=:cClase";
+		Query consulta = sesion.createQuery(query);
+		consulta.setParameter("cAtributo", cAtributo);
+		consulta.setParameter("cClase", cClase);
+		Atributo atributo = (Atributo)consulta.uniqueResult();
 		sesion.close();
 		return atributo;
 	}
+	
 
 }
