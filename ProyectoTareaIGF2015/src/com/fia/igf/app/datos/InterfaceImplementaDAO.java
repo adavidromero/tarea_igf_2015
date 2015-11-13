@@ -75,6 +75,7 @@ public class InterfaceImplementaDAO implements GenericDAO<InterfaceImplementa,In
 	@Override
 	public List<InterfaceImplementa> obtenerTodos() {
 		// TODO Auto-generated method stub
+		System.out.println("Verificando problemas");
 		iniciaOperacion();
 		//Revisar bien esta sentencia
 		Criteria criteria = sesion.createCriteria(InterfaceImplementa.class)
